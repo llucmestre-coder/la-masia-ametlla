@@ -20,9 +20,6 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,600&family=Karla:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 
 <script type="application/ld+json">
@@ -68,7 +65,10 @@
       </ul>
     </nav>
 
-    <a class="nav-tel" href="tel:+34938430002">938 43 00 02</a>
+    <a class="nav-tel" href="tel:+34938430002">
+      <strong>93 843 00 02</strong>
+      <span>Informació i reserves</span>
+    </a>
     <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
 
     <button class="nav-boto-menu" id="boto-menu" type="button"
@@ -90,12 +90,12 @@
 <main id="contingut">
 
   <section class="cap-pagina">
-    <div class="hero-fons">
+    <div class="hero-foto">
       <!-- FOTO REAL PENDENT: taula parada del menjador o detall de sala. -->
       <img src="assets/photo-carta-hero.jpg" width="1920" height="900"
            alt="" fetchpriority="high" decoding="async">
+      <div class="hero-vel"></div>
     </div>
-    <div class="hero-vel"></div>
     <div class="envolt">
       <p class="molla"><a href="index.html">Inici</a> · La carta</p>
       <h1>La carta</h1>
@@ -105,6 +105,8 @@
       </p>
     </div>
   </section>
+
+  <div class="pagina">
 
   <!-- ══ MENÚ DIARI I PER EMPORTAR ══════════════════════════════ -->
   <section class="seccio">
@@ -151,7 +153,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Carta 2025</span>
-        <h2 class="titol-seccio">Set apartats, <em>quaranta-set plats</em></h2>
+        <h2 class="titol-seccio">Set apartats, quaranta-set plats</h2>
 
         <div class="avis-preus">
           <span aria-hidden="true">€</span>
@@ -321,7 +323,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">També oferim</span>
-        <h2 class="titol-seccio">Menús per a <em>celebracions i grups</em></h2>
+        <h2 class="titol-seccio">Menús per a celebracions i grups</h2>
         <p class="entradeta">
           Per a comunions, bateigs, aniversaris de noces i dinars d'empresa fem menús
           a part, adaptats al que necessiteu i al saló que trieu.
@@ -334,6 +336,7 @@
     </div>
   </section>
 
+  </div><!-- /.pagina -->
 </main>
 
 <footer class="peu">

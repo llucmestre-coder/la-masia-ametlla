@@ -20,9 +20,6 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,600&family=Karla:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 
 <!-- JSON-LD: subtipus Restaurant (no LocalBusiness genèric), amb els camps
@@ -102,7 +99,10 @@
       </ul>
     </nav>
 
-    <a class="nav-tel" href="tel:+34938430002">938 43 00 02</a>
+    <a class="nav-tel" href="tel:+34938430002">
+      <strong>93 843 00 02</strong>
+      <span>Informació i reserves</span>
+    </a>
     <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
 
     <button class="nav-boto-menu" id="boto-menu" type="button"
@@ -123,31 +123,35 @@
 
 <main id="contingut">
 
-  <!-- ══ HERO ═══════════════════════════════════════════════════ -->
+  <!-- ══ HERO ═══════════════════════════════════════════════════
+       Composició heretada de la seva web: la fotografia damunt de la
+       banda taronja que travessa la pantalla de banda a banda.
+  ═══════════════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="hero-fons">
-      <!-- FOTO REAL PENDENT: façana de la masia al capvespre, horitzontal,
-           amb el rètol i els llums de dins encesos. És LA foto de la web. -->
-      <img src="assets/photo-hero.jpg" width="1920" height="1280"
-           alt="" fetchpriority="high" decoding="async">
-    </div>
-    <div class="hero-vel"></div>
-
-    <div class="envolt">
-      <div class="hero-placa">
-        <span class="hero-etiqueta">Des del 1957 · L'Ametlla del Vallès</span>
-        <h1 class="hero-titol">La Masia<em>Cuina catalana i de mercat</em></h1>
-        <p class="hero-frase">
-          Una masia a l'entrada del poble, oberta des del 1957. Taula per a cada dia
-          i quatre salons on l'Ametlla fa les seves celebracions.
-        </p>
-        <div class="grup-botons">
-          <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
-          <a class="boto boto-contorn" href="carta.html">Veure la carta</a>
+    <div class="hero-marc">
+      <div class="hero-foto">
+        <!-- FOTO REAL PENDENT: façana de la masia al capvespre, horitzontal,
+             amb el rètol i els llums de dins encesos. És LA foto de la web. -->
+        <img src="assets/photo-hero.jpg" width="1920" height="1280"
+             alt="" fetchpriority="high" decoding="async">
+        <div class="hero-vel"></div>
+        <div class="hero-text">
+          <span class="hero-etiqueta">Des del 1957 · L'Ametlla del Vallès</span>
+          <h1 class="hero-titol">Cuina catalana i de mercat</h1>
+          <p class="hero-frase">
+            Una masia a l'entrada del poble, oberta des del 1957. Taula per a cada dia
+            i quatre salons on l'Ametlla fa les seves celebracions.
+          </p>
+          <div class="grup-botons">
+            <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
+            <a class="boto boto-contorn" href="carta.html">Veure la carta</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="pagina">
 
   <!-- ══ BANDA DE FETS ══════════════════════════════════════════ -->
   <section class="banda-fets" aria-label="La Masia en xifres">
@@ -179,7 +183,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Què veniu a fer</span>
-        <h2 class="titol-seccio">Dinar avui o <em>preparar el dia gran</em></h2>
+        <h2 class="titol-seccio">Dinar avui o preparar el dia gran</h2>
       </div>
 
       <div class="camins">
@@ -226,7 +230,7 @@
 
         <div class="historia-cos apareix">
           <span class="sobretitol">Qui som</span>
-          <h2 class="titol-seccio">Seixanta-nou anys <em>a la mateixa casa</em></h2>
+          <h2 class="titol-seccio">Seixanta-nou anys a la mateixa casa</h2>
           <hr class="regle">
           <p>
             La Masia és a l'entrada de l'Ametlla del Vallès, al carrer de la Torregassa.
@@ -266,7 +270,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">La carta</span>
-        <h2 class="titol-seccio">Tres plats <em>que ens demanen sempre</em></h2>
+        <h2 class="titol-seccio">Tres plats que ens demanen sempre</h2>
       </div>
 
       <div class="plats-destacats">
@@ -312,7 +316,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Prova social</span>
-        <h2 class="titol-seccio" id="titol-ressenyes">El que en diu <em>la gent</em></h2>
+        <h2 class="titol-seccio" id="titol-ressenyes">El que en diu la gent</h2>
       </div>
 
       <div class="nota-google apareix">
@@ -366,7 +370,7 @@
       <div class="contacte-graella">
         <div class="apareix">
           <span class="sobretitol">On som</span>
-          <h2 class="titol-seccio">A l'entrada <em>del poble</em></h2>
+          <h2 class="titol-seccio">A l'entrada del poble</h2>
           <hr class="regle">
 
           <ul class="dades">
@@ -419,6 +423,7 @@
     </div>
   </section>
 
+  </div><!-- /.pagina -->
 </main>
 
 <!-- ══ PEU ══════════════════════════════════════════════════════ -->

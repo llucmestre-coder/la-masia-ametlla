@@ -20,9 +20,6 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,600&family=Karla:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 
 <script type="application/ld+json">
@@ -70,7 +67,10 @@
       </ul>
     </nav>
 
-    <a class="nav-tel" href="tel:+34938430002">938 43 00 02</a>
+    <a class="nav-tel" href="tel:+34938430002">
+      <strong>93 843 00 02</strong>
+      <span>Informació i reserves</span>
+    </a>
     <a class="boto boto-principal" href="#pressupost">Demanar pressupost</a>
 
     <button class="nav-boto-menu" id="boto-menu" type="button"
@@ -92,13 +92,13 @@
 <main id="contingut">
 
   <section class="cap-pagina">
-    <div class="hero-fons">
+    <div class="hero-foto">
       <!-- FOTO REAL PENDENT: Saló Nou muntat per a un banquet, taules vestides
            i llum de dia. És la foto que ven aquesta pàgina sencera. -->
       <img src="assets/photo-celebracions-hero.jpg" width="1920" height="900"
            alt="" fetchpriority="high" decoding="async">
+      <div class="hero-vel"></div>
     </div>
-    <div class="hero-vel"></div>
     <div class="envolt">
       <p class="molla"><a href="index.html">Inici</a> · Celebracions</p>
       <h1>Celebracions</h1>
@@ -109,6 +109,8 @@
     </div>
   </section>
 
+  <div class="pagina">
+
   <!-- ══ ELEMENT SIGNATURA: CERCADOR D'ESPAI ════════════════════
        Quatre sales de 20, 100, 110 i 200 places. Avui aquesta
        informació és un paràgraf de text pla en una pàgina que
@@ -118,7 +120,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Comencem pel principi</span>
-        <h2 class="titol-seccio">Quin espai <em>us cal?</em></h2>
+        <h2 class="titol-seccio">Quin espai us cal?</h2>
         <p class="entradeta">
           Moveu el comptador i us diem quin dels nostres salons us encaixa.
           Sense trucar ni esperar resposta.
@@ -228,7 +230,7 @@
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Com ho fem</span>
-        <h2 class="titol-seccio">Els menús <em>els fem amb vosaltres</em></h2>
+        <h2 class="titol-seccio">Els menús els fem amb vosaltres</h2>
         <p class="entradeta">
           No tenim tres menús tancats en una llista. Ens expliqueu quants sereu, quin dia
           i què us imagineu, i us preparem una proposta amb preu. Si voleu, veniu a veure
@@ -263,7 +265,7 @@
       <div class="contacte-graella">
         <div class="apareix">
           <span class="sobretitol">Demaneu-nos preu</span>
-          <h2 class="titol-seccio">Us fem una proposta <em>sense compromís</em></h2>
+          <h2 class="titol-seccio">Us fem una proposta sense compromís</h2>
           <hr class="regle">
           <p class="entradeta">
             Ompliu-ho i us truquem. Si ho preferiu, truqueu-nos vosaltres al
@@ -354,6 +356,7 @@
     </div>
   </section>
 
+  </div><!-- /.pagina -->
 </main>
 
 <footer class="peu">

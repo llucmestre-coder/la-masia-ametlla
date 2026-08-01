@@ -30,17 +30,38 @@ Vallès). **Sense build ni dependències**: s'obre fent doble clic a `index.html
 
 ## Com canviar les coses
 
-### Els colors
+### La identitat visual és la SEVA
 
-Tots són a `css/styles.css`, al bloc `:root` de dalt de tot. Canviant-los allà canvia
-tota la web. **Cada color està mostrejat d'un píxel real** de la seva carta de 2025 o
-del logotip; si en canvieu cap, comproveu el contrast (mínim 4,5:1 per a text).
+Aquesta web **no canvia la marca de La Masia**: hereta els colors i la tipografia de
+`lamasiarestaurant.com`. El que aporta és què ofereix la web i com ho ofereix.
+
+**Tipografia** — la seva, sense cap webfont:
+
+- Títols, menú i telèfon: **Lucida Calligraphy** (el seu CSS declara `Lucida`, que
+  resol a Lucida Calligraphy). Els títols hi van **sencers**: no es barreja rodona
+  i cursiva dins d'un mateix titular.
+- Cos: **Arial**, com el seu.
+- L'únic canvi: el cos passa de 12 px a 17 px, per llegibilitat.
+
+Com que no es carrega cap Google Font, la web va més ràpida i no depèn de cap
+servidor de fora. *(Pendent per al client: si volen que la cal·ligràfica es vegi
+igual en un mòbil, cal una versió web amb llicència de la lletra dels títols. Sense
+això, als dispositius que no la tinguin instal·lada cau a una serif del sistema.)*
+
+**Colors** — tots a `css/styles.css`, al bloc `:root`, amb l'origen anotat al costat:
+
+| Color | D'on surt |
+|---|---|
+| `#FF4F00` | el taronja de les bandes del seu tema (`bg_web.png`) |
+| `#FF6D09` | el taronja del seu logotip |
+| `#C43D00` | **derivat**: el seu taronja no passa AA sobre blanc, aquesta és la variant per a text |
+| `#303030` · `#282828` · `#434343` · `#414141` | els seus grisos de fons i capçalera |
+| `#1C1C1C` · `#666666` · `#A3A3A3` | els seus colors de text |
 
 Dues regles que no es poden saltar:
 
-- El taronja `#FF6D09` només fa de **text** sobre el fons fosc `--nit`. Sobre
-  `--olivard` no arriba a AA: allà s'usa l'or `--or`.
-- Quan el taronja fa de **fons de botó**, el text a sobre sempre és `--nit`. Mai blanc.
+- El taronja `#FF4F00` **mai** fa de text sobre blanc (3,3:1). Allà s'usa `#C43D00`.
+- Sobre fons taronja, el text sempre és fosc (`#1C1C1C`, 5,2:1). Mai blanc.
 
 ### Els textos
 
@@ -137,6 +158,8 @@ Per activar-los:
 - [ ] Place ID i clau de Google al workflow de ressenyes
 - [ ] Un logotip en vector, i decidir si se'n fa una versió que digui
       «des del 1957» en comptes de «Desde 1957»
+- [ ] Decidir si es compra una versió web de la lletra dels títols
+      (Lucida Calligraphy) perquè es vegi igual als mòbils
 - [ ] **Esborrar `robots.txt`** en publicar al domini real, o la web no
       s'indexarà mai
 
