@@ -42,15 +42,24 @@
      · Botó taronja: sempre amb text --text (5,2:1). Mai blanc a sobre. */
 
   /* ── Tipografia ──
-     Títols: la SEVA lletra. El seu CSS declara `Lucida`, que resol a
-     Lucida Calligraphy (mesurat: 452 px a 30 px, coincidència exacta).
-     És el que dona el caràcter de la casa i es manté.
+     Títols: **Petit Formal Script**, una cal·ligràfica web.
+     La seva web fa servir Lucida Calligraphy, que és una lletra del
+     SISTEMA: als mòbils (iOS i Android no la porten) queia a una serif
+     qualsevol i es perdia el caràcter de la casa. Petit Formal Script és
+     la que més s'hi assembla d'entre les que es carreguen com a webfont,
+     comparades una per una: manté la mà cal·ligràfica.
+
+     Va PRIMERA a la pila, per davant de Lucida Calligraphy, a propòsit:
+     si Lucida anés primera, els ordinadors amb Windows veurien una lletra
+     i els mòbils una altra. Ha de ser la mateixa a tot arreu.
+
+     ⚠️ És una lletra fina: NO s'ha de fer servir per sota d'uns 22 px.
+     Els usos petits (menú, preguntes freqüents, títols del peu) van amb
+     --cos, que a més es llegeix molt millor en aquestes mides.
 
      Cos: la seva web fa servir Arial per defecte, que no és una decisió
-     de marca sinó el que va sortir. Aquí s'usa Lato, una humanista
-     càlida que es llegeix molt millor i acompanya la cal·ligràfica
-     sense competir-hi. Només dos pesos. */
-  --titols: "Lucida Calligraphy", "Lucida Handwriting", "Apple Chancery",
+     de marca sinó el que va sortir. Aquí s'usa Lato. */
+  --titols: "Petit Formal Script", "Lucida Calligraphy", "Apple Chancery",
             "URW Chancery L", "Palatino Linotype", Palatino, Georgia, serif;
   --cos:    "Lato", "Segoe UI", Arial, Helvetica, sans-serif;
 
@@ -120,9 +129,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
 h1, h2, h3, h4 {
   font-family: var(--titols);
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: var(--track-just);
   text-wrap: balance;
+}
+
+/* La cal·ligràfica és fina: per sota d'uns 22 px es perd, sobretot al
+   mòbil. Els títols petits van amb la lletra de cos, que s'hi llegeix
+   molt millor. Un sol lloc per a tota la web. */
+.sala h3,
+.plat-targeta h3,
+.peu h2,
+.valor strong {
+  font-family: var(--cos);
+  font-weight: 700;
+  letter-spacing: 0;
 }
 p { text-wrap: pretty; }
 
@@ -317,7 +338,8 @@ p { text-wrap: pretty; }
 
 .nav-enllacos { display: flex; align-items: center; gap: var(--s-3); list-style: none; }
 .nav-enllacos a {
-  font-family: var(--titols);
+  font-family: var(--cos);
+  font-weight: 700;
   font-size: var(--t-md);
   color: var(--text-clar);
   transition: color 0.2s ease;
@@ -338,7 +360,7 @@ p { text-wrap: pretty; }
   color: var(--blanc);
 }
 .nav-tel span {
-  font-family: var(--titols);
+  font-family: var(--cos);
   font-size: var(--t-xs);
   color: var(--text-clar);
 }
@@ -379,7 +401,8 @@ p { text-wrap: pretty; }
 }
 .menu-mobil.obert { display: flex; }
 .menu-mobil a {
-  font-family: var(--titols);
+  font-family: var(--cos);
+  font-weight: 700;
   font-size: var(--t-md);
   color: var(--blanc);
   padding: 0.85rem var(--s-3);
@@ -546,7 +569,7 @@ p { text-wrap: pretty; }
 
 .valors { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
 .valor { border-top: 3px solid var(--taronja); padding-top: var(--s-2); }
-.valor strong { display: block; font-family: var(--titols); font-weight: 400; font-size: var(--t-md); color: var(--text-titol); }
+.valor strong { display: block; font-size: var(--t-md); color: var(--text-titol); }
 .valor span { font-size: var(--t-sm); color: var(--text-suau); }
 
 /* ═══ CARTA ═════════════════════════════════════════════════════ */
@@ -716,7 +739,7 @@ input[type="range"] {
   font-size: var(--t-sm);
   margin-bottom: var(--s-2);
 }
-.ressenya blockquote { font-family: var(--titols); font-size: var(--t-md); line-height: 1.5; color: var(--text); flex: 1; }
+.ressenya blockquote { font-family: var(--cos); font-style: italic; font-size: var(--t-md); line-height: 1.5; color: var(--text); flex: 1; }
 .ressenya cite {
   display: block;
   font-style: normal;
@@ -738,7 +761,8 @@ input[type="range"] {
   justify-content: space-between;
   gap: var(--s-2);
   padding-block: var(--s-3);
-  font-family: var(--titols);
+  font-family: var(--cos);
+  font-weight: 700;
   font-size: var(--t-md);
   color: var(--text-titol);
   cursor: pointer;
@@ -846,7 +870,7 @@ input[type="range"] {
 .peu-marca img { width: 172px; height: 42px; object-fit: contain; }
 .peu-marca p { font-size: var(--t-sm); margin-top: var(--s-2); max-width: 34ch; }
 .peu h2 {
-  font-family: var(--titols);
+  font-family: var(--cos);
   font-size: var(--t-md);
   color: var(--blanc);
   margin-bottom: var(--s-2);

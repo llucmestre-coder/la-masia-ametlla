@@ -38,18 +38,19 @@ Aquesta web **no canvia la marca de La Masia**: hereta els colors i la tipografi
 
 **Tipografia**
 
-- Títols, menú i telèfon: **Lucida Calligraphy**, la seva (el seu CSS declara
-  `Lucida`, que resol a Lucida Calligraphy). És el que dona el caràcter de la casa.
-  Els títols hi van **sencers**: no es barreja rodona i cursiva dins d'un titular.
-- Cos: **Lato**. La seva web fa servir Arial, que no és una decisió de marca sinó
-  el valor per defecte; Lato es llegeix bastant millor i acompanya la
-  cal·ligràfica sense competir-hi. Només dos pesos.
+- Titulars: **Petit Formal Script**. La seva web fa servir Lucida Calligraphy,
+  que és una lletra **del sistema**: als mòbils (iOS i Android no la porten) queia
+  a una serif qualsevol i es perdia el caràcter de la casa. Petit Formal Script és
+  la que més s'hi assembla d'entre les webfonts, comparant-les una per una, i es
+  veu igual a tot arreu. Els títols hi van **sencers**: no es barreja rodona i
+  cursiva dins d'un mateix titular.
+- Cos i textos petits: **Lato**. La seva web fa servir Arial, que no és una
+  decisió de marca sinó el valor per defecte.
 - El cos passa de 12 px a 17 px, per llegibilitat.
 
-*(Pendent per al client: la cal·ligràfica és una lletra del sistema. Als
-dispositius que no la tinguin instal·lada —molts mòbils— cau a una serif de
-recanvi. Els passa **ja ara** amb la seva web; si volen que es vegi igual arreu,
-cal comprar-ne una versió web amb llicència.)*
+> ⚠️ **La cal·ligràfica és fina: no la useu per sota d'uns 22 px.** El menú, les
+> preguntes freqüents, els títols del peu i les ressenyes van amb Lato justament
+> per això. La regla és una i està al full d'estil, sota `h1, h2, h3, h4`.
 
 **Colors** — tots a `css/styles.css`, al bloc `:root`, amb l'origen anotat al costat:
 
@@ -173,8 +174,9 @@ Per activar-los:
 - [ ] Place ID i clau de Google al workflow de ressenyes
 - [ ] Un logotip en vector, i decidir si se'n fa una versió que digui
       «des del 1957» en comptes de «Desde 1957»
-- [ ] Decidir si es compra una versió web de la lletra dels títols
-      (Lucida Calligraphy) perquè es vegi igual als mòbils
+- [ ] *(Opcional)* Si volen la seva Lucida Calligraphy exacta a tot arreu, cal
+      comprar-ne la llicència web. Ara s'usa Petit Formal Script, que s'hi
+      assembla molt i no costa res
 - [ ] **Esborrar `robots.txt`** en publicar al domini real, o la web no
       s'indexarà mai
 
