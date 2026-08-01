@@ -182,6 +182,14 @@ compte de negoci, una app de Meta i un testimoni que caduca cada 60 dies. Per a
 un restaurant no compensa el manteniment: el full de càlcul fa la mateixa feina
 sense dependre de ningú. Instagram es manté com a enllaç secundari.
 
+**WhatsApp tampoc pot ser el canal automàtic.** Una web estàtica no pot llegir
+missatges de WhatsApp: caldria l'API de WhatsApp Business (compte de negoci
+verificat, app de Meta i un servidor escoltant un *webhook*), i això ja no és una
+web estàtica. Ara bé, **com a manera de fer-nos-ho arribar sí que funciona**: ells
+envien el menú per WhatsApp i qui ho porta el copia. Això és exactament l'opció A
+d'aquí sobre, amb una persona pel mig. Si el que es vol és que no hi hagi ningú
+pel mig, la resposta és el full de càlcul.
+
 ## La valoració de Google, automàtica
 
 `data/reviews.json` conté la nota i el nombre de ressenyes. La web els llegeix i, si
@@ -199,18 +207,32 @@ com estan (que són correctes a data de 31/07/2026).
 
 ---
 
-## El formulari
+## Els formularis
 
-Els dos formularis (consulta i pressupost) estan preparats per a
-[Formspree](https://formspree.io) però **ara mateix no envien res**: simulen l'enviament
-i ensenyen el missatge d'èxit.
+Els dos (consulta a `contacte.html` i pressupost a `celebracions.html`) funcionen
+amb [Formspree](https://formspree.io). **L'enviament de debò ja està programat.**
 
-Per activar-los:
+Per activar-los només cal:
 
-1. Doneu d'alta els dos formularis a formspree.io.
-2. Substituïu `XXXXXXXX` de l'`action` de cada `<form>` per l'ID real.
-3. A `js/main.js`, punt 5, canvieu el bloc del `setTimeout` pel `fetch` que hi ha
-   comentat just a sobre.
+1. Donar d'alta els dos formularis a formspree.io.
+2. Substituir `XXXXXXXX` de l'`action` de cada `<form>` per l'identificador real.
+
+I res més: el codi ja fa el `POST`.
+
+### Què passa exactament en enviar-lo
+
+| Situació | Què passa |
+|---|---|
+| **L'`action` encara porta `XXXXXXXX`** | ⚠️ **No diu que s'hagi enviat.** Surt un avís taronja dient que el formulari encara no està connectat i donant el telèfon. El formulari **no s'amaga** i les dades escrites no es perden |
+| **Configurat i tot va bé** | `POST` a Formspree amb tots els camps, el formulari s'amaga i surt «Rebut, gràcies» |
+| **Configurat i el servidor falla** | Avís amb el telèfon, el botó es torna a activar i **les dades escrites es conserven** perquè es pugui tornar a provar |
+
+> Això és a posta. Si el formulari digués «rebut» sense estar connectat, un client
+> demanaria pressupost per a una comunió, veuria que tot ha anat bé i el restaurant
+> no rebria res mai. Val més avisar que enganyar.
+
+Al formulari de celebracions, el cercador d'espai preomple els camps `tipus`,
+`comensals` i `sala`, i s'envien també.
 
 ---
 

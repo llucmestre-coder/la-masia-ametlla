@@ -217,27 +217,76 @@
 
       if (primerFallat) { primerFallat.focus(); return; }
 
-      /* MAQUETA — no s'envia res enlloc.
-         Per activar-lo de debò: doneu d'alta el formulari a formspree.io,
-         poseu action="https://formspree.io/f/XXXXXXXX" a l'HTML i
-         substituïu aquest bloc per:
-           fetch(form.action, { method: 'POST', body: new FormData(form),
-                                headers: { Accept: 'application/json' } })
-             .then(function () { form.hidden = true; if (ok) ok.classList.add('visible'); }); */
       var enviar = form.querySelector('[type="submit"]');
+      var textOriginal = enviar.textContent;
+
+      /* ⚠️ SEGURETAT: mentre l'action encara porti el marcador XXXXXXXX, el
+         formulari NO pot dir "rebut". Si ho digués, un client ompliria la
+         petició de pressupost, veuria que tot ha anat bé i el restaurant no
+         rebria res mai. Val més avisar que enganyar. */
+      if (/XXXXXXXX/.test(form.getAttribute('action') || '')) {
+        mostraAvisDeMaqueta(form);
+        return;
+      }
+
       enviar.disabled = true;
       enviar.textContent = 'Enviant…';
 
-      window.setTimeout(function () {
-        form.hidden = true;
-        if (ok) {
-          ok.classList.add('visible');
-          ok.setAttribute('tabindex', '-1');
-          ok.focus();
-        }
-      }, 600);
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('El servidor ha respost ' + r.status);
+          form.hidden = true;
+          if (ok) {
+            ok.classList.add('visible');
+            ok.setAttribute('tabindex', '-1');
+            ok.focus();
+          }
+        })
+        .catch(function (err) {
+          enviar.disabled = false;
+          enviar.textContent = textOriginal;
+          mostraFallada(form, err);
+        });
     });
   });
+
+  /* Quan l'enviament falla, l'usuari ha de poder resoldre-ho igualment:
+     se li dona el telèfon, que és el canal que sempre funciona. */
+  function mostraFallada(form, err) {
+    var n = form.querySelector('.form-avis');
+    if (!n) {
+      n = document.createElement('p');
+      n.className = 'form-avis';
+      n.setAttribute('role', 'alert');
+      form.insertBefore(n, form.querySelector('.grup-botons'));
+    }
+    n.innerHTML = 'No hem pogut enviar el formulari. Torneu-ho a provar o ' +
+                  'truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>.';
+    if (window.console) window.console.warn('[formulari]', err && err.message);
+  }
+
+  function mostraAvisDeMaqueta(form) {
+    var n = form.querySelector('.form-avis');
+    if (!n) {
+      n = document.createElement('p');
+      n.className = 'form-avis';
+      n.setAttribute('role', 'alert');
+      form.insertBefore(n, form.querySelector('.grup-botons'));
+    }
+    n.innerHTML = '<strong>Maqueta:</strong> aquest formulari encara no està ' +
+                  'connectat i no s’enviaria enlloc. Cal posar l’identificador ' +
+                  'de Formspree a l’<code>action</code>. Mentrestant, el telèfon ' +
+                  'de la casa és el <a href="tel:+34938430002">938 43 00 02</a>.';
+    n.scrollIntoView({ block: 'nearest' });
+    if (window.console) {
+      window.console.warn('[formulari] action sense configurar: ' +
+                          form.getAttribute('action'));
+    }
+  }
 
   /* ── 6. Any actual al peu ───────────────────────────────────── */
 
