@@ -122,12 +122,11 @@
           <span class="sobretitol">Cada dia</span>
           <h3>El menú diari</h3>
           <p>
-            El publiquem cada dia a Instagram i a Facebook. Si voleu saber què hi ha
-            avui, mireu-ho allà o truqueu-nos.
+            De dilluns a divendres al migdia. El publiquem aquí mateix, i també
+            a Instagram i a Facebook.
           </p>
           <span>
-            <a class="enllac-fletxa" href="https://www.instagram.com/lamasialametlla/"
-               target="_blank" rel="noopener">Veure el menú d'avui →</a>
+            <a class="enllac-fletxa" href="#menu-del-dia">Veure el menú d'avui →</a>
           </span>
         </article>
 
@@ -145,6 +144,42 @@
           <span><a class="enllac-fletxa" href="tel:+34938430002">Encarregar per telèfon →</a></span>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ══ EL MENÚ DEL DIA ════════════════════════════════════════
+       Surt a la web, no en un enllaç a Instagram: qui el busca a
+       Google l'ha de poder trobar.
+
+       El contingut el pinta js/menu-diari.js a partir de
+       data/menu-diari.json. Per canviar el canal d'on surten les
+       dades (fitxer, full de càlcul de Google…) només s'ha de tocar
+       la constant FONT de dalt de tot d'aquell fitxer.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio seccio-gris" id="menu-del-dia">
+    <div class="envolt">
+      <div class="apareix">
+        <span class="sobretitol">Cada dia, de dilluns a divendres</span>
+        <h2 class="titol-seccio">El menú del dia</h2>
+      </div>
+
+      <!-- Sense JS o sense dades, aquí hi queda el text de sota, que ja
+           diu com assabentar-se'n. Mai una caixa buida. -->
+      <div class="menu-diari apareix" id="menu-diari" aria-live="polite">
+        <div class="menu-buit">
+          <p>Consulteu el menú d'avui trucant-nos o a les nostres xarxes.</p>
+          <p class="menu-buit-tel">
+            Truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>
+            i us diem què hi ha avui.
+          </p>
+        </div>
+      </div>
+
+      <p class="grup-botons">
+        <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
+        <a class="boto boto-contorn" href="https://www.instagram.com/lamasialametlla/"
+           target="_blank" rel="noopener">També a Instagram</a>
+      </p>
     </div>
   </section>
 
@@ -169,6 +204,7 @@
         </div>
 
         <nav class="carta-nav" aria-label="Apartats de la carta">
+          <a href="#menu-del-dia">Menú del dia</a>
           <a href="#entrants-freds">Entrants freds</a>
           <a href="#entrants-calents">Entrants calents</a>
           <a href="#arrossos">Arrossos i pastes</a>
@@ -393,5 +429,6 @@
 </a>
 
 <script src="js/main.js"></script>
+<script src="js/menu-diari.js"></script>
 </body>
 </html>

@@ -587,6 +587,75 @@ p { text-wrap: pretty; }
 }
 .avis strong { color: var(--text); }
 
+/* ═══ MENÚ DEL DIA ══════════════════════════════════════════════
+   El pinta js/menu-diari.js. Sense JS o sense dades hi queda el text
+   de recanvi que ja hi ha a l'HTML: mai una caixa buida.
+   ═════════════════════════════════════════════════════════════ */
+
+.menu-diari {
+  background: var(--blanc);
+  border: 1px solid var(--vora);
+  border-top: 4px solid var(--taronja);
+  padding: var(--s-4);
+}
+.menu-diari[aria-busy="true"] { opacity: 0.55; }
+
+.menu-cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-3);
+  border-bottom: 1px solid var(--vora);
+  padding-bottom: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+.menu-quan {
+  font-family: var(--titols);
+  font-size: var(--t-lg);
+  color: var(--text-titol);
+  margin-right: auto;
+}
+.menu-preu {
+  font-weight: 700;
+  color: var(--text);
+  background: var(--taronja);
+  padding: 0.2rem 0.7rem;
+}
+.menu-inclou { font-size: var(--t-sm); color: var(--text-suau); }
+
+.menu-plats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); }
+.menu-grup h3 {
+  font-family: var(--cos);
+  font-weight: 700;
+  font-size: var(--t-xs);
+  letter-spacing: var(--track-ample);
+  text-transform: uppercase;
+  color: var(--taronja-text);
+  border-bottom: 1px solid var(--vora);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+.menu-grup ul { list-style: none; display: grid; gap: 0.7rem; }
+.menu-grup li { line-height: 1.45; }
+
+.menu-nota { font-size: var(--t-sm); color: var(--text-suau); margin-top: var(--s-3); }
+
+.menu-buit { text-align: center; padding-block: var(--s-2); }
+.menu-buit p { color: var(--text-suau); }
+.menu-buit-tel { margin-top: var(--s-2); font-size: var(--t-md); color: var(--text); }
+.menu-buit-tel a { font-weight: 700; color: var(--taronja-text); }
+
+/* Distintiu mentre el JSON porti dades d'exemple */
+.menu-exemple {
+  background: #FFF4E8;
+  border-left: 3px solid var(--taronja);
+  padding: 0.6rem 0.9rem;
+  margin-bottom: var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--text-suau);
+}
+.menu-exemple code { font-size: 0.9em; }
+
 .carta-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: var(--s-4); }
 .carta-nav a {
   font-size: var(--t-xs);
@@ -952,6 +1021,7 @@ input[type="range"] {
   .contacte-graella { grid-template-columns: 1fr; }
   .plats { columns: 1; }
   .plats-destacats { grid-template-columns: 1fr; }
+  .menu-plats { grid-template-columns: 1fr; gap: var(--s-3); }
   .ressenyes { grid-template-columns: 1fr; }
   .cercador-controls { grid-template-columns: 1fr; }
   .banda-fets ul { grid-template-columns: 1fr 1fr; }

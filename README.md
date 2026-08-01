@@ -128,6 +128,60 @@ ja fa un salt gros.
 Format: JPG horitzontal, mínim 1800 px d'ample (les verticals, 1100×1300).
 Sense text ni marca d'aigua a sobre.
 
+## El menú del dia
+
+Surt **a dins de la web**, a `carta.html` (secció «El menú del dia»), no en un
+enllaç a Instagram. Això és el que buscarà la gent del poble a Google.
+
+- Les dades: `data/menu-diari.json`
+- Qui el pinta: `js/menu-diari.js`
+
+### Com s'actualitza
+
+Editeu `data/menu-diari.json` i afegiu-hi un bloc per dia:
+
+```json
+{
+  "data": "2026-09-15",
+  "primers": ["Escudella", "Amanida de temporada"],
+  "segons": ["Fricandó", "Lluç al forn"],
+  "postres": ["Crema catalana"]
+}
+```
+
+La web agafa sola el dia d'avui. Si avui no n'hi ha cap, ensenya **el següent**
+que trobi. Si no n'hi ha cap de futur, ensenya un text convidant a trucar —
+mai una caixa buida.
+
+El **preu** és el camp `preu` de dalt del fitxer: si es deixa a `null`, no en
+surt cap. Igual amb `inclou` i `quan`.
+
+> ⚠️ Ara mateix el fitxer porta **`"mostra": true`** i menús d'exemple, i la web
+> ho avisa amb un distintiu taronja. Quan hi poseu els menús de debò, poseu-ho a
+> `false` i el distintiu desapareix.
+
+### Quan es decideixi el canal definitiu
+
+Tot està preparat perquè només s'hagi de tocar **una línia**. A dalt de
+`js/menu-diari.js` hi ha la constant `FONT` i tres opcions ja escrites:
+
+| Canal | Qui l'actualitza | Què cal fer |
+|---|---|---|
+| **A · Fitxer del projecte** *(actiu)* | Nosaltres | Res, ja funciona |
+| **B · Full de càlcul de Google** | El restaurant, ell sol | Publicar el full com a CSV, posar l'URL a `FULL_CALCUL` i canviar `FONT` a `fontFullDeCalcul` |
+| **C · Un altre sistema** | Segons el cas | Que respongui amb la mateixa estructura del JSON |
+
+Per a la B, el full ha de tenir aquestes columnes, amb els plats separats per `;`:
+
+| data | primers | segons | postres |
+|---|---|---|---|
+| 2026-09-15 | Escudella; Amanida | Fricandó; Lluç al forn | Crema catalana |
+
+**Instagram no és una opció automàtica.** Per llegir-ne les publicacions cal un
+compte de negoci, una app de Meta i un testimoni que caduca cada 60 dies. Per a
+un restaurant no compensa el manteniment: el full de càlcul fa la mateixa feina
+sense dependre de ningú. Instagram es manté com a enllaç secundari.
+
 ## La valoració de Google, automàtica
 
 `data/reviews.json` conté la nota i el nombre de ressenyes. La web els llegeix i, si
