@@ -797,6 +797,27 @@ input[type="range"] {
 .cercador-resultat { margin-top: var(--s-3); padding-top: var(--s-3); border-top: 1px solid var(--vora); font-size: var(--t-md); }
 .cercador-resultat strong { color: var(--taronja-text); }
 
+/* El formulari de pressupost, just sota el cercador */
+.pressupost-bloc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-5);
+  align-items: start;
+}
+.pressupost-bloc > div > * + * { margin-top: var(--s-3); }
+.pressupost-bloc > div > .sobretitol + * { margin-top: 0; }
+
+/* Crida final: torna amunt, al formulari */
+.tanca-crida {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+.tanca-crida > div > * + * { margin-top: 0; }
+.tanca-crida .grup-botons { margin: 0; }
+
 .sales { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
 .sala {
   display: flex;
@@ -1066,6 +1087,7 @@ input[type="range"] {
   .menu-plats { grid-template-columns: 1fr; gap: var(--s-3); }
   .ressenyes { grid-template-columns: 1fr; }
   .cercador-controls { grid-template-columns: 1fr; }
+  .pressupost-bloc { grid-template-columns: 1fr; gap: var(--s-4); }
   .banda-fets ul { grid-template-columns: 1fr 1fr; }
   .banda-fets li:nth-child(2) { border-right: 0; }
   .banda-fets li:nth-child(-n+2) { border-bottom: 1px solid var(--vora-fosca); }

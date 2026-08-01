@@ -231,8 +231,19 @@ I res més: el codi ja fa el `POST`.
 > demanaria pressupost per a una comunió, veuria que tot ha anat bé i el restaurant
 > no rebria res mai. Val més avisar que enganyar.
 
-Al formulari de celebracions, el cercador d'espai preomple els camps `tipus`,
-`comensals` i `sala`, i s'envien també.
+### El formulari de celebracions
+
+Va **a dalt de la pàgina**, just sota el cercador d'espai, perquè és l'acció que
+importa allà. Al final de la pàgina hi ha un botó que hi torna.
+
+Els camps **tipus**, **quants sereu** i **saló** comencen **buits** i són
+**editables**. Si algú mou el comptador del cercador, s'omplen sols amb el que ha
+triat; si algú hi arriba pel botó de la barra (que salta el cercador), els escriu
+a mà. Mai s'envia res que la persona no hagi triat.
+
+> Abans eren de només lectura i sortien preomplerts amb els valors per defecte del
+> cercador. Qui hi arribava sense passar-hi enviava «Comunió · 60 comensals» sense
+> haver-ho triat mai, i no ho podia corregir.
 
 ---
 

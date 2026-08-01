@@ -23,10 +23,13 @@
   var tipusRadios = Array.prototype.slice.call(
     cercador.querySelectorAll('input[name="tipus"]'));
 
-  /* El camp del formulari de pressupost que es preomple */
+  /* Els camps del formulari de pressupost que s'omplen sols */
   var campComensals = document.getElementById('comensals-form');
   var campTipus     = document.getElementById('tipus-form');
   var campSala      = document.getElementById('sala-form');
+
+  /* Fins que no es toqui el cercador, el formulari es queda en blanc */
+  var usuariHaTriat = false;
 
   function tipusTriat() {
     var marcat = tipusRadios.filter(function (r) { return r.checked; })[0];
@@ -84,7 +87,12 @@
 
     resultat.innerHTML = frase;
 
-    /* Preomple el formulari de pressupost de més avall */
+    /* Omple el formulari NOMÉS si l'usuari ha tocat el cercador.
+       Si ho féssim també en carregar la pàgina, qui hi arribés pel botó
+       de la barra (que salta directament al formulari) enviaria
+       "Comunió · 60 comensals" sense haver-ho triat mai, i els camps
+       són seus per editar: no els hem d'escriure res a l'esquena. */
+    if (!usuariHaTriat) return;
     if (campComensals) campComensals.value = n;
     if (campTipus && tipus) campTipus.value = tipus;
     if (campSala) campSala.value = encaixen.join(', ');
@@ -92,8 +100,18 @@
 
   /* input[type=range] nadiu: fletxes, Inici/Fi i aria-valuenow ja
      funcionen sols. Només cal mantenir el text sincronitzat. */
-  rang.addEventListener('input', actualitza);
-  tipusRadios.forEach(function (r) { r.addEventListener('change', actualitza); });
+  rang.addEventListener('input', function () {
+    usuariHaTriat = true;
+    actualitza();
+  });
+  tipusRadios.forEach(function (r) {
+    r.addEventListener('change', function () {
+      usuariHaTriat = true;
+      actualitza();
+    });
+  });
 
+  /* Primera passada: pinta el resultat i l'estat dels salons, però deixa
+     el formulari en blanc. */
   actualitza();
 })();

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ca">
 <head>
 <meta charset="UTF-8">
@@ -118,7 +118,7 @@
        informació és un paràgraf de text pla en una pàgina que
        gairebé ningú visita. Aquí és una resposta de deu segons.
   ═══════════════════════════════════════════════════════════════ -->
-  <section class="seccio">
+  <section class="seccio" id="pressupost">
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Comencem pel principi</span>
@@ -173,8 +173,128 @@
         </p>
       </div>
 
-      <!-- ── Els quatre salons reals ──
-           Capacitats tal com les publiquen a /ca/els-nostres-espais. -->
+      <!-- ══ FORMULARI DE PRESSUPOST ══════════════════════════════
+           Va aquí dalt, just sota el cercador, perquè és l'acció que
+           importa d'aquesta pàgina i no ha de quedar al final.
+
+           Els camps de tipus, comensals i saló són EDITABLES i comencen
+           BUITS: el cercador els omple si s'usa, però qui hi arribi
+           saltant-se'l els pot escriure a mà. Abans eren de només
+           lectura amb valors per defecte, i s'enviaven dades que
+           l'usuari no havia triat mai.
+      ═══════════════════════════════════════════════════════════════ -->
+      <div class="pressupost-bloc apareix">
+        <div>
+          <span class="sobretitol">Demaneu-nos preu</span>
+          <h2 class="titol-seccio">Us fem una proposta sense compromís</h2>
+          <p class="entradeta">
+            Ompliu-ho i us truquem. Si ho preferiu, truqueu-nos vosaltres al
+            <a href="tel:+34938430002">938 43 00 02</a> — de dilluns a dissabte
+            de 9:00 a 00:00 i diumenge de 9:00 a 18:00.
+          </p>
+
+          <ul class="dades">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+              <span>
+                <span class="dades-etiqueta">Veniu a veure els salons</span>
+                <span class="dades-valor">Carrer de la Torregassa, 77 — L'Ametlla del Vallès</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <!-- FORMSPREE: doneu d'alta el formulari a formspree.io i poseu l'ID
+               real a l'action. Mentre hi hagi XXXXXXXX, el formulari avisa que
+               no està connectat en comptes de dir que s'ha enviat. -->
+          <form class="formulari" data-validar
+                action="https://formspree.io/f/XXXXXXXX" method="POST" novalidate>
+            <div class="camps">
+              <div class="camp camp-ample">
+                <label for="nom">Nom i cognoms</label>
+                <input type="text" id="nom" name="nom" autocomplete="name" required>
+              </div>
+
+              <div class="camp">
+                <label for="telefon">Telèfon</label>
+                <input type="tel" id="telefon" name="telefon" autocomplete="tel" required>
+              </div>
+
+              <div class="camp">
+                <label for="correu">Correu <span class="opcional">(opcional)</span></label>
+                <input type="email" id="correu" name="correu" autocomplete="email">
+              </div>
+
+              <div class="camp">
+                <label for="tipus-form">Tipus de celebració</label>
+                <select id="tipus-form" name="tipus">
+                  <option value="">Trieu-ne un…</option>
+                  <option value="Comunió">Comunió</option>
+                  <option value="Bateig">Bateig</option>
+                  <option value="Aniversari de noces">Aniversari de noces</option>
+                  <option value="Dinar d'empresa">Dinar d'empresa</option>
+                  <option value="Àpat familiar">Àpat familiar</option>
+                  <option value="Altres">Altres</option>
+                </select>
+              </div>
+
+              <div class="camp">
+                <label for="comensals-form">Quants sereu?</label>
+                <input type="number" id="comensals-form" name="comensals"
+                       min="1" max="250" placeholder="Per exemple, 90">
+              </div>
+
+              <div class="camp camp-ample">
+                <label for="sala-form">Saló <span class="opcional">(si ja en teniu un al cap)</span></label>
+                <input type="text" id="sala-form" name="sala">
+              </div>
+
+              <div class="camp camp-ample">
+                <label for="data">Data aproximada <span class="opcional">(opcional)</span></label>
+                <input type="date" id="data" name="data">
+              </div>
+
+              <div class="camp camp-ample">
+                <label for="missatge">Expliqueu-nos què us imagineu</label>
+                <textarea id="missatge" name="missatge" rows="4"></textarea>
+              </div>
+            </div>
+
+            <p class="grup-botons">
+              <button class="boto boto-principal" type="submit">Demanar pressupost</button>
+            </p>
+
+            <p class="form-nota">
+              En enviar-ho accepteu la nostra
+              <a href="politica-privacitat.html">política de privacitat</a>.
+              Les dades només s'usen per respondre-us.
+            </p>
+          </form>
+
+          <div class="form-ok">
+            <h3>Rebut, gràcies</h3>
+            <p>
+              Us truquem nosaltres al número que ens heu deixat. Si teniu pressa,
+              truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ELS QUATRE SALONS ══════════════════════════════════════
+       Capacitats tal com les publiquen a /ca/els-nostres-espais.
+       El cercador de dalt els encén i els apaga.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio seccio-gris">
+    <div class="envolt">
+      <div class="apareix">
+        <span class="sobretitol">Els espais</span>
+        <h2 class="titol-seccio">Els nostres quatre salons</h2>
+      </div>
+
       <div class="sales">
         <article class="sala apareix" data-capacitat="200" data-nom="Saló Nou">
           <!-- FOTO DEL RESTAURANT (del seu web actual). Cal confirmar-los que
@@ -229,7 +349,7 @@
   </section>
 
   <!-- ══ COM HO FEM ═════════════════════════════════════════════ -->
-  <section class="seccio seccio-gris">
+  <section class="seccio">
     <div class="envolt">
       <div class="apareix">
         <span class="sobretitol">Com ho fem</span>
@@ -262,99 +382,21 @@
     </div>
   </section>
 
-  <!-- ══ PRESSUPOST ═════════════════════════════════════════════ -->
-  <section class="seccio" id="pressupost">
+  <!-- ══ TORNAR AL FORMULARI ════════════════════════════════════
+       Qui ha baixat mirant els salons ha de poder demanar preu sense
+       haver de desplaçar-se amunt a mà.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio seccio-fosca">
     <div class="envolt">
-      <div class="contacte-graella">
-        <div class="apareix">
-          <span class="sobretitol">Demaneu-nos preu</span>
-          <h2 class="titol-seccio">Us fem una proposta sense compromís</h2>
-          <hr class="regle">
-          <p class="entradeta">
-            Ompliu-ho i us truquem. Si ho preferiu, truqueu-nos vosaltres al
-            <a href="tel:+34938430002">938 43 00 02</a> — de dilluns a dissabte
-            de 9:00 a 00:00 i diumenge de 9:00 a 18:00.
-          </p>
-
-          <ul class="dades">
-            <li>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
-              <span>
-                <span class="dades-etiqueta">Veniu a veure els salons</span>
-                <span class="dades-valor">Carrer de la Torregassa, 77 — L'Ametlla del Vallès</span>
-              </span>
-            </li>
-          </ul>
+      <div class="tanca-crida apareix">
+        <div>
+          <span class="sobretitol">Ja ho teniu clar?</span>
+          <h2 class="titol-seccio">Digueu-nos quants sereu i us fem preu</h2>
         </div>
-
-        <div class="apareix">
-          <!-- FORMSPREE: doneu d'alta el formulari a formspree.io i poseu l'ID
-               real a l'action. Ara mateix NO S'ENVIA ENLLOC (vegeu js/main.js). -->
-          <form class="formulari" data-validar
-                action="https://formspree.io/f/XXXXXXXX" method="POST" novalidate>
-            <div class="camps">
-              <div class="camp camp-ample">
-                <label for="nom">Nom i cognoms</label>
-                <input type="text" id="nom" name="nom" autocomplete="name" required>
-              </div>
-
-              <div class="camp">
-                <label for="telefon">Telèfon</label>
-                <input type="tel" id="telefon" name="telefon" autocomplete="tel" required>
-              </div>
-
-              <div class="camp">
-                <label for="correu">Correu <span class="opcional">(opcional)</span></label>
-                <input type="email" id="correu" name="correu" autocomplete="email">
-              </div>
-
-              <div class="camp">
-                <label for="tipus-form">Tipus de celebració</label>
-                <input type="text" id="tipus-form" name="tipus" readonly>
-              </div>
-
-              <div class="camp">
-                <label for="comensals-form">Comensals</label>
-                <input type="number" id="comensals-form" name="comensals" min="1" max="250" readonly>
-              </div>
-
-              <div class="camp camp-ample">
-                <label for="sala-form">Salons que us encaixen</label>
-                <input type="text" id="sala-form" name="sala" readonly>
-              </div>
-
-              <div class="camp camp-ample">
-                <label for="data">Data aproximada <span class="opcional">(opcional)</span></label>
-                <input type="date" id="data" name="data">
-              </div>
-
-              <div class="camp camp-ample">
-                <label for="missatge">Expliqueu-nos què us imagineu</label>
-                <textarea id="missatge" name="missatge" rows="4"
-                          aria-describedby="ajuda-missatge"></textarea>
-                <span class="camp-error" id="ajuda-missatge" hidden></span>
-              </div>
-            </div>
-
-            <p class="grup-botons">
-              <button class="boto boto-principal" type="submit">Demanar pressupost</button>
-            </p>
-
-            <p class="form-nota">
-              En enviar-ho accepteu la nostra
-              <a href="politica-privacitat.html">política de privacitat</a>.
-              Les dades només s'usen per respondre-us.
-            </p>
-          </form>
-
-          <div class="form-ok">
-            <h3>Rebut, gràcies</h3>
-            <p>
-              Us truquem nosaltres al número que ens heu deixat. Si teniu pressa,
-              truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>.
-            </p>
-          </div>
-        </div>
+        <p class="grup-botons">
+          <a class="boto boto-principal" href="#pressupost">Demanar pressupost</a>
+          <a class="boto boto-contorn" href="tel:+34938430002">938 43 00 02</a>
+        </p>
       </div>
     </div>
   </section>
