@@ -147,6 +147,17 @@ p { text-wrap: pretty; }
 }
 .salta-al-contingut:focus { left: 0; }
 
+/* Text només per a lectors de pantalla (les estrelles són decoratives;
+   la valoració s'hi ha de poder llegir igualment) */
+.nomes-lectors {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* ═══ ESTRUCTURA ════════════════════════════════════════════════
    Com la seva: marc gris fosc, columna blanca de contingut al mig.
    ═════════════════════════════════════════════════════════════ */
@@ -699,6 +710,12 @@ input[type="range"] {
 
 .ressenyes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); margin-top: var(--s-3); }
 .ressenya { border: 1px solid var(--vora); padding: var(--s-3); display: flex; flex-direction: column; }
+.ressenya-estrelles {
+  color: var(--taronja-text);
+  letter-spacing: 0.14em;
+  font-size: var(--t-sm);
+  margin-bottom: var(--s-2);
+}
 .ressenya blockquote { font-family: var(--titols); font-size: var(--t-md); line-height: 1.5; color: var(--text); flex: 1; }
 .ressenya cite {
   display: block;
@@ -709,8 +726,7 @@ input[type="range"] {
   color: var(--text-suau);
   margin-top: var(--s-2);
 }
-.ressenya-pendent { border-style: dashed; }
-.ressenya-pendent blockquote { font-family: var(--cos); font-size: var(--t-sm); color: var(--text-suau); }
+/* (.ressenya-pendent ja no cal: les tres ressenyes són reals) */
 
 /* ═══ FAQ ═══════════════════════════════════════════════════════ */
 

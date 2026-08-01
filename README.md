@@ -166,7 +166,8 @@ Per activar-los:
 - [ ] Confirmar quina sala és cadascuna de les quatre fotos de salons
 - [ ] Confirmar amb la casa què vol dir l'espiga barrada de la carta
       (cerqueu `PENDENT-CLIENT` a `carta.html`)
-- [ ] Dues ressenyes reals més a l'inici (cerqueu `PENDENT-CLIENT` a `index.html`)
+- [x] ~~Ressenyes reals a l'inici~~ — fetes: tres del seu perfil de Google
+      (1/08/2026), amb nom i valoració. Text literal, sense retocar
 - [ ] Dades fiscals als tres legals (cerqueu `[RAÓ SOCIAL]` i `[DATA DE PUBLICACIÓ]`)
 - [ ] ID de Formspree als dos formularis (cerqueu `XXXXXXXX`)
 - [ ] Place ID i clau de Google al workflow de ressenyes
