@@ -6,6 +6,9 @@ Vallès). **Sense build ni dependències**: s'obre fent doble clic a `index.html
 > ⚠️ **Aquesta versió és una maqueta.** Totes les fotografies són marcadors de posició
 > i el formulari no envia res enlloc. Vegeu «Què falta per publicar» al final.
 
+**Previsualització:** <https://llucmestre-coder.github.io/la-masia-ametlla/>
+(bloquejada als cercadors amb `robots.txt` mentre sigui una maqueta).
+
 ---
 
 ## Què hi ha
@@ -134,6 +137,8 @@ Per activar-los:
 - [ ] Place ID i clau de Google al workflow de ressenyes
 - [ ] Un logotip en vector, i decidir si se'n fa una versió que digui
       «des del 1957» en comptes de «Desde 1957»
+- [ ] **Esborrar `robots.txt`** en publicar al domini real, o la web no
+      s'indexarà mai
 
 ---
 

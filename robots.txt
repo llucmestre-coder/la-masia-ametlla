@@ -1,0 +1,18 @@
+# ─────────────────────────────────────────────────────────────
+# BLOQUEIG TEMPORAL — NOMÉS MENTRE AIXÒ SIGUI UNA MAQUETA
+#
+# Aquesta còpia viu a llucmestre-coder.github.io i serveix per
+# ensenyar la web al client des de qualsevol dispositiu.
+#
+# No ha de sortir a Google per dues raons:
+#   1. Totes les fotografies encara són marcadors de posició.
+#   2. Les etiquetes <link rel="canonical"> ja apunten a
+#      lamasiarestaurant.com; si un cercador indexés aquesta còpia,
+#      competiria amb la web real del restaurant i el confondria.
+#
+# ⚠️ EN PUBLICAR A lamasiarestaurant.com: ESBORREU AQUEST FITXER,
+#    o la web nova no es podrà indexar mai.
+# ─────────────────────────────────────────────────────────────
+
+User-agent: *
+Disallow: /
