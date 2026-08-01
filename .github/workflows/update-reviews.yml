@@ -37,10 +37,28 @@ jobs:
       contents: write
 
     steps:
+      - name: Comprova si ja està configurat
+        id: config
+        run: |
+          if [ "$PLACE_ID" = 'PENDENT_DE_CONFIGURAR' ] || [ -z "$GOOGLE_API_KEY" ]; then
+            echo "llest=no" >> "$GITHUB_OUTPUT"
+            echo "::notice::Encara no està configurat: falta el PLACE_ID del negoci o el secret GOOGLE_API_KEY. La valoració es queda com és a data/reviews.json i aquesta execució no fa res."
+          else
+            echo "llest=si" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
+      # Mentre no hi hagi PLACE_ID i clau, les execucions programades acaben
+      # aquí en verd. Així no arriben correus d'error cada dia per una cosa
+      # que ja sabem que està pendent.
+
       - name: Checkout
+        if: steps.config.outputs.llest == 'si'
         uses: actions/checkout@v4
 
       - name: Consulta la Places API i actualitza els fitxers
+        if: steps.config.outputs.llest == 'si'
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
@@ -49,11 +67,6 @@ jobs:
 
           const placeId = process.env.PLACE_ID;
           const apiKey  = process.env.GOOGLE_API_KEY;
-
-          if (!apiKey || placeId === 'PENDENT_DE_CONFIGURAR') {
-            console.error('Falta GOOGLE_API_KEY (secret) o PLACE_ID (env del workflow).');
-            process.exit(1);
-          }
 
           const url = 'https://maps.googleapis.com/maps/api/place/details/json'
             + '?place_id=' + encodeURIComponent(placeId)
@@ -102,6 +115,7 @@ jobs:
           EOF
 
       - name: Commit si hi ha canvis
+        if: steps.config.outputs.llest == 'si'
         run: |
           if git diff --quiet; then
             echo "Res per fer commit."
