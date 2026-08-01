@@ -1,0 +1,1120 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Restaurant La Masia — L'Ametlla del Vallès
+   Full d'estil únic. Tot deriva dels tokens de :root.
+
+   PALETA — cada color està mostrejat d'un píxel real de la seva carta
+   oficial de 2025 (que porta una foto de la façana al lateral) o del
+   seu logotip. Vegeu PLA.md per a la justificació de cadascun.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Color ── */
+  --nit:          #1E1B15;  /* el negre càlid del tendal de l'entrada       */
+  --olivard:      #403A2F;  /* mostrejat del tendal de la façana            */
+  --sorra:        #D4C1A1;  /* el fons EXACTE de la seva carta 2025         */
+  --crema:        #F7F2E8;  /* fons general de pàgina                       */
+  --paper:        #FFFDF8;  /* targetes                                     */
+  --taronja:      #FF6D09;  /* el taronja EXACTE del seu logotip            */
+  --taronja-tx:   #A8480A;  /* variant AA del mateix per a text sobre clar  */
+  --teula:        #9C5B33;  /* la teula àrab del terrat                     */
+  --or:           #E3C77A;  /* les lletres del rètol "LA MASIA"             */
+  --salvia:       #CFE0C8;  /* el cel de capvespre — distintius de dieta    */
+  --text:         #2B261E;
+  --text-suau:    #5E564A;
+  --vora:         #C9B593;  /* DECORATIU. Res que comuniqui estat.          */
+
+  /* Regles de contrast verificades (20 parelles, cap per sota d'AA):
+     · --taronja com a TEXT: només sobre --nit (6,09:1). Sobre --olivard
+       cau a 3,99 → allà s'usa --or (6,82:1).
+     · --taronja com a FONS de botó: sempre amb text --nit (6,09:1).
+     · Sobre fons clar l'accent en text és --taronja-tx (5,23:1).        */
+
+  /* ── Superfícies fosques ── */
+  --nit-vel:      rgba(30, 27, 21, 0.94);
+  --nit-vora:     rgba(212, 193, 161, 0.16);
+
+  /* ── Tipografia ── */
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --cos:     "Karla", "Segoe UI", system-ui, sans-serif;
+
+  --t-xs:   0.75rem;
+  --t-sm:   0.875rem;
+  --t-base: 1rem;
+  --t-md:   1.125rem;
+  --t-lg:   clamp(1.35rem, 1.1rem + 1.1vw, 1.75rem);
+  --t-xl:   clamp(1.8rem,  1.4rem + 1.9vw, 2.6rem);
+  --t-2xl:  clamp(2.4rem,  1.7rem + 3.2vw, 4rem);
+  --t-3xl:  clamp(3rem,    1.9rem + 5.2vw, 6rem);
+
+  /* Dos trackings, no més (regla del playbook) */
+  --track-wide:  0.26em;
+  --track-tight: -0.015em;
+
+  /* ── Espaiat ── */
+  --s-1: 0.5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2rem;
+  --s-5: 3rem;
+  --s-6: 4.5rem;
+  --s-7: 7rem;
+
+  --ample: 1240px;
+  --ample-text: 62ch;
+
+  --radi: 3px;
+  --ombra:    0 1px 2px rgba(30, 27, 21, 0.05), 0 8px 30px rgba(30, 27, 21, 0.07);
+  --ombra-up: 0 2px 4px rgba(30, 27, 21, 0.06), 0 18px 48px rgba(30, 27, 21, 0.14);
+
+  --nav-h: 76px;
+}
+
+/* ═══ BASE ═══════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  /* El desplaçament suau el fa js/main.js, no el CSS: hi ha navegadors i
+     configuracions on `scroll-behavior: smooth` no fa absolutament res i
+     deixa TOTS els enllaços interns morts. Amb JS és determinista i
+     respecta `prefers-reduced-motion`.
+     `scroll-padding-top` es manté per als salts natius (recàrrega amb #). */
+  scroll-padding-top: calc(var(--nav-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--crema);
+  color: var(--text);
+  font-family: var(--cos);
+  font-size: var(--t-base);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+
+/* Focus de teclat — global, un sol lloc */
+:focus-visible {
+  outline: 2px solid var(--taronja-tx);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.seccio-fosca :focus-visible,
+.nav :focus-visible,
+.peu :focus-visible { outline-color: var(--taronja); }
+
+.salta-al-contingut {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  background: var(--nit);
+  color: var(--crema);
+  padding: var(--s-2) var(--s-3);
+  font-weight: 600;
+}
+.salta-al-contingut:focus { left: 0; }
+
+.nomes-lectors {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ═══ ESTRUCTURA ════════════════════════════════════════════════ */
+
+.envolt {
+  width: 100%;
+  max-width: var(--ample);
+  margin-inline: auto;
+  padding-inline: var(--s-3);
+}
+
+.seccio { padding-block: var(--s-6); }
+.seccio-ampla { padding-block: var(--s-7); }
+
+.seccio-fosca { background: var(--nit); color: var(--crema); }
+.seccio-fosca h2, .seccio-fosca h3 { color: var(--crema); }
+.seccio-sorra { background: var(--sorra); color: var(--nit); }
+
+/* ═══ TIPOGRAFIA DE SECCIÓ ══════════════════════════════════════ */
+
+.sobretitol {
+  display: block;
+  font-family: var(--cos);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--taronja-tx);
+  margin-bottom: var(--s-2);
+}
+.seccio-fosca .sobretitol { color: var(--taronja); }
+.seccio-sorra .sobretitol { color: var(--teula); }
+
+.titol-seccio { font-size: var(--t-xl); }
+.titol-seccio em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--taronja-tx);
+}
+.seccio-fosca .titol-seccio em { color: var(--or); }
+.seccio-sorra .titol-seccio em { color: var(--teula); }
+
+.entradeta {
+  font-size: var(--t-md);
+  color: var(--text-suau);
+  max-width: var(--ample-text);
+  margin-top: var(--s-3);
+}
+.seccio-fosca .entradeta { color: rgba(247, 242, 232, 0.72); }
+
+.regle {
+  width: 54px;
+  height: 2px;
+  background: var(--taronja);
+  border: 0;
+  margin-block: var(--s-3);
+}
+
+/* ═══ BOTONS ════════════════════════════════════════════════════ */
+
+.boto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.95rem 1.9rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--radi);
+  font-family: var(--cos);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: background 0.22s ease, color 0.22s ease,
+              border-color 0.22s ease, transform 0.22s ease;
+}
+.boto:hover { transform: translateY(-2px); }
+
+/* Fons taronja SEMPRE amb text --nit (6,09:1) */
+.boto-principal { background: var(--taronja); color: var(--nit); }
+.boto-principal:hover { background: #FF8433; }
+
+.boto-contorn {
+  background: transparent;
+  border-color: var(--nit);
+  color: var(--nit);
+}
+.boto-contorn:hover { background: var(--nit); color: var(--crema); }
+
+.seccio-fosca .boto-contorn,
+.hero .boto-contorn {
+  border-color: rgba(247, 242, 232, 0.5);
+  color: var(--crema);
+}
+.seccio-fosca .boto-contorn:hover,
+.hero .boto-contorn:hover {
+  background: rgba(247, 242, 232, 0.1);
+  border-color: var(--crema);
+  color: var(--crema);
+}
+
+.grup-botons { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+.enllac-fletxa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: var(--t-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--taronja-tx);
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 3px;
+  transition: gap 0.22s ease;
+}
+.enllac-fletxa:hover { gap: 0.9rem; }
+.seccio-fosca .enllac-fletxa { color: var(--or); }
+
+/* ═══ NAVEGACIÓ ═════════════════════════════════════════════════ */
+
+/* La barra és OPACA per defecte, a propòsit: els seus enllaços són clars i
+   sobre fons clar no es llegirien. Només es torna transparent quan el JS
+   confirma que estem damunt del hero fosc. Si el JS falla, queda opaca i
+   llegible, que és el pitjor cas acceptable. */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 200;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  background: var(--nit-vel);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--nit-vora);
+  transition: background 0.28s ease, border-color 0.28s ease;
+}
+.nav.transparent {
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+/* .sempre-solid no porta estil: és la marca que llegeix js/main.js a les
+   pàgines sense hero fosc (contacte i legals) perquè no la faci transparent. */
+.nav > .envolt {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+/* El fitxer del logotip ja porta el wordmark i "Desde 1957": no cal
+   repetir-ho al costat. */
+.nav-marca { display: flex; align-items: center; margin-right: auto; }
+.nav-marca img { width: 150px; height: 37px; object-fit: contain; }
+
+.nav-enllacos {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  list-style: none;
+}
+.nav-enllacos a {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 232, 0.74);
+  transition: color 0.2s ease;
+}
+.nav-enllacos a:hover,
+.nav-enllacos a[aria-current="page"] { color: var(--crema); }
+.nav-enllacos a[aria-current="page"] { border-bottom: 1.5px solid var(--taronja); padding-bottom: 2px; }
+
+.nav-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--crema);
+  white-space: nowrap;
+}
+.nav-tel:hover { color: var(--taronja); }
+
+.nav .boto { padding: 0.65rem 1.3rem; font-size: var(--t-xs); }
+
+.nav-boto-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: none;
+  border: 1px solid var(--nit-vora);
+  border-radius: var(--radi);
+}
+.nav-boto-menu span {
+  display: block;
+  height: 1.5px;
+  background: var(--crema);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-boto-menu[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-boto-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-boto-menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.menu-mobil {
+  position: fixed;
+  inset: var(--nav-h) 0 auto 0;
+  z-index: 199;
+  display: none;
+  flex-direction: column;
+  background: var(--nit-vel);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--nit-vora);
+  padding: var(--s-2) 0 var(--s-3);
+}
+.menu-mobil.obert { display: flex; }
+.menu-mobil a {
+  padding: 0.9rem var(--s-3);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 232, 0.8);
+  border-bottom: 1px solid rgba(212, 193, 161, 0.08);
+}
+.menu-mobil a:hover { color: var(--crema); background: rgba(212, 193, 161, 0.07); }
+.menu-mobil .boto { margin: var(--s-3) var(--s-3) 0; }
+
+/* ═══ TRUCADA FLOTANT ═══════════════════════════════════════════
+   El canal ràpid dominant d'AQUEST negoci és el telèfon: avui no
+   accepten reserves per cap altre canal i no tenen WhatsApp públic.
+   ═════════════════════════════════════════════════════════════ */
+
+.truca-flotant {
+  position: fixed;
+  right: var(--s-3);
+  bottom: var(--s-3);
+  z-index: 180;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.35rem;
+  background: var(--taronja);
+  color: var(--nit);
+  border-radius: 999px;
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  box-shadow: var(--ombra-up);
+  transition: transform 0.2s ease;
+}
+.truca-flotant:hover { transform: translateY(-3px); }
+.truca-flotant svg { width: 19px; height: 19px; fill: currentColor; flex-shrink: 0; }
+
+/* ═══ HERO ══════════════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-6);
+  overflow: hidden;
+  background: var(--nit);
+}
+.hero-fons { position: absolute; inset: 0; z-index: 0; }
+.hero-fons img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero-vel {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Comprovat al navegador: prou fosc a l'esquerra perquè el text hi passi
+     AA, prou clar a la dreta perquè la foto de la façana es vegi de debò. */
+  background:
+    linear-gradient(to right,
+                    rgba(30, 27, 21, 0.92) 0%,
+                    rgba(30, 27, 21, 0.80) 34%,
+                    rgba(30, 27, 21, 0.42) 66%,
+                    rgba(30, 27, 21, 0.22) 100%),
+    linear-gradient(to top,
+                    rgba(30, 27, 21, 0.72) 0%,
+                    rgba(30, 27, 21, 0) 42%);
+}
+.hero > .envolt { position: relative; z-index: 2; }
+
+/* La "placa": el bloc de sorra desplaçat, com el full de la seva carta */
+.hero-placa { max-width: 660px; }
+.hero-etiqueta {
+  display: inline-block;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--or);
+  border: 1px solid rgba(227, 199, 122, 0.4);
+  border-radius: var(--radi);
+  padding: 0.4rem 0.9rem;
+  margin-bottom: var(--s-3);
+}
+.hero-titol {
+  font-size: var(--t-3xl);
+  color: var(--crema);
+  line-height: 0.94;
+}
+.hero-titol em {
+  display: block;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.42em;
+  color: var(--sorra);
+  letter-spacing: 0.02em;
+  margin-top: 0.5rem;
+}
+.hero-frase {
+  font-size: var(--t-md);
+  color: rgba(247, 242, 232, 0.8);
+  max-width: 46ch;
+  margin-block: var(--s-3) var(--s-4);
+}
+.hero .grup-botons { gap: var(--s-2); }
+
+/* ═══ BANDA DE FETS ═════════════════════════════════════════════ */
+
+.banda-fets { background: var(--olivard); color: var(--crema); }
+.banda-fets ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.banda-fets li {
+  padding: var(--s-4) var(--s-3);
+  border-right: 1px solid rgba(212, 193, 161, 0.14);
+  text-align: center;
+}
+.banda-fets li:last-child { border-right: 0; }
+.fet-xifra {
+  display: block;
+  font-family: var(--display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  color: var(--or);
+  line-height: 1.1;
+}
+.fet-etiqueta {
+  display: block;
+  font-size: var(--t-xs);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 232, 0.62);
+  margin-top: 0.4rem;
+}
+
+/* ═══ ELS DOS CAMINS ════════════════════════════════════════════
+   La idea estructural central: La Masia són dos negocis sota un
+   sostre (el client de cada dia i l'organitzador de celebracions).
+   ═════════════════════════════════════════════════════════════ */
+
+.camins { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.cami {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 440px;
+  padding: var(--s-4);
+  border-radius: var(--radi);
+  overflow: hidden;
+  background: var(--nit);
+  isolation: isolate;
+}
+.cami img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.cami::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgba(30, 27, 21, 0.94) 12%, rgba(30, 27, 21, 0.35) 100%);
+}
+.cami:hover img { transform: scale(1.04); }
+.cami h3 { font-size: var(--t-lg); color: var(--crema); }
+.cami p {
+  color: rgba(247, 242, 232, 0.75);
+  font-size: var(--t-sm);
+  margin-block: var(--s-1) var(--s-3);
+  max-width: 40ch;
+}
+.cami .sobretitol { color: var(--taronja); }
+
+/* ═══ HISTÒRIA ══════════════════════════════════════════════════ */
+
+.historia { display: grid; grid-template-columns: 0.85fr 1fr; gap: var(--s-6); align-items: center; }
+.historia-foto { border-radius: var(--radi); overflow: hidden; }
+.historia-foto img { width: 100%; height: 100%; object-fit: cover; }
+.historia-cos p + p { margin-top: var(--s-2); }
+.historia-cos p { color: var(--text-suau); }
+.seccio-sorra .historia-cos p { color: #4A4234; }
+
+.valors {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+.valor {
+  border-left: 2px solid var(--taronja);
+  padding-left: var(--s-2);
+}
+.valor strong {
+  display: block;
+  font-family: var(--display);
+  font-size: var(--t-base);
+  font-weight: 700;
+}
+.valor span { font-size: var(--t-sm); color: var(--text-suau); }
+.seccio-sorra .valor span { color: #4A4234; }
+
+/* ═══ CARTA ═════════════════════════════════════════════════════ */
+
+.avis-preus {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-left: 3px solid var(--teula);
+  border-radius: var(--radi);
+  padding: var(--s-2) var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--text-suau);
+  max-width: var(--ample-text);
+}
+.avis-preus strong { color: var(--text); }
+
+.carta-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: var(--s-4);
+}
+.carta-nav a {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-suau);
+  border: 1px solid var(--vora);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.carta-nav a:hover { background: var(--nit); border-color: var(--nit); color: var(--crema); }
+
+.carta-grup + .carta-grup { margin-top: var(--s-6); }
+.carta-grup-cap {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  border-bottom: 1px solid var(--vora);
+  padding-bottom: var(--s-2);
+  margin-bottom: var(--s-2);
+}
+.carta-grup-cap h3 {
+  font-size: var(--t-lg);
+  font-style: italic;
+  font-weight: 600;
+}
+.carta-grup-cap span {
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-suau);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.plats { list-style: none; columns: 2; column-gap: var(--s-5); }
+.plat {
+  break-inside: avoid;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid rgba(201, 181, 147, 0.4);
+  font-size: var(--t-base);
+  line-height: 1.5;
+}
+.plat-nota { display: block; font-size: var(--t-sm); color: var(--text-suau); }
+
+.marca-dieta {
+  display: inline-block;
+  margin-left: 0.4rem;
+  vertical-align: 1px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2F4A28;
+  background: var(--salvia);
+  border-radius: 2px;
+  padding: 0.1rem 0.4rem;
+  white-space: nowrap;
+}
+
+.plats-destacats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
+.plat-targeta {
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.plat-targeta:hover { box-shadow: var(--ombra-up); transform: translateY(-3px); }
+.plat-targeta img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.plat-targeta-cos { padding: var(--s-3); }
+.plat-targeta h3 { font-size: var(--t-md); font-style: italic; font-weight: 600; }
+.plat-targeta p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.35rem; }
+
+/* ═══ ESPAIS I CERCADOR (element signatura) ═════════════════════ */
+
+.cercador {
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  padding: var(--s-4);
+  box-shadow: var(--ombra);
+}
+.cercador-controls { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+
+.camp-rang label,
+.camp-tipus legend {
+  display: block;
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-suau);
+  margin-bottom: var(--s-2);
+}
+.camp-tipus fieldset { border: 0; }
+
+.rang-valor {
+  font-family: var(--display);
+  font-size: var(--t-xl);
+  font-weight: 700;
+  color: var(--taronja-tx);
+  line-height: 1;
+}
+.rang-valor small {
+  font-family: var(--cos);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--text-suau);
+  margin-left: 0.4rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 30px;
+  margin-top: var(--s-2);
+  background: transparent;
+  accent-color: var(--taronja-tx);
+  cursor: pointer;
+}
+
+.rang-limits {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--t-xs);
+  color: var(--text-suau);
+}
+
+/* Grup de ràdios amb aspecte de pastilla. L'aspecte el porta el <span>;
+   el <label> només és l'embolcall i la zona clicable. */
+.tipus-opcions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tipus-opcions label { cursor: pointer; }
+.tipus-opcions input { position: absolute; opacity: 0; pointer-events: none; }
+.tipus-opcions span {
+  display: inline-block;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  border: 1px solid var(--vora);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.tipus-opcions label:hover span { border-color: var(--nit); }
+.tipus-opcions input:checked + span {
+  background: var(--nit);
+  border-color: var(--nit);
+  color: var(--crema);
+}
+.tipus-opcions input:focus-visible + span {
+  outline: 2px solid var(--taronja-tx);
+  outline-offset: 3px;
+}
+
+.cercador-resultat {
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--vora);
+  font-size: var(--t-md);
+}
+.cercador-resultat strong { color: var(--taronja-tx); }
+
+.sales { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
+.sala {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  overflow: hidden;
+  transition: border-color 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+}
+.sala img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.sala-cos { padding: var(--s-3); display: flex; flex-direction: column; flex: 1; }
+.sala h3 { font-size: var(--t-md); }
+.sala-capacitat {
+  font-family: var(--display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  color: var(--taronja-tx);
+}
+.sala p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.4rem; }
+.sala-estat {
+  margin-top: auto;
+  padding-top: var(--s-2);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+/* L'estat es comunica amb TEXT i vora forta, mai només amb color */
+.sala.encaixa { border-color: var(--taronja-tx); box-shadow: var(--ombra); }
+.sala.encaixa .sala-estat { color: var(--taronja-tx); }
+.sala.no-encaixa { opacity: 0.55; }
+.sala.no-encaixa .sala-estat { color: var(--text-suau); }
+
+/* ═══ RESSENYES ═════════════════════════════════════════════════ */
+
+.nota-google {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  padding: var(--s-3) var(--s-4);
+}
+.nota-xifra {
+  font-family: var(--display);
+  font-size: var(--t-2xl);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+}
+.nota-estrelles { color: var(--taronja-tx); letter-spacing: 0.12em; font-size: var(--t-md); }
+.nota-detall { font-size: var(--t-sm); color: var(--text-suau); }
+
+.ressenyes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); margin-top: var(--s-3); }
+.ressenya {
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  padding: var(--s-3);
+  display: flex;
+  flex-direction: column;
+}
+.ressenya blockquote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: var(--t-md);
+  line-height: 1.5;
+  flex: 1;
+}
+.ressenya cite {
+  display: block;
+  font-style: normal;
+  font-size: var(--t-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-suau);
+  margin-top: var(--s-2);
+}
+.ressenya-pendent { border-style: dashed; background: transparent; }
+.ressenya-pendent blockquote { font-family: var(--cos); font-style: normal; font-size: var(--t-sm); color: var(--text-suau); }
+
+/* ═══ FAQ ═══════════════════════════════════════════════════════ */
+
+.faq { max-width: 860px; }
+.faq details {
+  border-bottom: 1px solid var(--vora);
+}
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding-block: var(--s-3);
+  font-family: var(--display);
+  font-size: var(--t-md);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  font-family: var(--cos);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--taronja-tx);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--text-suau); padding-bottom: var(--s-3); max-width: var(--ample-text); }
+
+/* ═══ CONTACTE ══════════════════════════════════════════════════ */
+
+.contacte-graella { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); align-items: start; }
+
+.dades { list-style: none; display: grid; gap: var(--s-3); }
+.dades li { display: grid; grid-template-columns: 34px 1fr; gap: var(--s-2); align-items: start; }
+.dades svg { width: 22px; height: 22px; fill: var(--taronja-tx); margin-top: 3px; }
+.seccio-fosca .dades svg { fill: var(--taronja); }
+.dades-etiqueta {
+  display: block;
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-suau);
+}
+.seccio-fosca .dades-etiqueta { color: rgba(247, 242, 232, 0.6); }
+.dades-valor { font-size: var(--t-md); }
+.dades-valor a:hover { color: var(--taronja-tx); }
+.seccio-fosca .dades-valor a:hover { color: var(--taronja); }
+
+.horaris { list-style: none; }
+.horaris li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--vora);
+  font-size: var(--t-sm);
+}
+.seccio-fosca .horaris li { border-bottom-color: rgba(212, 193, 161, 0.15); }
+.horaris li:last-child { border-bottom: 0; }
+.horaris .dia { color: var(--text-suau); }
+.seccio-fosca .horaris .dia { color: rgba(247, 242, 232, 0.65); }
+.horaris .hora { font-weight: 600; white-space: nowrap; }
+
+.mapa {
+  border-radius: var(--radi);
+  overflow: hidden;
+  border: 1px solid var(--vora);
+  line-height: 0;
+}
+.mapa iframe { width: 100%; height: 420px; border: 0; }
+
+/* ═══ FORMULARI ═════════════════════════════════════════════════ */
+
+.formulari {
+  background: var(--paper);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  padding: var(--s-4);
+  box-shadow: var(--ombra);
+}
+.camps { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.camp { display: flex; flex-direction: column; gap: 0.4rem; }
+.camp-ample { grid-column: 1 / -1; }
+.camp label {
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-suau);
+}
+.camp label .opcional {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+.camp input,
+.camp select,
+.camp textarea {
+  font-family: var(--cos);
+  font-size: var(--t-base); /* ≥16px: evita el zoom automàtic a iOS */
+  color: var(--text);
+  background: var(--crema);
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  padding: 0.75rem 0.9rem;
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+.camp textarea { resize: vertical; min-height: 120px; }
+.camp input:hover,
+.camp select:hover,
+.camp textarea:hover { border-color: var(--text-suau); }
+.camp.te-error input,
+.camp.te-error select,
+.camp.te-error textarea { border-color: #A62F1E; }
+.camp-error { font-size: var(--t-xs); font-weight: 600; color: #A62F1E; }
+
+.form-nota { font-size: var(--t-xs); color: var(--text-suau); margin-top: var(--s-3); }
+.form-ok {
+  display: none;
+  border: 1px solid var(--taronja-tx);
+  border-left-width: 3px;
+  border-radius: var(--radi);
+  padding: var(--s-3);
+  background: var(--paper);
+}
+.form-ok.visible { display: block; }
+.form-ok h3 { font-size: var(--t-md); }
+.form-ok p { color: var(--text-suau); margin-top: 0.4rem; }
+
+/* ═══ PEU ═══════════════════════════════════════════════════════ */
+
+/* El coixí de baix deixa lloc al botó flotant perquè no tapi els legals */
+.peu { background: var(--nit); color: rgba(247, 242, 232, 0.72); padding-block: var(--s-6) 5.5rem; }
+.peu-graella {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--nit-vora);
+}
+.peu-marca img { width: 168px; height: 41px; object-fit: contain; }
+.peu-marca p { font-size: var(--t-sm); margin-top: var(--s-2); max-width: 34ch; }
+.peu h2 {
+  font-family: var(--cos);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--sorra);
+  margin-bottom: var(--s-2);
+}
+.peu ul { list-style: none; display: grid; gap: 0.55rem; }
+.peu a { font-size: var(--t-sm); }
+.peu a:hover { color: var(--taronja); }
+.peu-baix {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding-top: var(--s-3);
+  font-size: var(--t-xs);
+}
+.peu-baix nav { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+/* ═══ PÀGINES INTERIORS ═════════════════════════════════════════ */
+
+.cap-pagina {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 56svh;
+  padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-5);
+  background: var(--nit);
+  overflow: hidden;
+}
+.cap-pagina .hero-fons img { object-position: center 40%; }
+.cap-pagina > .envolt { position: relative; z-index: 2; }
+.cap-pagina h1 { font-size: var(--t-2xl); color: var(--crema); }
+.cap-pagina p { color: rgba(247, 242, 232, 0.78); max-width: 52ch; margin-top: var(--s-2); }
+
+/* Capçalera compacta: el formulari ha de quedar per damunt del fold */
+.cap-compacta { min-height: auto; padding-block: calc(var(--nav-h) + var(--s-4)) var(--s-4); }
+
+.molla { font-size: var(--t-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sorra); margin-bottom: var(--s-2); }
+.molla a:hover { color: var(--taronja); }
+
+.legal { padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-6); }
+.legal h1 { font-size: var(--t-xl); }
+.legal h2 { font-size: var(--t-md); margin-top: var(--s-4); }
+.legal p, .legal li { color: var(--text-suau); max-width: var(--ample-text); margin-top: var(--s-2); }
+.legal ul { margin-left: var(--s-3); }
+.legal .actualitzat { font-size: var(--t-sm); color: var(--text-suau); }
+
+/* ═══ ANIMACIÓ ══════════════════════════════════════════════════
+   Caràcter SUBTIL: una casa de 1957 no fa acrobàcies.
+   Un sol tret, mai es torna a amagar. Cap element amb pols permanent.
+   ═════════════════════════════════════════════════════════════ */
+
+/* MILLORA PROGRESSIVA: el contingut és visible per defecte. Només s'amaga
+   per revelar-lo si el JS ha pogut posar la classe .js-anim a <html>, cosa
+   que només fa si hi ha IntersectionObserver i el moviment no està reduït.
+   Així, si el JS falla o no arriba, la web es llegeix igualment: mai es pot
+   donar el cas que tot el contingut quedi invisible per sempre. */
+.js-anim .apareix {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js-anim .apareix.vist { opacity: 1; transform: none; }
+.js-anim .apareix:nth-child(2) { transition-delay: 0.08s; }
+.js-anim .apareix:nth-child(3) { transition-delay: 0.16s; }
+.js-anim .apareix:nth-child(4) { transition-delay: 0.24s; }
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  .nav-enllacos, .nav-tel { display: none; }
+  .nav-boto-menu { display: flex; }
+  .nav .boto-principal { margin-left: auto; }
+  .peu-graella { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  :root { --nav-h: 66px; }
+  .camins { grid-template-columns: 1fr; }
+  .cami { min-height: 340px; }
+  .historia { grid-template-columns: 1fr; gap: var(--s-4); }
+  .contacte-graella { grid-template-columns: 1fr; }
+  .plats { columns: 1; }
+  .plats-destacats { grid-template-columns: 1fr; }
+  .ressenyes { grid-template-columns: 1fr; }
+  .cercador-controls { grid-template-columns: 1fr; }
+  .banda-fets ul { grid-template-columns: 1fr 1fr; }
+  .banda-fets li:nth-child(2) { border-right: 0; }
+  .banda-fets li:nth-child(-n+2) { border-bottom: 1px solid rgba(212, 193, 161, 0.14); }
+}
+
+@media (max-width: 620px) {
+  :root { --s-6: 3.25rem; --s-7: 4rem; }
+  .seccio, .seccio-ampla { padding-block: var(--s-6); }
+  .hero { min-height: 92svh; }
+  .sales { grid-template-columns: 1fr; }
+  .camps { grid-template-columns: 1fr; }
+  .valors { grid-template-columns: 1fr; }
+  .peu-graella { grid-template-columns: 1fr; }
+  .nota-google { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
+  .formulari { padding: var(--s-3); }
+  /* El CTA principal MAI s'amaga al mòbil: només es fa compacte perquè
+     càpiga en una línia al costat del logotip i del botó de menú. */
+  .grup-botons .boto { flex: 1 1 100%; }
+  .nav-marca img { width: 118px; height: 29px; }
+  .nav .boto { padding: 0.6rem 0.85rem; font-size: 0.66rem; letter-spacing: 0.06em; white-space: nowrap; }
+  .truca-flotant { right: var(--s-2); bottom: var(--s-2); padding: 0.85rem 1.15rem; }
+}
+
+/* ═══ MOVIMENT REDUÏT — complet ═════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.001ms;
+    scroll-behavior: auto;
+  }
+  .js-anim .apareix { opacity: 1; transform: none; transition: none; }
+  .cami:hover img,
+  .plat-targeta:hover,
+  .boto:hover,
+  .truca-flotant:hover { transform: none; }
+}
+
+/* ═══ IMPRESSIÓ (la carta es pot imprimir) ══════════════════════ */
+
+@media print {
+  .nav, .menu-mobil, .truca-flotant, .peu, .cap-pagina, .carta-nav { display: none; }
+  body { background: #fff; color: #000; }
+  .plats { columns: 2; }
+}

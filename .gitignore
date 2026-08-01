@@ -1,0 +1,13 @@
+# El repositori és PÚBLIC i el client el pot llegir.
+# Els documents interns no hi poden anar.
+PLA.md
+PLA-*.md
+REUNIO-CLIENT.md
+REUNION-CLIENTE.md
+PRIMER-CONTACTE.md
+prompt*.md
+
+# Sistema
+Thumbs.db
+.DS_Store
+desktop.ini
