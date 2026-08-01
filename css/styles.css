@@ -969,6 +969,17 @@ input[type="range"] {
 }
 .camp textarea { resize: vertical; min-height: 118px; }
 .camp input:hover, .camp select:hover, .camp textarea:hover { border-color: var(--text-suau); }
+
+/* Camp bloquejat fins que no toca: ha de semblar-ho */
+.camp select:disabled {
+  background: #EFEDEA;
+  color: var(--text-suau);
+  cursor: not-allowed;
+  border-style: dashed;
+}
+.camp select option:disabled { color: #9A9A9A; }
+.camp-ajuda { font-size: var(--t-xs); color: var(--taronja-text); font-weight: 700; }
+.camp-ajuda:empty { display: none; }
 .camp.te-error input, .camp.te-error select, .camp.te-error textarea { border-color: #A4291A; }
 .camp-error { font-size: var(--t-xs); font-weight: 700; color: #A4291A; }
 

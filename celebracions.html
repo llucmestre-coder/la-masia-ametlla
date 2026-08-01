@@ -245,9 +245,24 @@
                        min="1" max="250" placeholder="Per exemple, 90">
               </div>
 
+              <!-- Les opcions són a l'HTML perquè, sense JS, el desplegable
+                   segueixi servint. El que hi afegeix js/espais.js és la
+                   capacitat de cada saló i el bloqueig dels que no hi caben.
+                   Les capacitats NO es repeteixen aquí: les llegeix de les
+                   targetes de saló de més avall (data-capacitat), que són
+                   l'únic lloc on hi són escrites. -->
               <div class="camp camp-ample">
-                <label for="sala-form">Saló <span class="opcional">(si ja en teniu un al cap)</span></label>
-                <input type="text" id="sala-form" name="sala">
+                <label for="sala-form">
+                  Saló <span class="opcional">(digueu abans quants sereu)</span>
+                </label>
+                <select id="sala-form" name="sala" aria-describedby="ajuda-sala">
+                  <option value="">Trieu-ne un…</option>
+                  <option value="Saló Nou">Saló Nou</option>
+                  <option value="Menjador diari">Menjador diari</option>
+                  <option value="Saló Bosc">Saló Bosc</option>
+                  <option value="Saló privat">Saló privat</option>
+                </select>
+                <span class="camp-ajuda" id="ajuda-sala"></span>
               </div>
 
               <div class="camp camp-ample">

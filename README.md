@@ -236,10 +236,23 @@ I res més: el codi ja fa el `POST`.
 Va **a dalt de la pàgina**, just sota el cercador d'espai, perquè és l'acció que
 importa allà. Al final de la pàgina hi ha un botó que hi torna.
 
-Els camps **tipus**, **quants sereu** i **saló** comencen **buits** i són
-**editables**. Si algú mou el comptador del cercador, s'omplen sols amb el que ha
-triat; si algú hi arriba pel botó de la barra (que salta el cercador), els escriu
-a mà. Mai s'envia res que la persona no hagi triat.
+Els camps **tipus** i **quants sereu** comencen **buits** i són **editables**. Si
+algú mou el comptador del cercador, s'omplen sols amb el que ha triat; si algú hi
+arriba pel botó de la barra (que salta el cercador), els escriu a mà. Mai s'envia
+res que la persona no hagi triat.
+
+El camp **saló** és un desplegable que depèn dels comensals:
+
+- Mentre no hi hagi cap nombre de comensals, està **bloquejat** i diu
+  «Digueu abans quants sereu».
+- Amb un nombre, s'obre i **desactiva els salons on no hi caben**, amb la
+  capacitat de cada un a l'etiqueta.
+- Si es puja el nombre i el saló ja triat deixa de servir, **es buida sol**.
+- Si no hi cap en cap (més de 200), ho diu i dona el telèfon.
+
+> Les capacitats **no estan escrites al formulari**: `js/espais.js` les llegeix
+> dels `data-capacitat` de les targetes de saló. Si un dia canvia una capacitat,
+> es toca en un sol lloc.
 
 > Abans eren de només lectura i sortien preomplerts amb els valors per defecte del
 > cercador. Qui hi arribava sense passar-hi enviava «Comunió · 60 comensals» sense

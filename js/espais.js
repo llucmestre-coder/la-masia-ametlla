@@ -31,6 +31,65 @@
   /* Fins que no es toqui el cercador, el formulari es queda en blanc */
   var usuariHaTriat = false;
 
+  /* ── El desplegable de saló del formulari ─────────────────────
+     Només es pot triar quan hi ha un nombre de comensals, i els salons
+     on no hi caben queden desactivats. Les capacitats surten de les
+     targetes de saló (data-capacitat): no es repeteixen enlloc més.  */
+
+  var ajudaSala = document.getElementById('ajuda-sala');
+
+  function capacitatDe(nom) {
+    for (var i = 0; i < sales.length; i++) {
+      if (sales[i].dataset.nom === nom) return parseInt(sales[i].dataset.capacitat, 10);
+    }
+    return null;
+  }
+
+  function comensalsDelFormulari() {
+    if (!campComensals) return NaN;
+    return parseInt(campComensals.value, 10);
+  }
+
+  function actualitzaSelectSala() {
+    if (!campSala || campSala.tagName !== 'SELECT') return;
+
+    var n = comensalsDelFormulari();
+    var teNombre = !isNaN(n) && n > 0;
+    var hiCapAlgun = false;
+
+    campSala.disabled = !teNombre;
+    campSala.options[0].textContent = teNombre
+      ? 'Trieu-ne un…'
+      : 'Digueu abans quants sereu';
+
+    Array.prototype.forEach.call(campSala.options, function (op) {
+      if (!op.value) return;
+      var cap = capacitatDe(op.value);
+      if (cap === null) return;
+
+      var hiCap = !teNombre || n <= cap;
+      op.disabled = teNombre && !hiCap;
+      op.textContent = op.value + ' — fins a ' + cap + ' persones' +
+                       (op.disabled ? ' (no hi cabeu)' : '');
+      if (hiCap && teNombre) hiCapAlgun = true;
+    });
+
+    /* Si el que hi havia triat ja no serveix, es buida: val més quedar-se
+       sense tria que enviar un saló on no hi caben. */
+    var triat = campSala.options[campSala.selectedIndex];
+    if (triat && triat.disabled) campSala.value = '';
+
+    if (!ajudaSala) return;
+    if (!teNombre) {
+      ajudaSala.textContent = '';
+    } else if (!hiCapAlgun) {
+      ajudaSala.textContent = 'Per a ' + n + ' persones cal que en parlem: ' +
+                              'truqueu-nos al 938 43 00 02.';
+    } else {
+      ajudaSala.textContent = '';
+    }
+  }
+
   function tipusTriat() {
     var marcat = tipusRadios.filter(function (r) { return r.checked; })[0];
     return marcat ? marcat.value : '';
@@ -95,7 +154,9 @@
     if (!usuariHaTriat) return;
     if (campComensals) campComensals.value = n;
     if (campTipus && tipus) campTipus.value = tipus;
-    if (campSala) campSala.value = encaixen.join(', ');
+    /* El saló no es tria sol: el cercador només obre el desplegable i hi
+       deixa disponibles els que hi caben. La tria és de qui ho omple. */
+    actualitzaSelectSala();
   }
 
   /* input[type=range] nadiu: fletxes, Inici/Fi i aria-valuenow ja
@@ -111,7 +172,14 @@
     });
   });
 
-  /* Primera passada: pinta el resultat i l'estat dels salons, però deixa
-     el formulari en blanc. */
+  /* El nombre de comensals també es pot escriure a mà al formulari,
+     sense passar pel cercador: el desplegable ha de reaccionar igual. */
+  if (campComensals) {
+    campComensals.addEventListener('input', actualitzaSelectSala);
+  }
+
+  /* Primera passada: pinta el resultat i l'estat dels salons, deixa el
+     formulari en blanc i el desplegable de saló bloquejat. */
   actualitza();
+  actualitzaSelectSala();
 })();
