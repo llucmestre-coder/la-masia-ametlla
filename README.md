@@ -1,10 +1,11 @@
-# Restaurant La Masia — web
+﻿# Restaurant La Masia — web
 
 Web estàtica per al Restaurant La Masia (carrer de la Torregassa, 77 — L'Ametlla del
 Vallès). **Sense build ni dependències**: s'obre fent doble clic a `index.html`.
 
-> ⚠️ **Aquesta versió és una maqueta.** Totes les fotografies són marcadors de posició
-> i el formulari no envia res enlloc. Vegeu «Què falta per publicar» al final.
+> ⚠️ **Aquesta versió és una maqueta.** Les fotografies són seves però de poca
+> resolució (tretes del seu web actual), tres són d'stock, i els formularis no
+> envien res enlloc. Vegeu «Què falta per publicar» al final.
 
 **Previsualització:** <https://llucmestre-coder.github.io/la-masia-ametlla/>
 (bloquejada als cercadors amb `robots.txt` mentre sigui una maqueta).
@@ -35,18 +36,20 @@ Vallès). **Sense build ni dependències**: s'obre fent doble clic a `index.html
 Aquesta web **no canvia la marca de La Masia**: hereta els colors i la tipografia de
 `lamasiarestaurant.com`. El que aporta és què ofereix la web i com ho ofereix.
 
-**Tipografia** — la seva, sense cap webfont:
+**Tipografia**
 
-- Títols, menú i telèfon: **Lucida Calligraphy** (el seu CSS declara `Lucida`, que
-  resol a Lucida Calligraphy). Els títols hi van **sencers**: no es barreja rodona
-  i cursiva dins d'un mateix titular.
-- Cos: **Arial**, com el seu.
-- L'únic canvi: el cos passa de 12 px a 17 px, per llegibilitat.
+- Títols, menú i telèfon: **Lucida Calligraphy**, la seva (el seu CSS declara
+  `Lucida`, que resol a Lucida Calligraphy). És el que dona el caràcter de la casa.
+  Els títols hi van **sencers**: no es barreja rodona i cursiva dins d'un titular.
+- Cos: **Lato**. La seva web fa servir Arial, que no és una decisió de marca sinó
+  el valor per defecte; Lato es llegeix bastant millor i acompanya la
+  cal·ligràfica sense competir-hi. Només dos pesos.
+- El cos passa de 12 px a 17 px, per llegibilitat.
 
-Com que no es carrega cap Google Font, la web va més ràpida i no depèn de cap
-servidor de fora. *(Pendent per al client: si volen que la cal·ligràfica es vegi
-igual en un mòbil, cal una versió web amb llicència de la lletra dels títols. Sense
-això, als dispositius que no la tinguin instal·lada cau a una serif del sistema.)*
+*(Pendent per al client: la cal·ligràfica és una lletra del sistema. Als
+dispositius que no la tinguin instal·lada —molts mòbils— cau a una serif de
+recanvi. Els passa **ja ara** amb la seva web; si volen que es vegi igual arreu,
+cal comprar-ne una versió web amb llicència.)*
 
 **Colors** — tots a `css/styles.css`, al bloc `:root`, amb l'origen anotat al costat:
 
@@ -69,11 +72,10 @@ Són directament dins de cada `.html`. Estan en català.
 
 ### Les fotografies
 
-Totes són a `assets/` i es diuen `photo-*.jpg`. **Cada una porta a sobre un comentari
-`<!-- FOTO REAL PENDENT: ... -->`** que diu exactament quina foto hi va. Per substituir
-una foto: guardeu la de debò amb el mateix nom i les mateixes proporcions.
-
-Cerqueu `FOTO REAL PENDENT` a tot el projecte per veure què queda per fer.
+Totes són a `assets/` i es diuen `photo-*.jpg`. Cada una porta a sobre un comentari
+que diu **d'on surt**: `FOTO DEL RESTAURANT` (seva) o `FOTO REAL PENDENT` (stock,
+per substituir). Per canviar-ne una: deseu la nova amb el mateix nom i les mateixes
+proporcions. Detall complet a «Les fotografies», més avall.
 
 ### El telèfon i l'adreça
 
@@ -87,33 +89,43 @@ text de la consulta i prou.
 
 ---
 
-## Inventari de fotografies
+## Les fotografies
 
-16 imatges. Format JPG, qualitat alta, sense text ni marca d'aigua a sobre.
+**11 de les 14 són del restaurant**: baixades del seu web actual i retallades al
+format que toca. Són el seu local, els seus salons i els seus plats de debò.
 
-| Fitxer | Mida mínima | Orientació | Què hi ha d'anar |
-|---|---|---|---|
-| `photo-hero.jpg` | 1920×1280 | horitzontal | **La més important.** Façana de la masia al capvespre, amb els llums de dins encesos i el rètol visible. El text va damunt de la meitat esquerra: cal que aquella part no tingui detall important. |
-| `photo-carta-hero.jpg` | 1920×900 | horitzontal | Taula parada del menjador, o un detall bonic de sala |
-| `photo-celebracions-hero.jpg` | 1920×900 | horitzontal | El Saló Nou muntat per a un banquet, taules vestides |
-| `photo-contacte-hero.jpg` | 1920×700 | horitzontal | Entrada i aparcament (ajuda a trobar-los) |
-| `photo-casa.jpg` | 1200×1400 | **vertical** | L'edifici de dia, la cuina o l'equip. Si en tenen alguna d'antiga (anys 60-70), aquí hi valdria molt més que una de nova |
-| `photo-sala-nou.jpg` | 1200×900 | horitzontal | Saló Nou buit i muntat, angle ampli |
-| `photo-sala-menjador.jpg` | 1200×900 | horitzontal | Menjador diari amb taules parades |
-| `photo-sala-bosc.jpg` | 1200×900 | horitzontal | Saló Bosc (buscar l'angle que expliqui el nom) |
-| `photo-sala-privat.jpg` | 1200×900 | horitzontal | El reservat, amb la taula muntada |
-| `photo-plat-roca.jpg` | 1000×750 | horitzontal | Filet de vedella a l'estil Roca |
-| `photo-plat-arros.jpg` | 1000×750 | horitzontal | Arrossejat d'escamarlans |
-| `photo-plat-canelons.jpg` | 1000×750 | horitzontal | Canelons de l'àvia |
-| `photo-galeria-1.jpg` | 1000×750 | horitzontal | Ambient de sala amb gent |
-| `photo-galeria-2.jpg` | 1000×1200 | **vertical** | Detall de cuina o de producte |
-| `photo-galeria-3.jpg` | 1000×750 | horitzontal | Terrassa o exterior |
-| `photo-galeria-4.jpg` | 1000×750 | horitzontal | Una celebració (amb permís dels que hi surten) |
+**3 són d'stock** (Pexels, lliures d'ús) perquè d'aquells plats no en tenien cap.
+Totes tres estan marcades al codi amb `<!-- FOTO REAL PENDENT: … -->`:
 
-**Prioritat si només se'n poden fer poques:** `photo-hero`, `photo-celebracions-hero`,
-`photo-sala-nou` i els tres plats. Amb aquestes sis la web ja es pot ensenyar.
+| Fitxer | Què hi ha ara | Què hi ha d'anar |
+|---|---|---|
+| `photo-plat-roca.jpg` | Stock: filet amb bolets | El seu filet de vedella a l'estil Roca |
+| `photo-plat-canelons.jpg` | Stock: canelons gratinats | Els seus canelons de l'àvia |
+| `photo-galeria-3.jpg` | Stock: menjar per emportar | Una comanda per emportar de la casa |
 
----
+> Cerqueu `FOTO REAL PENDENT` al projecte per trobar-les. Les seves porten
+> `FOTO DEL RESTAURANT` amb la nota corresponent.
+
+### Què convé demanar-los
+
+Les seves fotos són **de poca resolució** (venen d'un web de fa deu anys) i
+algunes no sabem del cert de quina sala són:
+
+| Fitxer | Mida actual | Què cal |
+|---|---|---|
+| `photo-hero.jpg` | prové d'una de 1200×800 | **La més important.** L'original a més resolució. Millor encara: una de la façana al capvespre amb els llums encesos |
+| `photo-contacte-hero.jpg` | prové d'una de 960×295 | La de pitjor qualitat de totes. Substituir |
+| `photo-sala-nou.jpg` · `photo-sala-menjador.jpg` · `photo-sala-bosc.jpg` · `photo-sala-privat.jpg` | 1200×900 | **Confirmar quina sala és cadascuna.** S'han assignat pel que sembla a la foto, no perquè ho sapiguem |
+| La resta | 1000–1800 px | Els originals, si els tenen |
+
+### Si fan sessió de fotos
+
+Per ordre de rendiment: **façana al capvespre**, **Saló Nou muntat per a un
+banquet**, i els **tres plats** de la pàgina d'inici. Amb aquestes cinc, la web
+ja fa un salt gros.
+
+Format: JPG horitzontal, mínim 1800 px d'ample (les verticals, 1100×1300).
+Sense text ni marca d'aigua a sobre.
 
 ## La valoració de Google, automàtica
 
@@ -149,7 +161,9 @@ Per activar-los:
 
 ## Què falta per publicar
 
-- [ ] Les 16 fotografies reals (cerqueu `FOTO REAL PENDENT`)
+- [ ] Substituir les 3 fotos d'stock per fotos de la casa (`FOTO REAL PENDENT`)
+- [ ] Demanar-los els originals a més resolució, sobretot el de la façana
+- [ ] Confirmar quina sala és cadascuna de les quatre fotos de salons
 - [ ] Confirmar amb la casa què vol dir l'espiga barrada de la carta
       (cerqueu `PENDENT-CLIENT` a `carta.html`)
 - [ ] Dues ressenyes reals més a l'inici (cerqueu `PENDENT-CLIENT` a `index.html`)

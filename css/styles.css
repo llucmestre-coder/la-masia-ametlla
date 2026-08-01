@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════════════════════
    Restaurant La Masia — L'Ametlla del Vallès
 
    ⚠️ REGLA D'AQUEST PROJECTE: el client JA TÉ WEB. La identitat és
@@ -41,13 +41,18 @@
        text taronja = --taronja-text. Sobre fons fosc = --taronja-logo.
      · Botó taronja: sempre amb text --text (5,2:1). Mai blanc a sobre. */
 
-  /* ── Tipografia: la SEVA, sense webfonts ──
-     No es carrega cap Google Font: la seva web fa servir fonts del
-     sistema i mantenir-ho és alhora fidel, més ràpid i sense
-     dependències externes ni cookies de tercers. */
+  /* ── Tipografia ──
+     Títols: la SEVA lletra. El seu CSS declara `Lucida`, que resol a
+     Lucida Calligraphy (mesurat: 452 px a 30 px, coincidència exacta).
+     És el que dona el caràcter de la casa i es manté.
+
+     Cos: la seva web fa servir Arial per defecte, que no és una decisió
+     de marca sinó el que va sortir. Aquí s'usa Lato, una humanista
+     càlida que es llegeix molt millor i acompanya la cal·ligràfica
+     sense competir-hi. Només dos pesos. */
   --titols: "Lucida Calligraphy", "Lucida Handwriting", "Apple Chancery",
             "URW Chancery L", "Palatino Linotype", Palatino, Georgia, serif;
-  --cos:    Arial, Helvetica, "Nimbus Sans L", sans-serif;
+  --cos:    "Lato", "Segoe UI", Arial, Helvetica, sans-serif;
 
   /* La seva web fa servir 12px de cos, massa petit per llegir-hi bé.
      Pujar-ho és millorar COM s'ofereix, no canviar la marca. */
@@ -63,13 +68,17 @@
   --track-ample:  0.22em;
   --track-just:  -0.01em;
 
+  /* ── Espaiat ──
+     Escala pensada perquè res quedi arrapat: el salt entre seccions
+     (--s-7) ha de ser clarament més gran que el salt entre blocs de
+     dins d'una secció (--s-4/--s-5), o tot sembla la mateixa cosa. */
   --s-1: 0.5rem;
   --s-2: 1rem;
   --s-3: 1.5rem;
-  --s-4: 2rem;
-  --s-5: 3rem;
-  --s-6: 4.25rem;
-  --s-7: 6rem;
+  --s-4: 2.25rem;
+  --s-5: 3.25rem;
+  --s-6: 5rem;
+  --s-7: 7rem;
 
   --ample: 1180px;
   --ample-text: 64ch;
@@ -123,8 +132,8 @@ p { text-wrap: pretty; }
 }
 .nav :focus-visible,
 .peu :focus-visible,
-.seccio-fosca :focus-visible,
-.banda-taronja :focus-visible { outline-color: var(--blanc); }
+.hero :focus-visible,
+.seccio-fosca :focus-visible { outline-color: var(--blanc); }
 
 .salta-al-contingut {
   position: absolute;
@@ -137,15 +146,6 @@ p { text-wrap: pretty; }
   font-weight: 700;
 }
 .salta-al-contingut:focus { left: 0; }
-
-.nomes-lectors {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
 
 /* ═══ ESTRUCTURA ════════════════════════════════════════════════
    Com la seva: marc gris fosc, columna blanca de contingut al mig.
@@ -167,12 +167,26 @@ p { text-wrap: pretty; }
 .seccio { padding-block: var(--s-6); }
 .seccio-ampla { padding-block: var(--s-7); }
 
+/* Ritme vertical dins de cada secció.
+   Sense això el títol queda arrapat a la graella de sota i tot sembla
+   el mateix bloc. Un sol lloc per a tota la web, no pedaços per secció. */
+.seccio > .envolt > * + *,
+.seccio-ampla > .envolt > * + * { margin-top: var(--s-5); }
+
+/* Dues seccions seguides del mateix color s'han de poder distingir */
+.seccio + .seccio,
+.seccio-ampla + .seccio,
+.seccio + .seccio-ampla { border-top: 1px solid var(--vora); }
+.seccio-fosca + .seccio-fosca,
+.seccio-fosca + .seccio,
+.seccio + .seccio-fosca,
+.seccio-gris + .seccio,
+.seccio + .seccio-gris { border-top: 0; }
+
 .seccio-fosca { background: var(--gris-cap-baix); color: var(--blanc); }
 .seccio-fosca h2, .seccio-fosca h3 { color: var(--blanc); }
-.seccio-gris { background: #F4F4F4; }
-
-/* La banda taronja: l'element visual més reconeixible del seu tema */
-.banda-taronja { background: var(--taronja); color: var(--text); }
+/* Gris molt clar per separar seccions consecutives sense trencar el to */
+.seccio-gris { background: #F4F2EF; }
 
 /* ═══ TITULARS ══════════════════════════════════════════════════ */
 
@@ -187,11 +201,9 @@ p { text-wrap: pretty; }
   margin-bottom: var(--s-2);
 }
 .seccio-fosca .sobretitol { color: var(--taronja-logo); }
-.banda-taronja .sobretitol { color: var(--text); }
 
 .titol-seccio { font-size: var(--t-xl); color: var(--text-titol); }
 .seccio-fosca .titol-seccio { color: var(--blanc); }
-.banda-taronja .titol-seccio { color: var(--text); }
 
 .entradeta {
   font-size: var(--t-md);
@@ -200,7 +212,6 @@ p { text-wrap: pretty; }
   margin-top: var(--s-3);
 }
 .seccio-fosca .entradeta { color: rgba(255, 255, 255, 0.82); }
-.banda-taronja .entradeta { color: var(--text); }
 
 .regle {
   width: 52px;
@@ -248,8 +259,6 @@ p { text-wrap: pretty; }
 .seccio-fosca .boto-contorn:hover,
 .hero .boto-contorn:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--blanc); }
 
-.banda-taronja .boto-contorn { border-color: var(--text); color: var(--text); }
-.banda-taronja .boto-contorn:hover { background: var(--text); color: var(--taronja); }
 
 .grup-botons { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 
@@ -285,7 +294,6 @@ p { text-wrap: pretty; }
   border-bottom: 3px solid var(--taronja);
   transition: box-shadow 0.25s ease;
 }
-.nav.enfonsada { box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45); }
 .nav > .envolt {
   display: flex;
   align-items: center;
@@ -391,27 +399,44 @@ p { text-wrap: pretty; }
 .truca-flotant svg { width: 19px; height: 19px; fill: currentColor; flex-shrink: 0; }
 
 /* ═══ HERO ══════════════════════════════════════════════════════
-   La seva composició: la foto damunt de la banda taronja.
+   La façana a tota pantalla. El taronja NO fa de fons: com a fons
+   competeix amb la fotografia i se'n menja el protagonisme. Queda
+   per als accents (l'etiqueta, el filet de la barra, els botons).
    ═════════════════════════════════════════════════════════════ */
 
-.hero { background: var(--taronja); padding-top: var(--nav-h); }
-.hero-marc { position: relative; max-width: var(--ample); margin-inline: auto; }
-.hero-foto { position: relative; aspect-ratio: 21 / 9; overflow: hidden; background: var(--gris-cap-baix); }
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 76svh;
+  padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-6);
+  background: var(--gris-cap-baix);
+  overflow: hidden;
+}
+.hero-foto { position: absolute; inset: 0; z-index: 0; }
 .hero-foto img { width: 100%; height: 100%; object-fit: cover; }
+/* Dues capes: una que enfosqueix el costat del text i una altra que
+   assenta la part baixa. La foto la posa el client i no sabem si serà
+   clara o fosca, així que el text ha de quedar llegible en tots dos
+   casos: a la zona del titular l'opacitat combinada no baixa de ~0,8,
+   que sobre el píxel més clar possible encara dona molt més d'AA. */
 .hero-vel {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-              rgba(18, 18, 18, 0.92) 0%,
-              rgba(18, 18, 18, 0.72) 38%,
-              rgba(18, 18, 18, 0.28) 72%,
-              rgba(18, 18, 18, 0.10) 100%);
+  z-index: 1;
+  background:
+    linear-gradient(to right,
+                    rgba(18, 18, 18, 0.84) 0%,
+                    rgba(18, 18, 18, 0.58) 40%,
+                    rgba(18, 18, 18, 0.14) 74%,
+                    rgba(18, 18, 18, 0) 100%),
+    linear-gradient(to top,
+                    rgba(18, 18, 18, 0.62) 0%,
+                    rgba(18, 18, 18, 0.20) 55%,
+                    rgba(18, 18, 18, 0) 100%);
 }
-.hero-text {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: var(--s-5) var(--s-4);
-}
+.hero > .envolt { position: relative; z-index: 2; }
+.hero-text { max-width: 44rem; }
 /* Text FOSC sobre el taronja (5,2:1). En blanc només arribaria a 3,3:1 i
    a 13 px en negreta això no compta com a text gran: no passaria AA. */
 .hero-etiqueta {
@@ -494,9 +519,9 @@ p { text-wrap: pretty; }
 .cami:hover img { transform: scale(1.04); }
 .cami h3 { font-size: var(--t-lg); color: var(--blanc); }
 .cami p {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.86);
   font-size: var(--t-sm);
-  margin-block: var(--s-1) var(--s-3);
+  margin-block: 0.7rem var(--s-3);
   max-width: 42ch;
 }
 .cami .sobretitol { color: var(--taronja-logo); }
@@ -586,9 +611,9 @@ p { text-wrap: pretty; }
 .plat-targeta { border: 1px solid var(--vora); transition: box-shadow 0.2s ease; }
 .plat-targeta:hover { box-shadow: var(--ombra-up); }
 .plat-targeta img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.plat-targeta-cos { padding: var(--s-3); }
+.plat-targeta-cos { padding: var(--s-3) var(--s-3) var(--s-4); }
 .plat-targeta h3 { font-size: var(--t-md); color: var(--text-titol); }
-.plat-targeta p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.35rem; }
+.plat-targeta p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.7rem; }
 
 /* ═══ ESPAIS I CERCADOR ═════════════════════════════════════════ */
 
@@ -646,11 +671,11 @@ input[type="range"] {
   transition: border-color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 .sala img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.sala-cos { padding: var(--s-3); display: flex; flex-direction: column; flex: 1; }
+.sala-cos { padding: var(--s-3) var(--s-3) var(--s-4); display: flex; flex-direction: column; flex: 1; }
 .sala h3 { font-size: var(--t-md); color: var(--text-titol); }
-.sala-capacitat { font-family: var(--titols); font-size: var(--t-lg); color: var(--taronja-text); }
-.sala p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.35rem; }
-.sala-estat { margin-top: auto; padding-top: var(--s-2); font-size: var(--t-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.sala-capacitat { font-family: var(--titols); font-size: var(--t-lg); color: var(--taronja-text); margin-top: 0.35rem; }
+.sala p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.7rem; }
+.sala-estat { margin-top: auto; padding-top: var(--s-3); font-size: var(--t-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
 /* L'estat es diu amb TEXT, no només amb color */
 .sala.encaixa { border-color: var(--taronja-text); border-top: 4px solid var(--taronja); box-shadow: var(--ombra); }
 .sala.encaixa .sala-estat { color: var(--taronja-text); }

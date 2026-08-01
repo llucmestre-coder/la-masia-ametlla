@@ -20,6 +20,9 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 
 <!-- JSON-LD: subtipus Restaurant (no LocalBusiness genèric), amb els camps
@@ -124,28 +127,30 @@
 <main id="contingut">
 
   <!-- ══ HERO ═══════════════════════════════════════════════════
-       Composició heretada de la seva web: la fotografia damunt de la
-       banda taronja que travessa la pantalla de banda a banda.
+       La façana a tota pantalla. El taronja es reserva per als accents,
+       no per a un fons: com a fons competeix amb la fotografia.
   ═══════════════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="hero-marc">
-      <div class="hero-foto">
-        <!-- FOTO REAL PENDENT: façana de la masia al capvespre, horitzontal,
-             amb el rètol i els llums de dins encesos. És LA foto de la web. -->
-        <img src="assets/photo-hero.jpg" width="1920" height="1280"
-             alt="" fetchpriority="high" decoding="async">
-        <div class="hero-vel"></div>
-        <div class="hero-text">
-          <span class="hero-etiqueta">Des del 1957 · L'Ametlla del Vallès</span>
-          <h1 class="hero-titol">Cuina catalana i de mercat</h1>
-          <p class="hero-frase">
-            Una masia a l'entrada del poble, oberta des del 1957. Taula per a cada dia
-            i quatre salons on l'Ametlla fa les seves celebracions.
-          </p>
-          <div class="grup-botons">
-            <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
-            <a class="boto boto-contorn" href="carta.html">Veure la carta</a>
-          </div>
+    <div class="hero-foto">
+      <!-- FOTO DEL RESTAURANT (del seu web actual, 1200x800). La façana de dia.
+           Convé demanar-los l'original a més resolució, i una de capvespre
+           amb els llums encesos, que és com es veu millor la casa. -->
+      <img src="assets/photo-hero.jpg" width="1800" height="1000"
+           alt="" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero-vel"></div>
+
+    <div class="envolt">
+      <div class="hero-text">
+        <span class="hero-etiqueta">Des del 1957 · L'Ametlla del Vallès</span>
+        <h1 class="hero-titol">Cuina catalana i de mercat</h1>
+        <p class="hero-frase">
+          Una masia a l'entrada del poble, oberta des del 1957. Taula per a cada dia
+          i quatre salons on l'Ametlla fa les seves celebracions.
+        </p>
+        <div class="grup-botons">
+          <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
+          <a class="boto boto-contorn" href="carta.html">Veure la carta</a>
         </div>
       </div>
     </div>
@@ -188,8 +193,8 @@
 
       <div class="camins">
         <article class="cami apareix">
-          <!-- FOTO REAL PENDENT: taula parada del menjador diari, amb gent. -->
-          <img src="assets/photo-carta-hero.jpg" width="1920" height="900"
+          <!-- FOTO DEL RESTAURANT (del seu web actual). Taula parada. -->
+          <img src="assets/photo-carta-hero.jpg" width="1800" height="850"
                alt="" loading="lazy" decoding="async">
           <span class="sobretitol">Cada dia</span>
           <h3>La carta i el menú diari</h3>
@@ -201,8 +206,8 @@
         </article>
 
         <article class="cami apareix">
-          <!-- FOTO REAL PENDENT: Saló Nou muntat per a un banquet, taules vestides. -->
-          <img src="assets/photo-celebracions-hero.jpg" width="1920" height="900"
+          <!-- FOTO DEL RESTAURANT (del seu web actual). Muntatge de celebració. -->
+          <img src="assets/photo-celebracions-hero.jpg" width="1800" height="850"
                alt="" loading="lazy" decoding="async">
           <span class="sobretitol">Celebracions</span>
           <h3>Comunions, bateigs, noces i empresa</h3>
@@ -217,15 +222,13 @@
   </section>
 
   <!-- ══ DES DEL 1957 ═══════════════════════════════════════════ -->
-  <section class="seccio seccio-sorra" id="qui-som">
+  <section class="seccio seccio-gris" id="qui-som">
     <div class="envolt">
       <div class="historia">
         <div class="historia-foto apareix">
-          <!-- FOTO REAL PENDENT: l'edifici de dia, la cuina o l'equip.
-               Vertical. Si en tenen alguna d'antiga del 1957 o dels anys 70,
-               aquí hi valdria molt més que una de nova. -->
-          <img src="assets/photo-casa.jpg" width="1200" height="1400"
-               alt="La masia que acull el restaurant" loading="lazy" decoding="async">
+          <!-- FOTO DEL RESTAURANT (del seu web actual). -->
+          <img src="assets/photo-casa.jpg" width="1100" height="1300"
+               alt="El menjador de La Masia" loading="lazy" decoding="async">
         </div>
 
         <div class="historia-cos apareix">
@@ -275,7 +278,9 @@
 
       <div class="plats-destacats">
         <article class="plat-targeta apareix">
-          <!-- FOTO REAL PENDENT: filet de vedella a l'estil Roca, emplatat. -->
+          <!-- FOTO REAL PENDENT: filet de vedella a l'estil Roca.
+         Ara hi ha una imatge d'STOCK (Pexels) que s'hi assembla, només
+         perquè la maqueta es vegi bé. NO és un plat de la casa. -->
           <img src="assets/photo-plat-roca.jpg" width="1000" height="750"
                alt="" loading="lazy" decoding="async">
           <div class="plat-targeta-cos">
@@ -285,9 +290,9 @@
         </article>
 
         <article class="plat-targeta apareix">
-          <!-- FOTO REAL PENDENT: arrossejat d'escamarlans a la cassola. -->
+          <!-- FOTO DEL RESTAURANT (del seu web actual). -->
           <img src="assets/photo-plat-arros.jpg" width="1000" height="750"
-               alt="" loading="lazy" decoding="async">
+               alt="Paella feta a La Masia" loading="lazy" decoding="async">
           <div class="plat-targeta-cos">
             <h3>Arrossejat d'escamarlans</h3>
             <p>Un dels sis arrossos i pastes de la carta, amb la paella de llamàntol.</p>
@@ -295,7 +300,8 @@
         </article>
 
         <article class="plat-targeta apareix">
-          <!-- FOTO REAL PENDENT: canelons de l'àvia gratinats. -->
+          <!-- FOTO REAL PENDENT: canelons de l'àvia.
+         Ara hi ha una imatge d'STOCK (Pexels). NO és un plat de la casa. -->
           <img src="assets/photo-plat-canelons.jpg" width="1000" height="750"
                alt="" loading="lazy" decoding="async">
           <div class="plat-targeta-cos">
