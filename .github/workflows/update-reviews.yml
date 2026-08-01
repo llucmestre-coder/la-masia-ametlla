@@ -1,0 +1,114 @@
+# ════════════════════════════════════════════════════════════════
+# Actualitza la valoració de Google (nota + nombre de ressenyes)
+# dues vegades al dia, consultant la Google Places API.
+#
+# ABANS D'ACTIVAR-LO calen dues coses:
+#
+#   1. PLACE_ID — l'identificador del negoci a Google Maps.
+#      Cerqueu "Restaurant La Masia L'Ametlla del Vallès" al Place ID
+#      Finder de Google i copieu-lo a la variable PLACE_ID de sota.
+#      https://developers.google.com/maps/documentation/places/web-service/place-id
+#
+#   2. GOOGLE_API_KEY — clau de Google Cloud amb la "Places API" activada.
+#      Es crea a console.cloud.google.com (cal compte amb facturació, però
+#      2 crides al dia entren de sobres al tram gratuït).
+#      Deseu-la al repositori: Settings → Secrets and variables →
+#      Actions → New repository secret → nom: GOOGLE_API_KEY
+#
+# Què fa: si la nota o el recompte han canviat, actualitza
+# data/reviews.json (que llegeix la web) i el JSON-LD d'index.html
+# (que llegeixen els cercadors), i fa el commit automàticament.
+# ════════════════════════════════════════════════════════════════
+
+name: Actualitza la valoració de Google
+
+on:
+  schedule:
+    - cron: '0 6,18 * * *'   # 6:00 i 18:00 UTC, cada dia
+  workflow_dispatch:          # permet executar-lo a mà des de la pestanya Actions
+
+env:
+  PLACE_ID: 'PENDENT_DE_CONFIGURAR'   # TODO: el Place ID real de La Masia
+
+jobs:
+  update-reviews:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Consulta la Places API i actualitza els fitxers
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+
+          const placeId = process.env.PLACE_ID;
+          const apiKey  = process.env.GOOGLE_API_KEY;
+
+          if (!apiKey || placeId === 'PENDENT_DE_CONFIGURAR') {
+            console.error('Falta GOOGLE_API_KEY (secret) o PLACE_ID (env del workflow).');
+            process.exit(1);
+          }
+
+          const url = 'https://maps.googleapis.com/maps/api/place/details/json'
+            + '?place_id=' + encodeURIComponent(placeId)
+            + '&fields=rating,user_ratings_total'
+            + '&key=' + apiKey;
+
+          fetch(url)
+            .then(r => r.json())
+            .then(data => {
+              if (data.status !== 'OK' || !data.result) {
+                console.error('La Places API ha respost: ' + data.status,
+                              data.error_message || '');
+                process.exit(1);
+              }
+
+              const rating = data.result.rating;
+              const count  = data.result.user_ratings_total;
+              if (typeof rating !== 'number' || typeof count !== 'number') {
+                console.error('Resposta sense rating/user_ratings_total.');
+                process.exit(1);
+              }
+
+              // 1) data/reviews.json — el llegeix la web al navegador
+              const jsonPath = 'data/reviews.json';
+              const actual   = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+              if (actual.rating === rating && actual.count === count) {
+                console.log('Sense canvis: ' + rating + ' / ' + count + ' ressenyes.');
+                return;
+              }
+              fs.writeFileSync(jsonPath, JSON.stringify({
+                rating: rating,
+                count: count,
+                source: 'Google Maps',
+                updated: new Date().toISOString().slice(0, 10)
+              }, null, 2) + '\n');
+
+              // 2) JSON-LD d'index.html — el llegeixen els cercadors
+              let html = fs.readFileSync('index.html', 'utf8');
+              html = html.replace(/"ratingValue":\s*"[^"]*"/, '"ratingValue": "' + rating + '"');
+              html = html.replace(/"reviewCount":\s*"[^"]*"/, '"reviewCount": "' + count + '"');
+              fs.writeFileSync('index.html', html);
+
+              console.log('Actualitzat: ' + rating + ' / ' + count + ' ressenyes.');
+            })
+            .catch(err => { console.error(err); process.exit(1); });
+          EOF
+
+      - name: Commit si hi ha canvis
+        run: |
+          if git diff --quiet; then
+            echo "Res per fer commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/reviews.json index.html
+            git commit -m "Actualitza la valoració de Google (automàtic)"
+            git push
+          fi
