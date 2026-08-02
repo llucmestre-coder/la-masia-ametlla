@@ -1,96 +1,37 @@
 {
-  "mostra": true,
+  "mostra": false,
   "_llegiu_aixo": [
     "AQUEST FITXER ÉS EL MENÚ DIARI QUE SURT A LA WEB.",
     "",
-    "'mostra': true vol dir que el que hi ha a sota són dades D'EXEMPLE i la",
-    "web ho ensenya amb un distintiu. Quan hi poseu els menús de debò,",
-    "canvieu-ho a false i el distintiu desapareix.",
+    "ARA MATEIX ESTÀ BUIT A PROPÒSIT: 'dies' no té res.",
+    "Mentre estigui així, la pàgina de la carta ensenya el text de sempre",
+    "—'Encara no hem publicat el menú' i el telèfon—, que és exactament el",
+    "que veurà qualsevol dia que no s'hi hagi posat el menú.",
     "",
-    "Els plats de l'exemple surten de la seva carta real, però la combinació",
-    "de cada dia se l'ha inventada la maqueta: no són els menús que van servir.",
+    "Abans hi havia cinc dies d'exemple. Els plats sortien de la seva carta,",
+    "però la combinació de cada dia se l'havia inventada la maqueta, i això",
+    "no s'ensenya a ningú com si fos el menú de la casa.",
     "",
-    "Com afegir un dia: copieu un bloc de 'dies', canvieu la data (any-mes-dia)",
-    "i els plats. Els dies passats es poden esborrar o deixar-hi.",
-    "Els dies que no n'hi hagi, la web ho diu i convida a trucar."
+    "COM POSAR-HI UN DIA",
+    "Afegiu un bloc dins de 'dies' amb aquesta forma:",
+    "  { \"data\": \"2026-08-03\",",
+    "    \"primers\":  [\"...\", \"...\"],",
+    "    \"segons\":   [\"...\", \"...\"],",
+    "    \"postres\":  [\"...\"] }",
+    "La data va en any-mes-dia. Els dies passats es poden esborrar o deixar.",
+    "",
+    "REGLA QUE NO ES NEGOCIA: mai el menú d'ahir. Si per a avui no n'hi ha,",
+    "la web NO ensenya el d'un altre dia: ensenya el telèfon. Ho fa sola.",
+    "",
+    "Quan el menú vingui d'un full de càlcul, aquest fitxer deixa de manar:",
+    "cal canviar la constant FONT de dalt de tot de js/menu-diari.js."
   ],
 
   "preu": null,
   "preu_nota": "Poseu-hi el preu quan el sapiguem, p. ex. \"16,50 €\". Si es deixa a null, la web no ensenya cap preu.",
   "quan": "De dilluns a divendres, al migdia",
   "inclou": "Pa, beguda i postres o cafè",
-  "actualitzat": "2026-08-01",
+  "actualitzat": "2026-08-02",
 
-  "dies": [
-    {
-      "data": "2026-08-03",
-      "primers": [
-        "Amanida de canonges amb mango, melmelada de maduixa, fruits secs i parmesà",
-        "Mongetes del ganxet saltejades amb carn de botifarra i bolets",
-        "Canelons de verdures amb beixamel gratinats"
-      ],
-      "segons": [
-        "Suprema de lluç del Cantàbric amb crema de porros",
-        "Botifarra de La Garriga a la brasa",
-        "Croquetes d'heura, pastanaga i shiitake"
-      ],
-      "postres": ["Postres de la casa o cafè"]
-    },
-    {
-      "data": "2026-08-04",
-      "primers": [
-        "Favetes amanides a la menta amb pernil",
-        "Verdures de temporada a la brasa amb romesco casolà",
-        "Macarrons a la bolonyesa gratinats"
-      ],
-      "segons": [
-        "Xipirons amb ceba i tomàquet",
-        "Magret d'ànec amb salsa de maduixes",
-        "Croquetes de verdures"
-      ],
-      "postres": ["Postres de la casa o cafè"]
-    },
-    {
-      "data": "2026-08-05",
-      "primers": [
-        "Carpaccio de tonyina amb ruca i soja",
-        "Les nostres croquetes de pernil",
-        "Canelons de l'àvia"
-      ],
-      "segons": [
-        "Pop amb crema de patata i oli de guindilla",
-        "Mitjanes i costella de xai a la brasa",
-        "Parmentier de patata amb xips de carxofa i oli de pernil"
-      ],
-      "postres": ["Postres de la casa o cafè"]
-    },
-    {
-      "data": "2026-08-06",
-      "primers": [
-        "Amanida de llagostins i favetes amb panses, pinyons i vinagreta de soja",
-        "Calamars a la romana",
-        "Fideuà"
-      ],
-      "segons": [
-        "Cloïsses a la marinera",
-        "Espatlla de cabrit rostida al forn",
-        "Croquetes de verdures"
-      ],
-      "postres": ["Postres de la casa o cafè"]
-    },
-    {
-      "data": "2026-08-07",
-      "primers": [
-        "Carpaccio de bacallà amb gelée de tomàquet i oli d'oliva negra",
-        "Xipirons fregits",
-        "Paella de peix i marisc"
-      ],
-      "segons": [
-        "Tonyina vermella saltejada amb verdures i soja",
-        "Filet de vedella amb salsa de tòfones",
-        "Canelons de verdures amb beixamel gratinats"
-      ],
-      "postres": ["Postres de la casa o cafè"]
-    }
-  ]
+  "dies": []
 }
