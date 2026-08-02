@@ -7,8 +7,14 @@ Vallès). **Sense build ni dependències**: s'obre fent doble clic a `index.html
 > resolució (tretes del seu web actual), tres són d'stock, i els formularis no
 > envien res enlloc. Vegeu «Què falta per publicar» al final.
 
-**Previsualització:** <https://llucmestre-coder.github.io/la-masia-ametlla/>
-(bloquejada als cercadors amb `robots.txt` mentre sigui una maqueta).
+**Per ensenyar-la:** <https://la-masia-ametlla.pages.dev>
+**Còpia tècnica:** <https://llucmestre-coder.github.io/la-masia-ametlla/>
+
+Totes dues surten d'aquest repo i **es redesplacen soles a cada push a `main`**.
+Estan bloquejades als cercadors amb `robots.txt` mentre sigui una maqueta.
+
+> Cloudflare serveix les URL sense extensió: `/carta.html` fa un salt cap a
+> `/carta`. Els enllaços del projecte porten `.html` i funcionen igual.
 
 ---
 
