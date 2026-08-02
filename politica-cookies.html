@@ -9,9 +9,12 @@
 <link rel="canonical" href="https://lamasiarestaurant.com/politica-cookies.html">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<!-- Les tipografies s'allotgen aquí mateix (assets/fonts/). La web no fa
+     cap petició a cap tercer per carregar-les: vegeu el capdamunt de
+     css/styles.css. Aquestes dues són les que es veuen de seguida, i per
+     això es demanen abans que el navegador arribi a llegir el CSS. -->
+<link rel="preload" href="assets/fonts/lato-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/petit-formal-script-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -75,16 +78,18 @@
 
     <h2>3. Contingut incrustat de tercers</h2>
     <p>
-      Algunes pàgines incrusten contingut de tercers que sí que pot instal·lar cookies
-      al vostre navegador quan es carrega:
+      Aquest web <strong>no carrega res de cap tercer pel seu compte</strong>. Les
+      tipografies, les imatges i els fulls d'estil se serveixen des d'aquest mateix
+      domini. En obrir qualsevol pàgina no s'envia cap dada vostra enlloc.
     </p>
-    <ul>
-      <li><strong>Google Maps</strong> (mapa d'«Com arribar»): cookies de Google per al
-        funcionament i les preferències del mapa. Més informació a
-        policies.google.com/technologies/cookies.</li>
-      <li><strong>Google Fonts</strong>: les tipografies del web es carreguen des dels
-        servidors de Google.</li>
-    </ul>
+    <p>
+      L'única excepció és el <strong>mapa de Google Maps</strong> de l'apartat
+      «Com arribar», i <strong>no es carrega sol</strong>: fins que no premeu el botó
+      «Carregar el mapa» no es fa cap petició a Google. Si el premeu, Google pot
+      instal·lar cookies al vostre navegador per al funcionament i les preferències
+      del mapa. Podeu consultar-ho a policies.google.com/technologies/cookies. Si
+      preferiu no fer-ho, al costat hi teniu l'adreça escrita.
+    </p>
     <p>
       Si seguiu els enllaços cap a Instagram, Facebook o Google Maps, aquests serveis
       apliquen les seves pròpies polítiques de cookies, alienes a aquest web.
@@ -92,9 +97,10 @@
 
     <h2>4. Com desactivar-les</h2>
     <p>
-      Podeu bloquejar o esborrar les cookies des de la configuració del vostre navegador
-      (Chrome, Firefox, Safari, Edge). Fer-ho pot afectar la visualització del mapa,
-      però no la resta del web.
+      Com que aquest web no n'instal·la cap, no hi ha res a desactivar. Si heu carregat
+      el mapa i voleu esborrar el que hagi deixat Google, podeu fer-ho des de la
+      configuració del vostre navegador (Chrome, Firefox, Safari, Edge). No afecta la
+      resta del web.
     </p>
 
     <h2>5. Canvis en aquesta política</h2>

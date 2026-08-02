@@ -20,9 +20,12 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<!-- Les tipografies s'allotgen aquí mateix (assets/fonts/). La web no fa
+     cap petició a cap tercer per carregar-les: vegeu el capdamunt de
+     css/styles.css. Aquestes dues són les que es veuen de seguida, i per
+     això es demanen abans que el navegador arribi a llegir el CSS. -->
+<link rel="preload" href="assets/fonts/lato-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/petit-formal-script-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
 
 <!-- JSON-LD: subtipus Restaurant (no LocalBusiness genèric), amb els camps
@@ -445,13 +448,25 @@
           </p>
         </div>
 
-        <div class="mapa apareix">
-          <!-- Mapa real per consulta d'adreça (mai coordenades inventades) -->
-          <iframe
-            src="https://maps.google.com/maps?q=Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s&output=embed"
-            width="600" height="420" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Mapa: Restaurant La Masia, carrer de la Torregassa 77, L'Ametlla del Vallès"></iframe>
+        <!-- El mapa no es carrega tot sol: vegeu el comentari llarg a
+             contacte.html i js/mapa.js. Resum: un iframe de Google deixa
+             galetes al navegador en carregar la pàgina, i aquesta web no
+             té cap avís de galetes. Fins que el visitant no prem, aquí no
+             hi ha cap petició a Google. -->
+        <div class="mapa mapa-tancat apareix"
+             data-mapa="https://maps.google.com/maps?q=Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s&amp;output=embed"
+             data-mapa-titol="Mapa: Restaurant La Masia, carrer de la Torregassa 77, L'Ametlla del Vallès">
+          <!-- FOTO DEL RESTAURANT (del seu web actual): l'entrada. -->
+          <img src="assets/photo-contacte-hero.jpg" alt="" width="1200" height="420"
+               loading="lazy" decoding="async">
+          <div class="mapa-avis">
+            <p class="mapa-adreca">Carrer de la Torregassa, 77 — L'Ametlla del Vallès</p>
+            <p class="mapa-nota">
+              El mapa el serveix Google. Si el carregueu, Google podrà posar
+              galetes al vostre navegador.
+            </p>
+            <button type="button" class="boto boto-principal mapa-boto">Carregar el mapa</button>
+          </div>
         </div>
       </div>
     </div>
@@ -520,5 +535,6 @@
 </a>
 
 <script src="js/main.js"></script>
+<script src="js/mapa.js"></script>
 </body>
 </html>
