@@ -169,13 +169,17 @@
     if (dades.preu) extres += '<span class="menu-preu">' + esc(dades.preu) + '</span>';
     if (dades.inclou) extres += '<span class="menu-inclou">' + esc(dades.inclou) + '</span>';
 
-    var avis = dades.mostra
-      ? '<p class="menu-exemple">Dades d\'exemple: aquests encara no són els menús ' +
-        'de la casa. Vegeu <code>data/menu-diari.json</code>.</p>'
-      : '';
+    /* "mostra": true vol dir que el que es pinta són menús d'exemple i no els
+       de la casa. Abans ho deia a la pàgina, però aquell avís parlava de
+       `data/menu-diari.json` i era per a nosaltres, no per a qui obre la web.
+       Ara només queda a la consola del navegador. COMPTE: això vol dir que un
+       menú d'exemple ja no es distingeix a simple vista d'un de real. Quan hi
+       entrin els menús de debò, posar "mostra": false. */
+    if (dades.mostra && window.console) {
+      window.console.info('[menú diari] Són dades D\'EXEMPLE. Vegeu data/menu-diari.json.');
+    }
 
     caixa.innerHTML =
-      avis +
       '<div class="menu-cap">' + cap + extres + '</div>' +
       '<div class="menu-plats">' +
         grup('Primers', dia.primers) +

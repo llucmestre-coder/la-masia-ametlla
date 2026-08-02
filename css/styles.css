@@ -676,17 +676,6 @@ p { text-wrap: pretty; }
 .menu-buit-tel { margin-top: var(--s-2); font-size: var(--t-md); color: var(--text); }
 .menu-buit-tel a { font-weight: 700; color: var(--taronja-text); }
 
-/* Distintiu mentre el JSON porti dades d'exemple */
-.menu-exemple {
-  background: #FFF4E8;
-  border-left: 3px solid var(--taronja);
-  padding: 0.6rem 0.9rem;
-  margin-bottom: var(--s-3);
-  font-size: var(--t-sm);
-  color: var(--text-suau);
-}
-.menu-exemple code { font-size: 0.9em; }
-
 .carta-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: var(--s-4); }
 .carta-nav a {
   font-size: var(--t-xs);
