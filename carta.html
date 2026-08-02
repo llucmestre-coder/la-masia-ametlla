@@ -111,78 +111,6 @@
 
   <div class="pagina">
 
-  <!-- ══ MENÚ DIARI I PER EMPORTAR ══════════════════════════════ -->
-  <section class="seccio">
-    <div class="envolt">
-      <div class="camins">
-        <article class="cami apareix">
-          <!-- FOTO DEL RESTAURANT (del seu web actual). -->
-          <img src="assets/photo-galeria-1.jpg" width="1000" height="750"
-               alt="Plat del menú diari de La Masia" loading="lazy" decoding="async">
-          <span class="sobretitol">Cada dia</span>
-          <h3>El menú diari</h3>
-          <p>
-            De dilluns a divendres al migdia. El publiquem aquí mateix, i també
-            a Instagram i a Facebook.
-          </p>
-          <span>
-            <a class="enllac-fletxa" href="#menu-del-dia">Veure el menú d'avui →</a>
-          </span>
-        </article>
-
-        <article class="cami apareix">
-          <!-- FOTO REAL PENDENT: una comanda per emportar de la casa.
-         Ara hi ha una imatge d'STOCK (Pexels). -->
-          <img src="assets/photo-galeria-3.jpg" width="1000" height="750"
-               alt="" loading="lazy" decoding="async">
-          <span class="sobretitol">Per emportar</span>
-          <h3>De dilluns a diumenge</h3>
-          <p>
-            Podeu endur-vos qualsevol plat de la carta i del menú diari.
-            Truqueu-nos amb una mica d'antelació i us ho tenim a punt.
-          </p>
-          <span><a class="enllac-fletxa" href="tel:+34938430002">Encarregar per telèfon →</a></span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ EL MENÚ DEL DIA ════════════════════════════════════════
-       Surt a la web, no en un enllaç a Instagram: qui el busca a
-       Google l'ha de poder trobar.
-
-       El contingut el pinta js/menu-diari.js a partir de
-       data/menu-diari.json. Per canviar el canal d'on surten les
-       dades (fitxer, full de càlcul de Google…) només s'ha de tocar
-       la constant FONT de dalt de tot d'aquell fitxer.
-  ═══════════════════════════════════════════════════════════════ -->
-  <section class="seccio seccio-gris" id="menu-del-dia">
-    <div class="envolt">
-      <div class="apareix">
-        <span class="sobretitol">Cada dia, de dilluns a divendres</span>
-        <h2 class="titol-seccio">El menú del dia</h2>
-      </div>
-
-      <!-- Sense JS o sense dades, aquí hi queda el text de sota, que ja
-           diu com assabentar-se'n. Mai una caixa buida. -->
-      <div class="menu-diari apareix" id="menu-diari" aria-live="polite">
-        <div class="menu-buit">
-          <p>Consulteu el menú d'avui trucant-nos o a les nostres xarxes.</p>
-          <p class="menu-buit-tel">
-            Truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>
-            i us diem què hi ha avui.
-          </p>
-        </div>
-      </div>
-
-      <p class="grup-botons">
-        <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
-        <a class="boto boto-contorn" href="https://www.instagram.com/lamasialametlla/"
-           target="_blank" rel="noopener">També a Instagram</a>
-      </p>
-    </div>
-  </section>
-
   <!-- ══ LA CARTA ═══════════════════════════════════════════════
        Els 47 plats i les 7 categories són EXACTAMENT els de la seva
        carta oficial (carta_2025_sense_preus.pdf). No n'hi ha cap
@@ -194,24 +122,26 @@
         <span class="sobretitol">Carta 2025</span>
         <h2 class="titol-seccio">Set apartats, quaranta-set plats</h2>
 
-        <div class="avis">
-          <span class="avis-icona avis-icona-neutra" aria-hidden="true">&#8364;</span>
-          <p>
-            <strong>La carta es publica sense preus</strong>, igual que la carta impresa
-            de la casa. Us els diem per telèfon o a taula. El rang habitual per persona
-            és de 20 a 60 €.
-          </p>
-        </div>
+        <!-- ── Filtres d'apartat ──────────────────────────────────
+             Amb JS, clicar un apartat NO baixa fins allà: deixa el
+             requadre marcat i amaga la resta de plats.
 
-        <nav class="carta-nav" aria-label="Apartats de la carta">
-          <a href="#menu-del-dia">Menú del dia</a>
-          <a href="#entrants-freds">Entrants freds</a>
-          <a href="#entrants-calents">Entrants calents</a>
-          <a href="#arrossos">Arrossos i pastes</a>
-          <a href="#temporada">De temporada</a>
-          <a href="#vegetarians">Vegetarians i vegans</a>
-          <a href="#peixos">Peixos</a>
-          <a href="#carns">Carns</a>
+             Continuen sent enllaços, no botons, perquè sense JS han de
+             seguir servint d'alguna cosa: llavors la pàgina mostra els
+             47 plats i cada enllaç hi baixa, com sempre.
+
+             "Tots els plats" no és decoració: sense ell, un cop filtres
+             ja no hi ha manera de tornar a veure la carta sencera.
+        ═══════════════════════════════════════════════════════════ -->
+        <nav class="carta-nav" id="carta-filtres" aria-label="Apartats de la carta">
+          <a href="#carta"             data-grup="tots">Tots els plats</a>
+          <a href="#entrants-freds"    data-grup="entrants-freds">Entrants freds</a>
+          <a href="#entrants-calents"  data-grup="entrants-calents">Entrants calents</a>
+          <a href="#arrossos"          data-grup="arrossos">Arrossos i pastes</a>
+          <a href="#temporada"         data-grup="temporada">De temporada</a>
+          <a href="#vegetarians"       data-grup="vegetarians">Vegetarians i vegans</a>
+          <a href="#peixos"            data-grup="peixos">Peixos</a>
+          <a href="#carns"             data-grup="carns">Carns</a>
         </nav>
       </div>
 
@@ -358,6 +288,84 @@
     </div>
   </section>
 
+  <!-- ══ MENÚ DIARI I PER EMPORTAR ══════════════════════════════
+       Va DESPRÉS de la carta: qui obre aquesta pàgina hi ve a veure
+       els plats, i el primer que ha de trobar són els plats.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio seccio-gris">
+    <div class="envolt">
+      <div class="camins">
+        <article class="cami apareix">
+          <!-- FOTO DEL RESTAURANT (del seu web actual). -->
+          <img src="assets/photo-galeria-1.jpg" width="1000" height="750"
+               alt="Plat del menú diari de La Masia" loading="lazy" decoding="async">
+          <span class="sobretitol">Cada dia</span>
+          <h3>El menú diari</h3>
+          <p>
+            De dilluns a divendres al migdia. El publiquem aquí mateix, i també
+            a Instagram i a Facebook.
+          </p>
+          <span>
+            <a class="enllac-fletxa" href="#menu-del-dia">Veure el menú d'avui →</a>
+          </span>
+        </article>
+
+        <article class="cami apareix">
+          <!-- FOTO REAL PENDENT: una comanda per emportar de la casa.
+         Ara hi ha una imatge d'STOCK (Pexels). -->
+          <img src="assets/photo-galeria-3.jpg" width="1000" height="750"
+               alt="" loading="lazy" decoding="async">
+          <span class="sobretitol">Per emportar</span>
+          <h3>De dilluns a diumenge</h3>
+          <p>
+            Podeu endur-vos qualsevol plat de la carta i del menú diari.
+            Truqueu-nos amb una mica d'antelació i us ho tenim a punt.
+          </p>
+          <span><a class="enllac-fletxa" href="tel:+34938430002">Encarregar per telèfon →</a></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EL MENÚ DEL DIA ════════════════════════════════════════
+       Surt a la web, no en un enllaç a Instagram: qui el busca a
+       Google l'ha de poder trobar.
+
+       El contingut el pinta js/menu-diari.js a partir de
+       data/menu-diari.json. Per canviar el canal d'on surten les
+       dades (fitxer, full de càlcul de Google…) només s'ha de tocar
+       la constant FONT de dalt de tot d'aquell fitxer.
+
+       Va en secció blanca perquè la de sobre és grisa: dues seccions
+       grises seguides no tenen filet que les separi i queden encolades.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio" id="menu-del-dia">
+    <div class="envolt">
+      <div class="apareix">
+        <span class="sobretitol">Cada dia, de dilluns a divendres</span>
+        <h2 class="titol-seccio">El menú del dia</h2>
+      </div>
+
+      <!-- Sense JS o sense dades, aquí hi queda el text de sota, que ja
+           diu com assabentar-se'n. Mai una caixa buida. -->
+      <div class="menu-diari apareix" id="menu-diari" aria-live="polite">
+        <div class="menu-buit">
+          <p>Consulteu el menú d'avui trucant-nos o a les nostres xarxes.</p>
+          <p class="menu-buit-tel">
+            Truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>
+            i us diem què hi ha avui.
+          </p>
+        </div>
+      </div>
+
+      <p class="grup-botons">
+        <a class="boto boto-principal" href="tel:+34938430002">Reservar taula</a>
+        <a class="boto boto-contorn" href="https://www.instagram.com/lamasialametlla/"
+           target="_blank" rel="noopener">També a Instagram</a>
+      </p>
+    </div>
+  </section>
+
   <!-- ══ CAP A CELEBRACIONS ═════════════════════════════════════ -->
   <section class="seccio seccio-gris">
     <div class="envolt">
@@ -430,5 +438,6 @@
 
 <script src="js/main.js"></script>
 <script src="js/menu-diari.js"></script>
+<script src="js/carta-filtres.js"></script>
 </body>
 </html>

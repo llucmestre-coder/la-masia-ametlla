@@ -617,7 +617,6 @@ p { text-wrap: pretty; }
   text-align: center;
   margin-top: 0.1rem;
 }
-.avis-icona-neutra { background: var(--gris-cap-baix); color: var(--blanc); }
 
 /* ═══ MENÚ DEL DIA ══════════════════════════════════════════════
    El pinta js/menu-diari.js. Sense JS o sense dades hi queda el text
@@ -701,7 +700,31 @@ p { text-wrap: pretty; }
 }
 .carta-nav a:hover { background: var(--gris-cap-baix); border-color: var(--gris-cap-baix); color: var(--blanc); }
 
+/* Amb JS la fila d'apartats deixa de ser un índex i passa a ser un
+   filtre: el que es tria es queda marcat. Es marca amb el taronja i no
+   amb el gris del :hover perquè "on tinc el ratolí" i "què estic
+   mirant ara" no poden semblar la mateixa cosa.
+   Text #1C1C1C sobre #FF4F00 = 6,7:1, el mateix parell que ja fa
+   servir el preu del menú del dia. */
+.js-filtre-carta .carta-nav a.es-actiu,
+.js-filtre-carta .carta-nav a.es-actiu:hover {
+  background: var(--taronja);
+  border-color: var(--taronja);
+  color: var(--text);
+}
+
+/* Apartat amagat pel filtre. Explícit: `hidden` és fàcil de perdre si
+   algun dia aquest bloc rep un `display`. */
+.carta-grup[hidden] { display: none; }
+
 .carta-grup + .carta-grup { margin-top: var(--s-6); }
+/* `+` mira el germà del DOM, no el que es veu: amb el filtre posat,
+   l'apartat visible hereta el marge de separació d'un veí amagat i
+   queda penjat molt avall dels botons. Un apartat que queda sol ha de
+   separar-se dels botons igual que ho fa el primer de la llista amb
+   "Tots els plats" (var(--s-5)), no més ni menys: si no, el text
+   fa un salt de 16 px cada cop que es canvia de filtre. */
+.js-filtre-carta .carta-grup[hidden] + .carta-grup { margin-top: var(--s-5); }
 .carta-grup-cap {
   display: flex;
   align-items: baseline;
@@ -1141,4 +1164,11 @@ input[type="range"] {
   .nav, .menu-mobil, .truca-flotant, .peu, .cap-pagina, .carta-nav, .hero { display: none; }
   body { background: #fff; }
   .plats { columns: 2; }
+
+  /* En paper no hi ha filtre: la fila de botons no s'imprimeix, així que
+     si algú imprimís amb un apartat triat només en sortiria aquell i es
+     perdrien 40 plats sense saber-ho. Al full hi va sempre la carta
+     sencera, amb la separació normal entre apartats. */
+  .carta-grup[hidden] { display: block; }
+  .js-filtre-carta .carta-grup[hidden] + .carta-grup { margin-top: var(--s-6); }
 }
