@@ -762,6 +762,18 @@ p { text-wrap: pretty; }
 .plat-targeta h3 { font-size: var(--t-md); color: var(--text-titol); }
 .plat-targeta p { font-size: var(--t-sm); color: var(--text-suau); margin-top: 0.7rem; }
 
+/* Variant sense fotografia, mentre no tinguem les fotos de la casa.
+   Una caixa amb quatre filets grisos i només text queda fluixa; el filet
+   taronja de dalt és el mateix recurs que ja fan servir el cercador
+   d'espais i el menú del dia, i lliga el bloc amb la resta de la pàgina.
+   L'alçada mínima les manté iguals i els dona presència. */
+.plats-destacats-text .plat-targeta {
+  border-top: 4px solid var(--taronja);
+  display: flex;
+  align-items: center;
+  min-height: 9rem;
+}
+
 /* ═══ ESPAIS I CERCADOR ═════════════════════════════════════════ */
 
 .cercador { border: 1px solid var(--vora); border-top: 4px solid var(--taronja); padding: var(--s-4); background: var(--blanc); }
