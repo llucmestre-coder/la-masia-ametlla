@@ -210,7 +210,7 @@
                            !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(camp.value);
         if (buit || correuDolent) {
           mostraError(camp, buit ? 'Aquest camp és obligatori'
-                                 : 'Reviseu l’adreça de correu');
+                                 : "Reviseu l'adreça de correu");
           if (!primerFallat) primerFallat = camp;
         }
       });
@@ -278,8 +278,8 @@
       form.insertBefore(n, form.querySelector('.grup-botons'));
     }
     n.innerHTML = '<strong>Maqueta:</strong> aquest formulari encara no està ' +
-                  'connectat i no s’enviaria enlloc. Cal posar l’identificador ' +
-                  'de Formspree a l’<code>action</code>. Mentrestant, el telèfon ' +
+                  "connectat i no s'enviaria enlloc. Cal posar l'identificador " +
+                  "de Formspree a l'<code>action</code>. Mentrestant, el telèfon " +
                   'de la casa és el <a href="tel:+34938430002">938 43 00 02</a>.';
     n.scrollIntoView({ block: 'nearest' });
     if (window.console) {

@@ -52,7 +52,7 @@
   }
 
   function fontFullDeCalcul() {
-    if (!FULL_CALCUL) return Promise.reject(new Error('Falta l’URL del full'));
+    if (!FULL_CALCUL) return Promise.reject(new Error("Falta l'URL del full"));
     return fetch(FULL_CALCUL, { cache: 'no-cache' })
       .then(function (r) { return r.text(); })
       .then(function (csv) {
@@ -112,7 +112,7 @@
     var d = new Date(Number(t[0]), Number(t[1]) - 1, Number(t[2]));
     var mes = MESOS[d.getMonth()];
     /* Apostrofació: d'abril, d'agost, d'octubre — no "de abril" */
-    var de = /^[aeiouàèéíòóú]/i.test(mes) ? 'd’' : 'de ';
+    var de = /^[aeiouàèéíòóú]/i.test(mes) ? "d'" : 'de ';
     return DIES[d.getDay()] + ' ' + d.getDate() + ' ' + de + mes;
   }
 
@@ -157,7 +157,7 @@
     if (!dia) dia = dies.filter(function (d) { return d.data > avui; })[0];
 
     if (!dia) {
-      senseMenu('El menú d’aquesta setmana ja ha passat i encara no hem penjat el de la setmana vinent.');
+      senseMenu("El menú d'aquesta setmana ja ha passat i encara no hem penjat el de la setmana vinent.");
       return;
     }
 
@@ -170,7 +170,7 @@
     if (dades.inclou) extres += '<span class="menu-inclou">' + esc(dades.inclou) + '</span>';
 
     var avis = dades.mostra
-      ? '<p class="menu-exemple">Dades d’exemple: aquests encara no són els menús ' +
+      ? '<p class="menu-exemple">Dades d\'exemple: aquests encara no són els menús ' +
         'de la casa. Vegeu <code>data/menu-diari.json</code>.</p>'
       : '';
 
