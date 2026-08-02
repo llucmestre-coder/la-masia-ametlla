@@ -3,18 +3,60 @@
 Web estàtica per al Restaurant La Masia (carrer de la Torregassa, 77 — L'Ametlla del
 Vallès). **Sense build ni dependències**: s'obre fent doble clic a `index.html`.
 
-> ⚠️ **Aquesta versió és una maqueta.** Les fotografies són seves però de poca
-> resolució (tretes del seu web actual), tres són d'stock, i els formularis no
-> envien res enlloc. Vegeu «Què falta per publicar» al final.
+> ⚠️ **Aquesta versió és una maqueta.** Totes les fotografies són seves, però de
+> poca resolució (tretes del seu web actual) i en falten tres de plats. Els
+> formularis no envien res enlloc i els legals tenen els camps fiscals buits.
+> Vegeu «Què falta per publicar» al final.
 
 **Per ensenyar-la:** <https://la-masia-ametlla.pages.dev>
 **Còpia tècnica:** <https://llucmestre-coder.github.io/la-masia-ametlla/>
 
 Totes dues surten d'aquest repo i **es redesplacen soles a cada push a `main`**.
-Estan bloquejades als cercadors amb `robots.txt` mentre sigui una maqueta.
 
 > Cloudflare serveix les URL sense extensió: `/carta.html` fa un salt cap a
 > `/carta`. Els enllaços del projecte porten `.html` i funcionen igual.
+
+---
+
+## 🚫 LLEGIU AIXÒ ABANS DE PUBLICAR AL DOMINI REAL
+
+A l'arrel del projecte hi ha un fitxer **`robots.txt`** que diu això:
+
+```
+User-agent: *
+Disallow: /
+```
+
+Traduït: **cap cercador ha d'indexar aquesta web**. Hi és a posta, i ara mateix
+ha de continuar-hi. Però **el dia que la web passi a `lamasiarestaurant.com`,
+aquest fitxer s'ha d'esborrar** o la web nova no sortirà mai a Google.
+
+És l'error més car de tots perquè **no dona cap senyal**: no peta res, la web es
+veu perfecta, simplement no hi arriba ningú. Es pot trigar setmanes a notar-ho.
+
+**Per què hi és ara**
+
+1. Les fotografies encara no són les definitives.
+2. I la de pes: totes les pàgines porten `<link rel="canonical">` apuntant a
+   `lamasiarestaurant.com`, que **és viva**. Si un cercador indexés aquesta
+   còpia, hi hauria **dues webs del mateix restaurant competint** als resultats,
+   i la maqueta podria sortir per davant de la seva de debò.
+
+**Quan es pot treure** — quan es donin les tres coses alhora:
+
+- [ ] El client ha dit que sí.
+- [ ] Els camps buits estan omplerts (`[RAÓ SOCIAL]`, `[NIF]`, `XXXXXXXX`…).
+- [ ] La web va al seu domini, i llavors els canonicals ja apunten a ella mateixa.
+
+Llavors: esborrar `robots.txt`, pujar, i demanar la indexació a Search Console
+perquè no trigui setmanes a entrar-hi.
+
+> ℹ️ `robots.txt` **no és seguretat**. És públic —qualsevol el pot llegir a
+> `/robots.txt`— i és una petició, no un pany: els robots seriosos l'obeeixen i
+> els que rasclen dades, no. Tampoc impedeix que ningú obri l'enllaç: **la web
+> es pot ensenyar al client igual, amb el fitxer posat**. Per mantenir una
+> pàgina concreta fora de l'índex, el que val és `<meta name="robots"
+> content="noindex">` dins de la pàgina; els tres legals ja el porten.
 
 ---
 
@@ -30,7 +72,13 @@ Estan bloquejades als cercadors amb `robots.txt` mentre sigui una maqueta.
 | `css/styles.css` | Tot l'estil. Els colors i les mides surten dels tokens de `:root` |
 | `js/main.js` | Nav, menú mòbil, revelacions, valoració de Google, formularis |
 | `js/espais.js` | El cercador d'espai de `celebracions.html` |
+| `js/carta-filtres.js` | Els apartats de la carta, que filtren en comptes de baixar-hi |
+| `js/menu-diari.js` | El menú del dia de `carta.html` |
+| `js/mapa.js` | El mapa, que no es carrega fins que es prem el botó |
+| `assets/fonts/` | Les tipografies, allotjades aquí. **No esborreu les llicències** |
 | `data/reviews.json` | Valoració de Google (l'actualitza sol el workflow) |
+| `data/menu-diari.json` | El menú del dia. **Ara és buit a posta**: vegeu «El menú del dia» |
+| `robots.txt` | Bloqueja els cercadors mentre sigui maqueta. **Vegeu el bloc de dalt** |
 | `PLA.md` | Document intern amb les decisions de disseny (no es publica) |
 
 ---
@@ -80,9 +128,8 @@ Són directament dins de cada `.html`. Estan en català.
 ### Les fotografies
 
 Totes són a `assets/` i es diuen `photo-*.jpg`. Cada una porta a sobre un comentari
-que diu **d'on surt**: `FOTO DEL RESTAURANT` (seva) o `FOTO REAL PENDENT` (stock,
-per substituir). Per canviar-ne una: deseu la nova amb el mateix nom i les mateixes
-proporcions. Detall complet a «Les fotografies», més avall.
+`FOTO DEL RESTAURANT` que diu d'on surt. Per canviar-ne una: deseu la nova amb el
+mateix nom i les mateixes proporcions. Detall complet a «Les fotografies», més avall.
 
 ### El telèfon i l'adreça
 
@@ -90,28 +137,56 @@ Cerqueu `938430002` i `Torregassa` a tots els `.html`.
 
 ### El mapa
 
-Els mapes fan servir una consulta d'adreça, no coordenades:
-`https://maps.google.com/maps?q=ADREÇA&output=embed`. Si canvia l'adreça, canvieu el
-text de la consulta i prou.
+**No es carrega sol.** Fins que el visitant no prem «Carregar el mapa», la pàgina
+no fa cap petició a Google. És a posta: un iframe de Maps deixa galetes en carregar
+la pàgina, i aquesta web no té cap avís de galetes. Ho munta `js/mapa.js` llegint
+l'atribut `data-mapa` del bloc.
+
+L'adreça va com a consulta, no com a coordenades. Si canvia, canvieu el text de
+dins de `data-mapa` i prou.
+
+### Les tipografies
+
+**S'allotgen aquí** (`assets/fonts/`, sis fitxers, 107 KB). La web no demana res
+a Google. Lato i Petit Formal Script són SIL Open Font License: es poden allotjar,
+i **les llicències del costat no s'han d'esborrar** — és la condició que posa.
+
+### La icona de la pestanya
+
+És **la seva**: la mateixa fotografia de la façana i el mateix enquadrament que
+el favicon de `lamasiarestaurant.com`, però des de l'original en alta.
+`favicon.ico` (16/32/48), `favicon.png` (192) i `apple-touch-icon.png` (180).
 
 ---
 
 ## Les fotografies
 
-**11 de les 14 són del restaurant**: baixades del seu web actual i retallades al
-format que toca. Són el seu local, els seus salons i els seus plats de debò.
+**Les 11 que hi ha són totes del restaurant**, baixades del seu web actual i
+retallades al format que toca. Són el seu local, els seus salons i els seus
+plats de debò. **No queda cap foto d'stock** (2/08/2026).
 
-**3 són d'stock** (Pexels, lliures d'ús) perquè d'aquells plats no en tenien cap.
-Totes tres estan marcades al codi amb `<!-- FOTO REAL PENDENT: … -->`:
+N'hi havia tres, i es van treure i esborrar. Dues eren enganyoses: la de
+«Canelons de l'àvia» ensenyava uns canelons amb salsa de tomàquet quan els de
+l'àvia van gratinats amb beixamel —ho diu el text de la targeta mateixa— i
+qualsevol de la casa ho hauria vist de seguida.
 
-| Fitxer | Què hi ha ara | Què hi ha d'anar |
-|---|---|---|
-| `photo-plat-roca.jpg` | Stock: filet amb bolets | El seu filet de vedella a l'estil Roca |
-| `photo-plat-canelons.jpg` | Stock: canelons gratinats | Els seus canelons de l'àvia |
-| `photo-galeria-3.jpg` | Stock: menjar per emportar | Una comanda per emportar de la casa |
+**El que falta: tres fotos de plats.** Mentre no arribin, el bloc «Tres plats
+que ens demanen sempre» de l'inici **va sense cap fotografia, a propòsit**: de
+tres només en teníem una de real i amb una targeta amb foto i dues sense el
+bloc quedava coix.
 
-> Cerqueu `FOTO REAL PENDENT` al projecte per trobar-les. Les seves porten
-> `FOTO DEL RESTAURANT` amb la nota corresponent.
+| On | Què hi ha d'anar |
+|---|---|
+| `index.html`, bloc «Tres plats» | El seu **filet de vedella a l'estil Roca** (el que més surt a les seves ressenyes) |
+| `index.html`, bloc «Tres plats» | Els seus **canelons de l'àvia** |
+| `carta.html`, targeta «Per emportar» | Una **comanda per emportar** de la casa. Ara hi ha la seva paella, que encaixa però no és el que la targeta ven |
+
+> No cal cap sessió de fotos per a això: un plat ben parat, llum de finestra i
+> el mòbil. Per tornar-hi les imatges, afegiu un `<img>` de 1000×750 a cada
+> targeta i traieu la classe `plats-destacats-text` del contenidor.
+
+> Cerqueu `FOTO DEL RESTAURANT` al projecte: cada imatge porta a sobre un
+> comentari que diu d'on surt.
 
 ### Què convé demanar-los
 
@@ -141,6 +216,15 @@ enllaç a Instagram. Això és el que buscarà la gent del poble a Google.
 
 - Les dades: `data/menu-diari.json`
 - Qui el pinta: `js/menu-diari.js`
+
+> ⚠️ **Ara mateix el fitxer és buit a posta**, i per això la web hi diu «Encara
+> no hem publicat el menú» amb el telèfon. Hi havia cinc dies d'exemple: els
+> plats eren de la seva carta, però la combinació de cada dia se l'havia
+> inventada la maqueta, i això no s'ensenya com si fos el menú de la casa.
+>
+> El forat és, de fet, la millor demostració del sistema: se'ls pot ensenyar i
+> dir-los «aquí hi anirà el vostre, i el dia que no n'hi hagi surt això —**mai
+> el d'ahir**».
 
 ### Com s'actualitza
 
@@ -268,7 +352,11 @@ El camp **saló** és un desplegable que depèn dels comensals:
 
 ## Què falta per publicar
 
-- [ ] Substituir les 3 fotos d'stock per fotos de la casa (`FOTO REAL PENDENT`)
+- [x] ~~Treure les 3 fotos d'stock~~ — fetes fora i esborrades (2/08/2026).
+      Ara totes les imatges de la web són seves
+- [ ] ⭐ **Les 3 fotos de plats**: filet a l'estil Roca, canelons de l'àvia i
+      una comanda per emportar. Són tres fotos de mòbil i omplen el bloc «Tres
+      plats» de l'inici, que ara va sense imatge
 - [ ] Demanar-los els originals a més resolució, sobretot el de la façana
 - [ ] Confirmar quina sala és cadascuna de les quatre fotos de salons
 - [ ] Confirmar amb la casa què vol dir l'espiga barrada de la carta
@@ -283,8 +371,9 @@ El camp **saló** és un desplegable que depèn dels comensals:
 - [ ] *(Opcional)* Si volen la seva Lucida Calligraphy exacta a tot arreu, cal
       comprar-ne la llicència web. Ara s'usa Petit Formal Script, que s'hi
       assembla molt i no costa res
-- [ ] **Esborrar `robots.txt`** en publicar al domini real, o la web no
-      s'indexarà mai
+- [ ] 🚫 **Esborrar `robots.txt`** en publicar al domini real, o la web **no
+      s'indexarà mai** i no ho notarà ningú. Vegeu el bloc del capdamunt
+      d'aquest fitxer
 
 ---
 
