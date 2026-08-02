@@ -517,20 +517,21 @@ p { text-wrap: pretty; }
   text-align: center;
 }
 .banda-fets li:last-child { border-right: 0; }
-.fet-xifra {
-  display: block;
-  font-family: var(--titols);
-  font-size: var(--t-lg);
-  color: var(--taronja-logo);
-  line-height: 1.2;
-}
+/* L'etiqueta va a dalt i la xifra a sota, com a totes les cel·les */
 .fet-etiqueta {
   display: block;
   font-size: var(--t-xs);
   text-transform: uppercase;
   letter-spacing: 0.11em;
   color: var(--text-clar);
-  margin-top: 0.35rem;
+}
+.fet-xifra {
+  display: block;
+  font-family: var(--titols);
+  font-size: var(--t-lg);
+  color: var(--taronja-logo);
+  line-height: 1.2;
+  margin-top: 0.4rem;
 }
 
 /* ═══ ELS DOS CAMINS ════════════════════════════════════════════ */
