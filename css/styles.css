@@ -681,6 +681,32 @@ p { text-wrap: pretty; }
 .truca-flotant:hover { background: var(--taronja-logo); }
 .truca-flotant svg { width: 19px; height: 19px; fill: currentColor; flex-shrink: 0; }
 
+/* ── S'APARTA MENTRE ES BAIXA ────────────────────────────────────
+   És un botó fix i, per definició, sempre tapa alguna cosa: al mòbil
+   li queia damunt del titular «Seixanta-nou anys a la mateixa casa».
+   Ara s'aparta quan es baixa —que és quan s'està llegint— i torna
+   quan es puja, que és quan s'està buscant on prémer.
+
+   La classe la posa js/main.js. Si el JS no arrenca, el botó es queda
+   visible sempre, que és com estava: no es perd res.
+
+   `pointer-events: none` mentre és fora, o es podria prémer un botó
+   que no es veu. I si el focus del teclat hi arriba, torna a la vista
+   sigui quin sigui l'estat: un control enfocat s'ha de veure. */
+.truca-flotant {
+  transition: background 0.2s ease, transform 0.28s ease, opacity 0.28s ease;
+}
+.truca-flotant.amagat {
+  transform: translateY(calc(100% + var(--s-3)));
+  opacity: 0;
+  pointer-events: none;
+}
+.truca-flotant.amagat:focus-visible {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* ═══ HERO ══════════════════════════════════════════════════════
    La façana a tota pantalla. El taronja NO fa de fons: com a fons
    competeix amb la fotografia i se'n menja el protagonisme. Queda

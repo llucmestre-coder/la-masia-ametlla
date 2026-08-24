@@ -332,4 +332,58 @@
   document.querySelectorAll('[data-any]').forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
   });
+
+  /* ── 7. El botó flotant s'aparta mentre es baixa ─────────────
+     Un botó fix sempre tapa alguna cosa: al mòbil li queia damunt dels
+     titulars. S'amaga quan es baixa —que és quan s'està llegint— i
+     torna quan es puja, que és quan s'està buscant on prémer.
+
+     Millora progressiva: tot això només posa i treu una classe. Si
+     aquest bloc no s'executa, el botó es queda visible sempre, que és
+     com estava.                                                    */
+
+  (function botoFlotant() {
+    var boto = document.querySelector('.truca-flotant');
+    if (!boto) return;
+
+    /* Per sota d'aquesta alçada no s'amaga mai. Amagar-lo als primers
+       píxels es llegiria com un parpelleig, i just a dalt és on la gent
+       encara no ha decidit res. */
+    var DES_DE   = 220;
+    /* Els dits fan micro-moviments en llegir; sense marge, el botó
+       aniria i vindria tota l'estona. */
+    var LLINDAR  = 8;
+
+    var ultim = window.pageYOffset;
+    var demanat = false;
+
+    function mira() {
+      demanat = false;
+      var ara = window.pageYOffset;
+      var salt = ara - ultim;
+
+      if (Math.abs(salt) < LLINDAR) return;
+      ultim = ara;
+
+      boto.classList.toggle('amagat', salt > 0 && ara > DES_DE);
+    }
+
+    /* `passive: true`: aquest oient no atura mai el desplaçament, i
+       dir-ho deixa que el navegador no l'hagi d'esperar.
+       El `requestAnimationFrame` fa que la feina es faci un cop per
+       fotograma i no a cada esdeveniment, que en són desenes. */
+    window.addEventListener('scroll', function () {
+      if (demanat) return;
+      demanat = true;
+      window.requestAnimationFrame(mira);
+    }, { passive: true });
+
+    /* Si s'hi arriba amb el tabulador mentre és fora, ha de tornar:
+       el CSS ja el mostra amb :focus-visible, però convé que l'estat
+       quedi net perquè el següent desplaçament no el faci saltar. */
+    boto.addEventListener('focus', function () {
+      boto.classList.remove('amagat');
+      ultim = window.pageYOffset;
+    });
+  })();
 })();
