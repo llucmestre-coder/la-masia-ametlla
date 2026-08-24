@@ -758,8 +758,7 @@ window.TRAD = {
     'De dilluns a dissabte de 9:00 a 00:00 i diumenge de 9:00 a 18:00.':
       'De lunes a sábado de 9:00 a 00:00 y domingo de 9:00 a 18:00.',
 
-    /* -- Contacte -- */
-    'Veure el mapa': 'Ver el mapa',  },
+  },
 
   /* ═══════════════════════════════════════════════════════════════
      ANGLÈS
@@ -1448,9 +1447,6 @@ window.TRAD = {
       'Orders are taken by phone. Call us a little ahead — half an hour for one dish, longer if there are a few of you — and we will have it ready.',
     'De dilluns a dissabte de 9:00 a 00:00 i diumenge de 9:00 a 18:00.':
       'Monday to Saturday 9:00 to 00:00, and Sunday 9:00 to 18:00.',
-
-    /* -- Contacte -- */
-    'Veure el mapa': 'See the map',
   }
 };
 

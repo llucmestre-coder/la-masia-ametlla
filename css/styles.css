@@ -749,7 +749,19 @@ p { text-wrap: pretty; }
 /* ═══ BANDA DE FETS ═════════════════════════════════════════════ */
 
 .banda-fets { background: var(--gris-cap-baix); color: var(--blanc); }
-.banda-fets ul { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); }
+/* ⚠️ `minmax(0, 1fr)` I NO `1fr`. Una pista `1fr` té `min-width: auto`, i
+   això vol dir que NO baixa mai per sota de la paraula més llarga que hi
+   ha a dins. En una pantalla estreta —o amb la mida de lletra ampliada,
+   que molta gent porta activada al mòbil— «diumenge» i «ressenyes», amb
+   el seu `letter-spacing`, estiraven la cel·la, la pàgina es feia més
+   ampla que la finestra i el `overflow-x: hidden` del body es menjava la
+   columna de la dreta. Es veia com a text tallat pel costat.
+   Comprovat a 390 px amb la lletra a 1,5×: 405 px de document abans, 390
+   després. */
+.banda-fets ul { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+/* I si tot i així una paraula no hi cap, que es parteixi en comptes
+   d'empènyer: val més un guionet que perdre mitja cel·la. */
+.fet-etiqueta, .fet-xifra { overflow-wrap: break-word; }
 .banda-fets li {
   padding: var(--s-4) var(--s-3);
   border-right: 1px solid var(--vora-fosca);
@@ -775,7 +787,7 @@ p { text-wrap: pretty; }
 
 /* ═══ ELS DOS CAMINS ════════════════════════════════════════════ */
 
-.camins { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.camins { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-3); }
 .cami {
   position: relative;
   display: flex;
@@ -817,7 +829,7 @@ p { text-wrap: pretty; }
 
 /* Només l'usa la-casa.html (#qui-som). A la portada aquest bloc s'ha
    substituït per `.porta`. */
-.historia { display: grid; grid-template-columns: 0.9fr 1fr; gap: var(--s-5); align-items: center; }
+.historia { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); gap: var(--s-5); align-items: center; }
 /* `aspect-ratio` i no l'alçada natural: la fotografia d'aquesta columna
    ha canviat un cop ja (de vertical a apaïsada) i, sense retall fixat,
    canviar-la torna a descompensar la fila. Amb 4:3 el bloc es manté
@@ -827,7 +839,7 @@ p { text-wrap: pretty; }
 .historia-cos p + p { margin-top: var(--s-2); }
 .historia-cos .grup-botons { margin-top: var(--s-4); }
 
-.valors { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
+.valors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-4); }
 .valor { border-top: 3px solid var(--taronja); padding-top: var(--s-2); }
 .valor strong { display: block; font-size: var(--t-md); color: var(--text-titol); }
 .valor span { font-size: var(--t-sm); color: var(--text-suau); }
@@ -961,7 +973,7 @@ p { text-wrap: pretty; }
 }
 .menu-inclou { font-size: var(--t-sm); color: var(--text-suau); }
 
-.menu-plats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); }
+.menu-plats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
 .menu-grup h3 {
   font-family: var(--cos);
   font-weight: 700;
@@ -991,7 +1003,7 @@ p { text-wrap: pretty; }
 
 .emportar {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: var(--s-5);
   align-items: start;
 }
@@ -1004,7 +1016,7 @@ p { text-wrap: pretty; }
 .emportar-passos li {
   counter-increment: pas;
   display: grid;
-  grid-template-columns: 2.6rem 1fr;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
   column-gap: var(--s-2);
   row-gap: 0.2rem;
   align-items: start;
@@ -1083,8 +1095,12 @@ p { text-wrap: pretty; }
    "Tots els plats" (var(--s-5)), no més ni menys: si no, el text
    fa un salt de 16 px cada cop que es canvia de filtre. */
 .js-filtre-carta .carta-grup[hidden] + .carta-grup { margin-top: var(--s-5); }
+/* `flex-wrap: wrap` perquè el recompte («7 plats») porta `nowrap` i, quan
+   el títol de l'apartat s'allarga —en castellà, o amb la lletra ampliada—,
+   sense poder baixar de línia empenyia la pàgina més enllà de la finestra. */
 .carta-grup-cap {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: var(--s-2);
   border-bottom: 2px solid var(--taronja);
@@ -1123,7 +1139,7 @@ p { text-wrap: pretty; }
   white-space: nowrap;
 }
 
-.plats-destacats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); }
+.plats-destacats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); }
 .plat-targeta { border: 1px solid var(--vora); transition: box-shadow 0.2s ease; }
 .plat-targeta:hover { box-shadow: var(--ombra-up); }
 .plat-targeta img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
@@ -1146,7 +1162,7 @@ p { text-wrap: pretty; }
 /* ═══ ESPAIS I CERCADOR ═════════════════════════════════════════ */
 
 .cercador { border: 1px solid var(--vora); border-top: 4px solid var(--taronja); padding: var(--s-4); background: var(--blanc); }
-.cercador-controls { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.cercador-controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-4); }
 
 .camp-rang label,
 .camp-tipus legend {
@@ -1194,7 +1210,7 @@ input[type="range"] {
 /* El formulari de pressupost, just sota el cercador */
 .pressupost-bloc {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--s-5);
   align-items: start;
 }
@@ -1212,7 +1228,7 @@ input[type="range"] {
 .tanca-crida > div > * + * { margin-top: 0; }
 .tanca-crida .grup-botons { margin: 0; }
 
-.sales { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
+.sales { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-4); }
 .sala {
   display: flex;
   flex-direction: column;
@@ -1241,7 +1257,7 @@ input[type="range"] {
 
 .galeria {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--s-3);
 }
 .galeria figure { display: flex; flex-direction: column; }
@@ -1373,7 +1389,7 @@ input[type="range"] {
 .espais-llista { display: grid; gap: var(--s-5); }
 .espai {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--s-4);
   align-items: center;
 }
@@ -1407,7 +1423,7 @@ input[type="range"] {
 .nota-estrelles { color: var(--taronja-text); letter-spacing: 0.1em; font-size: var(--t-md); }
 .nota-detall { font-size: var(--t-sm); color: var(--text-suau); }
 
-.ressenyes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); margin-top: var(--s-3); }
+.ressenyes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-3); }
 .ressenya { border: 1px solid var(--vora); padding: var(--s-3); display: flex; flex-direction: column; }
 .ressenya-estrelles {
   color: var(--taronja-text);
@@ -1458,10 +1474,10 @@ input[type="range"] {
 
 /* ═══ CONTACTE ══════════════════════════════════════════════════ */
 
-.contacte-graella { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); align-items: start; }
+.contacte-graella { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-5); align-items: start; }
 
 .dades { list-style: none; display: grid; gap: var(--s-3); }
-.dades li { display: grid; grid-template-columns: 32px 1fr; gap: var(--s-2); align-items: start; }
+.dades li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: var(--s-2); align-items: start; }
 .dades svg { width: 22px; height: 22px; fill: var(--taronja-text); margin-top: 2px; }
 .seccio-fosca .dades svg { fill: var(--taronja-logo); }
 .dades-etiqueta {
@@ -1529,7 +1545,7 @@ input[type="range"] {
 /* ═══ FORMULARI ═════════════════════════════════════════════════ */
 
 .formulari { border: 1px solid var(--vora); border-top: 4px solid var(--taronja); padding: var(--s-4); background: var(--blanc); }
-.camps { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.camps { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-3); }
 .camp { display: flex; flex-direction: column; gap: 0.35rem; }
 .camp-ample { grid-column: 1 / -1; }
 .camp label {
@@ -1553,6 +1569,12 @@ input[type="range"] {
   transition: border-color 0.2s ease;
 }
 .camp textarea { resize: vertical; min-height: 118px; }
+/* ⚠️ `input[type="date"]` i els `select` porten una amplada MÍNIMA pròpia
+   del navegador que `width: 100%` no redueix. Amb la mida de lletra
+   ampliada estiraven la columna del formulari i, amb ella, tota la
+   pàgina: sobreeixia i el `overflow-x: hidden` del body retallava el
+   text. `min-width: 0` els deixa encongir com qualsevol altre camp. */
+.camp input, .camp select, .camp textarea { min-width: 0; }
 .camp input:hover, .camp select:hover, .camp textarea:hover { border-color: var(--text-suau); }
 
 /* Camp bloquejat fins que no toca: ha de semblar-ho */
@@ -1590,7 +1612,7 @@ input[type="range"] {
 .peu { background: var(--gris-cap-baix); color: var(--text-clar); padding-block: var(--s-6) 5.5rem; border-top: 3px solid var(--taronja); }
 .peu-graella {
   display: grid;
-  grid-template-columns: 1.4fr repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
   gap: var(--s-4);
   padding-bottom: var(--s-4);
   border-bottom: 1px solid var(--vora-fosca);
@@ -1644,7 +1666,18 @@ input[type="range"] {
 .legal { padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-6); }
 .legal h1 { font-size: var(--t-xl); color: var(--text-titol); }
 .legal h2 { font-size: var(--t-md); color: var(--text-titol); margin-top: var(--s-4); }
-.legal p, .legal li { color: var(--text-suau); max-width: var(--ample-text); margin-top: var(--s-2); }
+/* `overflow-wrap: break-word` perquè els legals van plens de coses que no
+   es poden partir per cap guionet: adreces web senceres
+   (`policies.google.com/technologies/cookies`), correus i els marcadors
+   entre claudàtors. En una pantalla de 320 px, aquella adreça estirava la
+   línia 38 px més enllà de la finestra i el text es tallava pel costat.
+   Ara es parteix, que és lleig una vegada i llegible sempre. */
+.legal p, .legal li {
+  color: var(--text-suau);
+  max-width: var(--ample-text);
+  margin-top: var(--s-2);
+  overflow-wrap: break-word;
+}
 .legal ul { margin-left: var(--s-3); }
 .legal .actualitzat { font-size: var(--t-sm); }
 
@@ -1684,26 +1717,26 @@ input[type="range"] {
 }
 
 @media (max-width: 1100px) {
-  .peu-graella { grid-template-columns: 1fr 1fr; }
+  .peu-graella { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 
 @media (max-width: 900px) {
   :root { --nav-h: 66px; }
-  .camins { grid-template-columns: 1fr; }
+  .camins { grid-template-columns: minmax(0, 1fr); }
   .cami { min-height: 330px; }
-  .historia { grid-template-columns: 1fr; gap: var(--s-4); }
-  .contacte-graella { grid-template-columns: 1fr; }
+  .historia { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  .contacte-graella { grid-template-columns: minmax(0, 1fr); }
   .plats { columns: 1; }
-  .plats-destacats { grid-template-columns: 1fr; }
-  .menu-plats { grid-template-columns: 1fr; gap: var(--s-3); }
-  .ressenyes { grid-template-columns: 1fr; }
-  .cercador-controls { grid-template-columns: 1fr; }
-  .pressupost-bloc { grid-template-columns: 1fr; gap: var(--s-4); }
-  .banda-fets ul { grid-template-columns: 1fr 1fr; }
+  .plats-destacats { grid-template-columns: minmax(0, 1fr); }
+  .menu-plats { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+  .ressenyes { grid-template-columns: minmax(0, 1fr); }
+  .cercador-controls { grid-template-columns: minmax(0, 1fr); }
+  .pressupost-bloc { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  .banda-fets ul { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .banda-fets li:nth-child(2) { border-right: 0; }
   .banda-fets li:nth-child(-n+2) { border-bottom: 1px solid var(--vora-fosca); }
-  .galeria { grid-template-columns: 1fr 1fr; }
-  .emportar { grid-template-columns: 1fr; gap: var(--s-4); }
+  .galeria { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .emportar { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
   /* El vel horitzontal de la porta fa el mateix mal que el del hero en
      una pantalla estreta: passa a vertical i el text baixa a sota. */
   .porta { justify-content: flex-start; align-items: flex-end; min-height: 300px; padding: var(--s-4); }
@@ -1722,7 +1755,7 @@ input[type="range"] {
   /* Les fileres alternades no tenen sentit en una sola columna: si es
      deixés l'`order`, dues sales de cada quatre sortirien amb el text
      abans de la seva fotografia. */
-  .espai { grid-template-columns: 1fr; gap: var(--s-3); }
+  .espai { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
   .espai:nth-child(even) .espai-foto { order: 0; }
   .espais-llista { gap: var(--s-4); }
 
@@ -1799,10 +1832,10 @@ input[type="range"] {
      hero quedava sagnat 48 px en una pantalla de 390 i hi perdia una
      paraula per línia. */
   .hero-text { padding-block: var(--s-3) 0; }
-  .sales { grid-template-columns: 1fr; }
-  .camps { grid-template-columns: 1fr; }
-  .valors { grid-template-columns: 1fr; }
-  .peu-graella { grid-template-columns: 1fr; }
+  .sales { grid-template-columns: minmax(0, 1fr); }
+  .camps { grid-template-columns: minmax(0, 1fr); }
+  .valors { grid-template-columns: minmax(0, 1fr); }
+  .peu-graella { grid-template-columns: minmax(0, 1fr); }
   .nota-google { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
   .formulari, .cercador { padding: var(--s-3); }
   /* El CTA principal MAI s'amaga al mòbil: només es fa compacte */
