@@ -398,8 +398,8 @@ window.TRAD = {
     'El Saló Nou amb les taules rodones parades':
       'El Saló Nou con las mesas redondas puestas',
     'Fins a 200 persones': 'Hasta 200 personas',
-    'El més gran de la casa. Per a comunions i celebracions de poble senceres.':
-      'El más grande de la casa. Para comuniones y celebraciones de pueblo enteras.',
+    'El més gran de la casa. Per a comunions i per als dies que hi ve mig poble.':
+      'El más grande de la casa. Para comuniones y para los días que viene medio pueblo.',
     'Menjador diari': 'Comedor diario',
     'El menjador diari, amb les finestres d\'arc':
       'El comedor diario, con las ventanas de arco',
@@ -720,8 +720,8 @@ window.TRAD = {
     'El menjador de cada dia i tres sales més que s\'obren segons quants sereu. Si voleu saber quina us encaixa, el cercador de Celebracions us ho diu en deu segons.':
       'El comedor de cada día y tres salas más que se abren según cuántos seáis. Si queréis saber cuál os encaja, el buscador de Celebraciones os lo dice en diez segundos.',
     'Anar al cercador d\'espais →': 'Ir al buscador de espacios →',
-    'El més gran de la casa, i el que fa que a l\'Ametlla se sàpiga on es fan les comunions. Hi caben les taules rodones de deu i queda espai al mig; és la sala de les celebracions de poble senceres.':
-      'El más grande de la casa, y el que hace que en L\'Ametlla se sepa dónde se hacen las comuniones. Caben las mesas redondas de diez y queda espacio en medio; es la sala de las celebraciones de pueblo entero.',
+    'El més gran de la casa, i el que fa que a l\'Ametlla se sàpiga on es fan les comunions. Hi caben les taules rodones de deu i queda espai al mig; és la sala dels dies que hi ve mig poble.':
+      'El más grande de la casa, y el que hace que en L\'Ametlla se sepa dónde se hacen las comuniones. Caben las mesas redondas de diez y queda espacio en medio; es la sala de los días que viene medio pueblo.',
     'El menjador de sempre: el que trobareu obert qualsevol dia de la setmana, amb les finestres d\'arc que donen al jardí. Aquí no cal reservar sala, només taula.':
       'El comedor de siempre: el que encontraréis abierto cualquier día de la semana, con las ventanas de arco que dan al jardín. Aquí no hace falta reservar sala, solo mesa.',
     'La sala del mig. Per a celebracions que volen porta pròpia i no omplirien el Saló Nou: bateigs, aniversaris de noces, dinars d\'empresa grans.':
@@ -1094,8 +1094,8 @@ window.TRAD = {
     'El Saló Nou amb les taules rodones parades':
       'The Saló Nou with the round tables laid',
     'Fins a 200 persones': 'Up to 200 people',
-    'El més gran de la casa. Per a comunions i celebracions de poble senceres.':
-      'The largest in the house. For communions and celebrations that fill the village.',
+    'El més gran de la casa. Per a comunions i per als dies que hi ve mig poble.':
+      'The biggest room in the house. For first communions, and for the days half the town turns up.',
     'Menjador diari': 'Main dining room',
     'El menjador diari, amb les finestres d\'arc':
       'The main dining room, with its arched windows',
@@ -1411,8 +1411,8 @@ window.TRAD = {
     'El menjador de cada dia i tres sales més que s\'obren segons quants sereu. Si voleu saber quina us encaixa, el cercador de Celebracions us ho diu en deu segons.':
       'The everyday dining room and three more rooms that open depending on how many of you there are. If you want to know which one fits, the finder on the Celebrations page tells you in ten seconds.',
     'Anar al cercador d\'espais →': 'Go to the room finder →',
-    'El més gran de la casa, i el que fa que a l\'Ametlla se sàpiga on es fan les comunions. Hi caben les taules rodones de deu i queda espai al mig; és la sala de les celebracions de poble senceres.':
-      'The biggest room in the house, and the reason everyone in L\'Ametlla knows where first communions happen. Round tables of ten fit with room to spare down the middle; this is the room for parties the whole town comes to.',
+    'El més gran de la casa, i el que fa que a l\'Ametlla se sàpiga on es fan les comunions. Hi caben les taules rodones de deu i queda espai al mig; és la sala dels dies que hi ve mig poble.':
+      'The biggest room in the house, and the reason everyone in L\'Ametlla knows where first communions happen. Round tables of ten fit with room to spare down the middle; this is the room for the days half the town turns up.',
     'El menjador de sempre: el que trobareu obert qualsevol dia de la setmana, amb les finestres d\'arc que donen al jardí. Aquí no cal reservar sala, només taula.':
       'The dining room as it has always been: the one you will find open any day of the week, with the arched windows onto the garden. Here you do not book a room, just a table.',
     'La sala del mig. Per a celebracions que volen porta pròpia i no omplirien el Saló Nou: bateigs, aniversaris de noces, dinars d\'empresa grans.':
