@@ -11,3 +11,22 @@ prompt*.md
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# --- Endurit el 24/08/2026: el CLAUDE.md d'aquest client porta notes internes
+# --- de venda (què val, com es compara amb la competència del poble, quins
+# --- errors s'han evitat) i estava a punt de pujar-se a un repo PÚBLIC.
+CLAUDE.md
+
+# --- Endurit el 16/08/2026: cobreix les DUES grafies del mateix rol i porta
+# --- globs de seguretat, perquè una variant de nom nova no es publiqui sola.
+PLA.md
+PLA*.md
+REUNIO-CLIENT.md
+REUNION-CLIENTE.md
+TRASPAS*.md
+PRIMER-CONTACTE.md
+prompt*.md
+prompts/
+Thumbs.db
+.DS_Store
+desktop.ini
