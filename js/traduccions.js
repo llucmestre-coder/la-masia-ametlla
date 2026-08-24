@@ -473,8 +473,8 @@ window.TRAD = {
     'Reserves i contacte': 'Reservas y contacto',
     'La manera més ràpida': 'La manera más rápida',
     'Truqueu-nos al restaurant': 'Llamadnos al restaurante',
-    'Les reserves les confirmem per telèfon. És l\'única manera que tenim de dir-vos del cert que la taula queda apuntada.':
-      'Las reservas las confirmamos por teléfono. Es la única manera que tenemos de deciros con certeza que la mesa queda apuntada.',
+    'Les reserves les confirmem per telèfon. És l\'única manera que tenim de dir-vos del cert que la taula queda reservada.':
+      'Las reservas las confirmamos por teléfono. Es la única manera que tenemos de deciros con certeza que la mesa queda reservada.',
     'Dilluns': 'Lunes',
     'Dimarts': 'Martes',
     'Dimecres': 'Miércoles',
@@ -485,8 +485,8 @@ window.TRAD = {
     'O escriviu-nos': 'O escribidnos',
     'Consulta': 'Consulta',
     'Això és una consulta, no una reserva.': 'Esto es una consulta, no una reserva.',
-    'Us respondrem, però la taula només queda apuntada quan ens truqueu.':
-      'Os responderemos, pero la mesa solo queda apuntada cuando nos llaméis.',
+    'Us respondrem, però la taula només queda reservada quan ens truqueu.':
+      'Os responderemos, pero la mesa solo queda reservada cuando nos llaméis.',
     'Quin dia?': '¿Qué día?',
     'La vostra consulta': 'Vuestra consulta',
     'Enviar la consulta': 'Enviar la consulta',
@@ -500,8 +500,8 @@ window.TRAD = {
     'Per dinar entre setmana no sempre cal, però els caps de setmana i els festius sí que us ho recomanem. Les reserves es fan per telèfon, al':
       'Para comer entre semana no siempre hace falta, pero los fines de semana y los festivos sí que os lo recomendamos. Las reservas se hacen por teléfono, al',
     'Puc reservar per correu electrònic?': '¿Puedo reservar por correo electrónico?',
-    'No. Les reserves les confirmem sempre per telèfon, perquè així sabem del cert que la taula queda apuntada. Per correu responem consultes, però no bloquegem taules.':
-      'No. Las reservas las confirmamos siempre por teléfono, porque así sabemos con certeza que la mesa queda apuntada. Por correo respondemos consultas, pero no bloqueamos mesas.',
+    'No. Les reserves les confirmem sempre per telèfon, perquè així sabem del cert que la taula queda reservada. Per correu responem consultes, però no bloquegem taules.':
+      'No. Las reservas las confirmamos siempre por teléfono, porque así sabemos con certeza que la mesa queda reservada. Por correo respondemos consultas, pero no bloqueamos mesas.',
     'Teniu opcions vegetarianes, veganes o sense gluten?':
       '¿Tenéis opciones vegetarianas, veganas o sin gluten?',
     'Sí. La carta té un apartat de plats vegetarians i vegans, i bona part dels plats hi surten marcats com a aptes per a celíacs. Aviseu-nos en reservar o en arribar i us ho concretem plat per plat: la informació bona sobre al·lèrgens és la que us donarem a taula.':
@@ -1168,8 +1168,8 @@ window.TRAD = {
     'Reserves i contacte': 'Bookings and contact',
     'La manera més ràpida': 'The quickest way',
     'Truqueu-nos al restaurant': 'Call the restaurant',
-    'Les reserves les confirmem per telèfon. És l\'única manera que tenim de dir-vos del cert que la taula queda apuntada.':
-      'We confirm bookings by phone. It is the only way we can tell you for certain that your table is in the book.',
+    'Les reserves les confirmem per telèfon. És l\'única manera que tenim de dir-vos del cert que la taula queda reservada.':
+      'We confirm bookings by phone. It is the only way we can tell you for certain that your table is reserved.',
     'Dilluns': 'Monday',
     'Dimarts': 'Tuesday',
     'Dimecres': 'Wednesday',
@@ -1180,8 +1180,8 @@ window.TRAD = {
     'O escriviu-nos': 'Or write to us',
     'Consulta': 'Enquiry',
     'Això és una consulta, no una reserva.': 'This is an enquiry, not a booking.',
-    'Us respondrem, però la taula només queda apuntada quan ens truqueu.':
-      'We will reply, but your table is only booked once you call us.',
+    'Us respondrem, però la taula només queda reservada quan ens truqueu.':
+      'We will reply, but your table is only reserved once you call us.',
     'Quin dia?': 'Which day?',
     'La vostra consulta': 'Your enquiry',
     'Enviar la consulta': 'Send the enquiry',
@@ -1195,8 +1195,8 @@ window.TRAD = {
     'Per dinar entre setmana no sempre cal, però els caps de setmana i els festius sí que us ho recomanem. Les reserves es fan per telèfon, al':
       'For lunch during the week it is not always necessary, but at weekends and on public holidays we do recommend it. Bookings are made by phone, on',
     'Puc reservar per correu electrònic?': 'Can I book by email?',
-    'No. Les reserves les confirmem sempre per telèfon, perquè així sabem del cert que la taula queda apuntada. Per correu responem consultes, però no bloquegem taules.':
-      'No. We always confirm bookings by phone, because that way we know for certain the table is in the book. By email we answer enquiries, but we do not hold tables.',
+    'No. Les reserves les confirmem sempre per telèfon, perquè així sabem del cert que la taula queda reservada. Per correu responem consultes, però no bloquegem taules.':
+      'No. We always confirm bookings by phone, because that way we know for certain the table is reserved. By email we answer enquiries, but we do not hold tables.',
     'Teniu opcions vegetarianes, veganes o sense gluten?':
       'Do you have vegetarian, vegan or gluten-free options?',
     'Sí. La carta té un apartat de plats vegetarians i vegans, i bona part dels plats hi surten marcats com a aptes per a celíacs. Aviseu-nos en reservar o en arribar i us ho concretem plat per plat: la informació bona sobre al·lèrgens és la que us donarem a taula.':
