@@ -332,6 +332,11 @@ p { text-wrap: pretty; }
   margin-top: var(--s-3);
 }
 .seccio-fosca .entradeta { color: rgba(255, 255, 255, 0.82); }
+/* Un enllaç o un botó just després d'una entradeta necessita aire. La
+   regla de ritme d'aquesta web (`.seccio > .envolt > * + *`) només
+   arriba als fills directes de `.envolt`, i aquests van dins del bloc
+   que s'anima. */
+.entradeta + p { margin-top: var(--s-3); }
 
 .regle {
   width: 52px;
@@ -424,11 +429,26 @@ p { text-wrap: pretty; }
 .nav-marca { display: flex; align-items: center; margin-right: auto; }
 .nav-marca img { width: 158px; height: 39px; object-fit: contain; }
 
-.nav-enllacos { display: flex; align-items: center; gap: var(--s-3); list-style: none; }
+/* ⚠️ AQUESTA BARRA VA JUSTA D'AMPLADA, i s'ha de comptar en CASTELLÀ,
+   que és l'idioma que fa les paraules més llargues («Celebraciones»,
+   «Reservar mesa»). Amb la cinquena pestanya («La casa») i el text
+   castellà, a 1366 px els enllaços partien en dues línies: «La / casa».
+
+   Tres coses ho aguanten, i les tres fan falta:
+     · `white-space: nowrap` — un element de menú no es parteix mai.
+     · La mida de cos i no --t-md: 17 px en comptes de 19 en aquesta
+       fila són uns 40 px per a tota la barra.
+     · El pas al menú d'hamburguesa puja de 1100 a 1250 px (vegeu la
+       secció RESPONSIVE): per sota d'això ja no s'hi intenta encabir.
+
+   Si algun dia s'hi afegeix una sisena pestanya, s'ha de tornar a
+   mesurar amb ?lang=es a 1280 px. No hi cabrà. */
+.nav-enllacos { display: flex; align-items: center; gap: 1.15rem; list-style: none; }
 .nav-enllacos a {
   font-family: var(--cos);
   font-weight: 700;
-  font-size: var(--t-md);
+  font-size: var(--t-base);
+  white-space: nowrap;
   color: var(--text-clar);
   transition: color 0.2s ease;
 }
@@ -486,6 +506,13 @@ p { text-wrap: pretty; }
   background: var(--gris-panell);
   border-bottom: 3px solid var(--taronja);
   padding-bottom: var(--s-3);
+  /* El calaix té cinc pàgines, el telèfon, el botó i els tres idiomes.
+     En un telèfon ajagut, o en un de petit, això no hi cap: sense
+     aquestes dues línies els últims enllaços queden fora de la pantalla
+     i no s'hi pot arribar de cap manera. */
+  max-height: calc(100svh - var(--nav-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .menu-mobil.obert { display: flex; }
 .menu-mobil a {
@@ -498,6 +525,140 @@ p { text-wrap: pretty; }
 }
 .menu-mobil a:hover { background: rgba(255, 255, 255, 0.07); }
 .menu-mobil .boto { margin: var(--s-3) var(--s-3) 0; font-family: var(--cos); }
+
+/* ═══ TRIA D'IDIOMA ═════════════════════════════════════════════
+   Català, castellà i anglès. El desplegable NOMÉS existeix si el JS
+   ha arrencat: js/i18n.js posa `te-js` al <html> des del <head>, i
+   fins llavors aquest bloc no es veu. Un control que no pot fer res
+   és pitjor que cap control.
+
+   Quadrat i gris com la resta de la barra: aquí no s'arrodoneix res
+   (--radi: 0) i el taronja només marca l'estat actiu, com als
+   enllaços de la navegació.
+   ═════════════════════════════════════════════════════════════ */
+
+.tria-idioma { display: none; }
+.te-js .tria-idioma { position: relative; display: block; }
+
+.tria-idioma-boto {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.7rem;
+  background: none;
+  border: 1px solid var(--vora-fosca);
+  font-family: var(--cos);
+  font-weight: 700;
+  font-size: var(--t-xs);
+  letter-spacing: var(--track-ample);
+  color: var(--text-clar);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.tria-idioma-boto:hover,
+.tria-idioma-boto[aria-expanded="true"] {
+  color: var(--blanc);
+  border-color: var(--taronja);
+}
+.tria-idioma-boto svg { width: 16px; height: 16px; fill: currentColor; flex: none; }
+.tria-idioma-punta { width: 12px !important; height: 12px !important; opacity: 0.8; }
+.tria-idioma-boto[aria-expanded="true"] .tria-idioma-punta { transform: rotate(180deg); }
+
+.tria-idioma-menu {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  right: 0;
+  z-index: 210;
+  min-width: 11rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--gris-panell);
+  border: 1px solid var(--vora-fosca);
+  border-top: 3px solid var(--taronja);
+  box-shadow: var(--ombra-up);
+}
+.tria-idioma-menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  width: 100%;
+  padding: 0.7rem var(--s-2);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--vora-fosca);
+  font-family: var(--cos);
+  font-size: var(--t-sm);
+  color: var(--text-clar);
+  text-align: left;
+  cursor: pointer;
+}
+.tria-idioma-menu li:last-child button { border-bottom: 0; }
+.tria-idioma-menu button:hover { background: rgba(255, 255, 255, 0.07); color: var(--blanc); }
+.tria-idioma-menu button[aria-current="true"] { color: var(--blanc); font-weight: 700; }
+
+/* La marca de l'idioma actiu es dibuixa amb CSS: així no hi ha cap
+   caràcter que un lector de pantalla hagi de llegir. Qui ho ha de
+   saber ja ho sap per l'aria-current. */
+.tria-idioma-menu button[aria-current="true"]::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--taronja);
+  flex: none;
+}
+
+/* ── La variant del menú mòbil ───────────────────────────────
+   Dins del calaix desplegat no hi va un desplegable a dins d'un
+   altre: hi van els tres idiomes a la vista, que amb el dit és
+   una premuda en comptes de dues. */
+
+.tria-idioma-plana { display: none; padding: var(--s-3) var(--s-3) 0; }
+.tria-idioma-plana-titol {
+  display: block;
+  font-family: var(--cos);
+  font-size: var(--t-xs);
+  letter-spacing: var(--track-ample);
+  text-transform: uppercase;
+  color: var(--text-clar);
+  margin-bottom: 0.6rem;
+}
+.tria-idioma-plana-opcions { display: flex; gap: 0.5rem; }
+.tria-idioma-plana-opcions button {
+  flex: 1;
+  padding: 0.7rem 0.4rem;
+  background: none;
+  border: 1px solid var(--vora-fosca);
+  font-family: var(--cos);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  color: var(--text-clar);
+  cursor: pointer;
+}
+.tria-idioma-plana-opcions button[aria-current="true"] {
+  color: var(--blanc);
+  border-color: var(--taronja);
+  background: rgba(255, 79, 0, 0.14);
+}
+
+/* La línia que avisa que una ressenya està traduïda. Va per sota del
+   nom i pesa menys que ell: informa, no crida. Només es veu quan la
+   pàgina no està en l'idioma en què es va escriure la ressenya. */
+.cita-traduida {
+  margin-top: 0.35rem;
+  font-size: var(--t-xs);
+  font-style: italic;
+  color: var(--text-suau);
+}
+.seccio-fosca .cita-traduida { color: var(--text-clar); }
+
+/* Mentre el diccionari no ha arribat, la pàgina encara diu el que diu
+   l'HTML: català. Per a qui la va deixar en castellà o en anglès això
+   seria un parpelleig d'un idioma que no ha demanat. js/i18n.js posa
+   aquesta classe des del <head> i la treu en acabar de traduir; si el
+   diccionari no carregués, la treu igualment al segon i mig. */
+.i18n-pendent body { opacity: 0; }
 
 /* ═══ TRUCADA FLOTANT ═══════════════════════════════════════════ */
 
@@ -536,7 +697,10 @@ p { text-wrap: pretty; }
   overflow: hidden;
 }
 .hero-foto { position: absolute; inset: 0; z-index: 0; }
-.hero-foto img { width: 100%; height: 100%; object-fit: cover; }
+/* `object-position: center 38%` puja el retall: la façana és al mig de la
+   foto i el cel a dalt. Amb el retall centrat, en pantalles amples el que
+   sobrava es menjava la porta i deixava cel. */
+.hero-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
 /* Dues capes: una que enfosqueix el costat del text i una altra que
    assenta la part baixa. La foto la posa el client i no sabem si serà
    clara o fosca, així que el text ha de quedar llegible en tots dos
@@ -651,15 +815,83 @@ p { text-wrap: pretty; }
 
 /* ═══ HISTÒRIA ══════════════════════════════════════════════════ */
 
+/* Només l'usa la-casa.html (#qui-som). A la portada aquest bloc s'ha
+   substituït per `.porta`. */
 .historia { display: grid; grid-template-columns: 0.9fr 1fr; gap: var(--s-5); align-items: center; }
-.historia-foto img { width: 100%; height: 100%; object-fit: cover; }
+/* `aspect-ratio` i no l'alçada natural: la fotografia d'aquesta columna
+   ha canviat un cop ja (de vertical a apaïsada) i, sense retall fixat,
+   canviar-la torna a descompensar la fila. Amb 4:3 el bloc es manté
+   igual amb la fotografia que hi posin. */
+.historia-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .historia-cos p { color: var(--text-suau); }
 .historia-cos p + p { margin-top: var(--s-2); }
+.historia-cos .grup-botons { margin-top: var(--s-4); }
 
 .valors { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
 .valor { border-top: 3px solid var(--taronja); padding-top: var(--s-2); }
 .valor strong { display: block; font-size: var(--t-md); color: var(--text-titol); }
 .valor span { font-size: var(--t-sm); color: var(--text-suau); }
+
+/* ═══ LA PORTA CAP A «LA CASA» ══════════════════════════════════
+   La drecera de la portada. És el mateix recurs que `.cami` —foto de
+   fons, vel, text a sobre— però apaïsada i sencera d'enllaç, i amb el
+   text a la banda dreta perquè no es confongui amb les dues targetes
+   que hi ha just a sobre.
+
+   Tot són <span> per dins: l'element de fora és una <a> i dins d'un
+   enllaç no hi poden anar títols ni paràgrafs de bloc.
+   ═════════════════════════════════════════════════════════════ */
+
+.porta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 340px;
+  padding: var(--s-5);
+  overflow: hidden;
+  background: var(--gris-cap-baix);
+  isolation: isolate;
+}
+.porta img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 0.5s ease;
+}
+.porta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to left,
+                rgba(20, 20, 20, 0.90) 0%,
+                rgba(20, 20, 20, 0.78) 45%,
+                rgba(20, 20, 20, 0.28) 100%);
+}
+.porta:hover img { transform: scale(1.04); }
+
+.porta-text { display: block; max-width: 30rem; }
+.porta-titol {
+  display: block;
+  font-family: var(--titols);
+  font-size: var(--t-xl);
+  line-height: 1.2;
+  color: var(--blanc);
+}
+.porta-frase {
+  display: block;
+  font-size: var(--t-sm);
+  color: rgba(255, 255, 255, 0.86);
+  margin-block: 0.7rem var(--s-3);
+}
+.porta .sobretitol { color: var(--taronja-logo); }
+.porta .enllac-fletxa { color: var(--taronja-logo); }
+.porta:hover .enllac-fletxa { gap: 0.85rem; }
 
 /* ═══ CARTA ═════════════════════════════════════════════════════ */
 
@@ -750,6 +982,68 @@ p { text-wrap: pretty; }
 .menu-buit p { color: var(--text-suau); }
 .menu-buit-tel { margin-top: var(--s-2); font-size: var(--t-md); color: var(--text); }
 .menu-buit-tel a { font-weight: 700; color: var(--taronja-text); }
+
+/* ═══ PER EMPORTAR ══════════════════════════════════════════════
+   Tres passos a l'esquerra i el telèfon a la dreta. La numeració la
+   posa el CSS a partir de l'<ol>, no s'escriu a mà: si algun dia se
+   n'hi afegeix o se'n treu un, no queda cap número saltat.
+   ═════════════════════════════════════════════════════════════ */
+
+.emportar {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--s-5);
+  align-items: start;
+}
+
+.emportar-passos ol { list-style: none; counter-reset: pas; display: grid; gap: var(--s-3); }
+/* Tres cel·les per fila i no dues: el número a l'esquerra ocupant les dues
+   files, i el títol i la descripció apilats a la dreta. Sense el
+   `grid-row: span 2`, la descripció queia a la fila de sota dins de la
+   columna estreta del número i sortia a paraula per línia. */
+.emportar-passos li {
+  counter-increment: pas;
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  column-gap: var(--s-2);
+  row-gap: 0.2rem;
+  align-items: start;
+}
+.emportar-passos strong,
+.emportar-passos li > span { grid-column: 2; }
+.emportar-passos li::before {
+  content: counter(pas);
+  grid-row: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  background: var(--taronja);
+  color: var(--text);          /* 6,7:1 — mai blanc sobre el taronja */
+  font-family: var(--titols);
+  font-size: var(--t-md);
+  line-height: 1;
+}
+.emportar-passos strong { display: block; font-size: var(--t-md); color: var(--text-titol); }
+.emportar-passos span { display: block; font-size: var(--t-sm); color: var(--text-suau); }
+.emportar-passos a { color: var(--taronja-text); font-weight: 700; }
+
+.emportar-enllacos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+
+.emportar-accio {
+  border: 1px solid var(--vora);
+  border-top: 4px solid var(--taronja);
+  padding: var(--s-4);
+  background: var(--blanc);
+}
+.emportar-accio > * + * { margin-top: var(--s-3); }
+.emportar-nota { color: var(--text-suau); }
 
 .carta-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: var(--s-4); }
 .carta-nav a {
@@ -936,6 +1230,167 @@ input[type="range"] {
 .sala.encaixa .sala-estat { color: var(--taronja-text); }
 .sala.no-encaixa { opacity: 0.55; }
 .sala.no-encaixa .sala-estat { color: var(--text-suau); }
+
+/* ═══ GALERIA ═══════════════════════════════════════════════════
+   La graella existeix sense JS: són <figure> amb la seva fotografia i
+   el seu peu. js/galeria.js hi afegeix el visor a pantalla completa i
+   marca la caixa amb .galeria-amb-visor; tot el que insinua que això
+   es pot prémer (el cursor, la lupa, el zoom) penja d'aquella classe,
+   perquè si el JS no arrenca no hi hagi cap promesa falsa.
+   ═════════════════════════════════════════════════════════════ */
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+}
+.galeria figure { display: flex; flex-direction: column; }
+.galeria img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--vora);
+}
+.galeria figcaption {
+  font-size: var(--t-xs);
+  color: var(--text-suau);
+  margin-top: 0.6rem;
+  line-height: 1.4;
+}
+
+/* El botó que hi posa el JS no ha de canviar res de com es veu la
+   fotografia: només la fa prémer. */
+.galeria-boto {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.galeria-boto img { transition: transform 0.4s ease; }
+.galeria-boto:hover img { transform: scale(1.04); }
+
+/* La lupa apareix a sobre en passar-hi el ratolí. Amb el dit no hi ha
+   :hover i no cal: al mòbil, prémer una foto ja s'espera que l'obri. */
+.galeria-boto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 18, 18, 0.28);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.galeria-boto:hover::after,
+.galeria-boto:focus-visible::after { opacity: 1; }
+
+/* ── El visor ─────────────────────────────────────────────────
+   És un <dialog>: el navegador ja fa l'Escape, el fons inert i el
+   retorn del focus. Aquí només se'n dibuixa l'aspecte. */
+
+.visor {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(18, 18, 18, 0.94);
+  color: var(--blanc);
+  overflow: hidden;
+}
+.visor::backdrop { background: rgba(18, 18, 18, 0.9); }
+
+.visor-cos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  height: 100%;
+  padding: 4.5rem var(--s-4);
+  /* Que prémer la fotografia NO tanqui: només el fons. */
+  pointer-events: none;
+}
+.visor-cos img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+.visor-peu {
+  font-size: var(--t-sm);
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  max-width: 46rem;
+}
+
+.visor-boto {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid var(--vora-fosca);
+  color: var(--blanc);
+  font-family: var(--cos);
+  font-size: 1.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.visor-boto:hover { background: var(--taronja); border-color: var(--taronja); color: var(--text); }
+.visor :focus-visible { outline-color: var(--blanc); }
+
+.visor-tanca    { top: var(--s-2); right: var(--s-2); }
+.visor-anterior { top: 50%; left: var(--s-2); transform: translateY(-50%); }
+.visor-seguent  { top: 50%; right: var(--s-2); transform: translateY(-50%); }
+
+.visor-compte {
+  position: absolute;
+  bottom: var(--s-2);
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: var(--t-xs);
+  letter-spacing: var(--track-ample);
+  color: var(--text-clar);
+}
+
+/* ═══ ELS ESPAIS (la-casa.html) ═════════════════════════════════
+   Files alternades: foto i text, text i foto. NO és la graella de
+   targetes de celebracions.html —allà les quatre sales han de poder
+   comparar-se d'un cop d'ull, aquí s'expliquen d'una en una— i per
+   això són dos blocs diferents i no un de compartit.
+   ═════════════════════════════════════════════════════════════ */
+
+.espais-llista { display: grid; gap: var(--s-5); }
+.espai {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+  align-items: center;
+}
+/* La segona i la quarta van al revés: la fotografia a la dreta. Amb
+   `order` i no canviant l'HTML, perquè l'ordre de lectura d'un lector
+   de pantalla ha de continuar sent sala-per-sala. */
+.espai:nth-child(even) .espai-foto { order: 2; }
+
+.espai-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.espai-cos h3 { font-family: var(--cos); font-weight: 700; font-size: var(--t-md); color: var(--text-titol); }
+.espai-capacitat {
+  font-family: var(--titols);
+  font-size: var(--t-lg);
+  color: var(--taronja-text);
+  margin-top: 0.35rem;
+}
+.espai-cos p:last-child { color: var(--text-suau); margin-top: var(--s-2); }
 
 /* ═══ RESSENYES ═════════════════════════════════════════════════ */
 
@@ -1193,6 +1648,15 @@ input[type="range"] {
 .legal ul { margin-left: var(--s-3); }
 .legal .actualitzat { font-size: var(--t-sm); }
 
+/* Un legal traduït continua sent una traducció. Es marca amb el filet
+   taronja de la casa perquè es llegeixi abans que el text. */
+.legal .avis-traduccio {
+  border-left: 3px solid var(--taronja);
+  padding-left: var(--s-2);
+  font-size: var(--t-sm);
+  font-style: italic;
+}
+
 /* ═══ ANIMACIÓ ══════════════════════════════════════════════════
    Millora progressiva: el contingut és visible per defecte i només
    s'amaga per revelar-lo si el JS ha pogut posar .js-anim.
@@ -1210,10 +1674,16 @@ input[type="range"] {
 
 /* ═══ RESPONSIVE ════════════════════════════════════════════════ */
 
-@media (max-width: 1100px) {
+/* Pujat de 1100 a 1250 en afegir la cinquena pestanya: entre les dues
+   amplades, la barra sencera ja no hi cabia en castellà. Vegeu el
+   comentari llarg de `.nav-enllacos`. */
+@media (max-width: 1250px) {
   .nav-enllacos, .nav-tel { display: none; }
   .nav-boto-menu { display: flex; }
   .nav .boto-principal { margin-left: auto; }
+}
+
+@media (max-width: 1100px) {
   .peu-graella { grid-template-columns: 1fr 1fr; }
 }
 
@@ -1232,12 +1702,103 @@ input[type="range"] {
   .banda-fets ul { grid-template-columns: 1fr 1fr; }
   .banda-fets li:nth-child(2) { border-right: 0; }
   .banda-fets li:nth-child(-n+2) { border-bottom: 1px solid var(--vora-fosca); }
-  .hero-foto { aspect-ratio: 4 / 3; }
+  .galeria { grid-template-columns: 1fr 1fr; }
+  .emportar { grid-template-columns: 1fr; gap: var(--s-4); }
+  /* El vel horitzontal de la porta fa el mateix mal que el del hero en
+     una pantalla estreta: passa a vertical i el text baixa a sota. */
+  .porta { justify-content: flex-start; align-items: flex-end; min-height: 300px; padding: var(--s-4); }
+  /* Aquesta fotografia és clara (parets grogues, finestres a contrallum) i
+     el text hi va a sobre de dalt a baix, no en una columna com a
+     l'escriptori. El vel no pot baixar de ~0,80 dins de la franja del
+     text o el blanc s'hi queda en 3,9:1, per sota d'AA. */
+  .porta::after {
+    background: linear-gradient(to top,
+                  rgba(20, 20, 20, 0.93) 0%,
+                  rgba(20, 20, 20, 0.86) 62%,
+                  rgba(20, 20, 20, 0.55) 88%,
+                  rgba(20, 20, 20, 0.28) 100%);
+  }
+  .porta-text { max-width: none; }
+  /* Les fileres alternades no tenen sentit en una sola columna: si es
+     deixés l'`order`, dues sales de cada quatre sortirien amb el text
+     abans de la seva fotografia. */
+  .espai { grid-template-columns: 1fr; gap: var(--s-3); }
+  .espai:nth-child(even) .espai-foto { order: 0; }
+  .espais-llista { gap: var(--s-4); }
+
+  /* ── EL HERO AL MÒBIL: LA FOTO A DALT, EL TEXT A SOTA ──────────
+     Aquí hi havia `.hero-foto { aspect-ratio: 4/3 }`, i encongia una
+     caixa que és `position:absolute; inset:0`: la fotografia quedava
+     en una franja de 293 px a dalt del hero, però el titular seguia
+     col·locat a sobre de tot el bloc i li queia al damunt. Els 400 px
+     de sota eren gris pla. Es veia trencat i la casa no es veia.
+
+     A l'escriptori el text va SOBRE la fotografia i funciona: el hero
+     és apaïsat, hi ha lloc de sobra a la dreta i el vel enfosqueix
+     només el costat esquerre. Al mòbil això no es pot fer, i per dues
+     raons alhora:
+
+       · La caixa passa a ser 360×780 (0,46:1) i la foto és 1800×1000
+         (1,8:1). Amb `object-fit: cover` se'n retalla el 74 % de
+         l'amplada: de la casa només se'n veu una columna central.
+       · Per fer llegible el text cal un vel que, en una pantalla
+         estreta, tapa tota l'amplada. Just el que quedava de foto.
+
+     Per això aquí el hero deixa de ser una capa i passa a ser dues
+     caixes apilades: la fotografia amb una proporció que la respecta
+     (5:4, retall suau) i el text a sota sobre el gris de la casa. La
+     foto es veu sencera i no hi ha res al damunt. */
+  .hero {
+    display: block;
+    min-height: 0;
+    padding-block: var(--nav-h) 0;
+    background: var(--gris-cap-baix);
+  }
+  .hero > .hero-foto {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 5 / 4;
+  }
+  .hero > .hero-vel { display: none; }
+
+  /* Perquè no siguin dos rectangles encolats, la part baixa de la
+     fotografia es fon amb el gris del bloc de text. */
+  .hero > .hero-foto::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 34%;
+    background: linear-gradient(to top, var(--gris-cap-baix), rgba(67, 67, 67, 0));
+  }
+
+  .hero-text { max-width: none; padding-block: var(--s-4) var(--s-5); }
+
+  /* El bloc de text feia 520 px dels 780 de la pantalla. Aquestes dues
+     línies li'n treuen un centenar sense canviar cap paraula:
+     l'etiqueta cap en una línia i l'entradeta va a la mida de cos, que
+     a 17 px es continua llegint perfectament. */
+  .hero-etiqueta { letter-spacing: 0.12em; padding: 0.3rem 0.7rem; }
+  .hero-frase { font-size: var(--t-base); margin-block: var(--s-2) var(--s-3); }
+
+  /* Les capçaleres de les pàgines interiors SÍ que mantenen el text a
+     sobre —són molt més baixes i hi caben dues línies—, però el vel
+     d'esquerra a dreta els fa el mateix mal. Aquí passa a vertical. */
+  .cap-pagina .hero-vel {
+    background: linear-gradient(to top,
+                    rgba(18, 18, 18, 0.88) 0%,
+                    rgba(18, 18, 18, 0.70) 55%,
+                    rgba(18, 18, 18, 0.34) 100%);
+  }
+  .cap-pagina .hero-foto img { object-position: center 34%; }
 }
 
 @media (max-width: 620px) {
   :root { --s-6: 3rem; --s-7: 3.75rem; }
-  .hero-text { padding: var(--s-4) var(--s-3); }
+  /* Només separació per sota del vel; el `.envolt` ja posa els marges
+     laterals. Amb el padding horitzontal que hi havia aquí, el text del
+     hero quedava sagnat 48 px en una pantalla de 390 i hi perdia una
+     paraula per línia. */
+  .hero-text { padding-block: var(--s-3) 0; }
   .sales { grid-template-columns: 1fr; }
   .camps { grid-template-columns: 1fr; }
   .valors { grid-template-columns: 1fr; }
@@ -1248,7 +1809,24 @@ input[type="range"] {
   .grup-botons .boto { flex: 1 1 100%; }
   .nav-marca img { width: 124px; height: 30px; }
   .nav .boto { padding: 0.6rem 0.8rem; font-size: 0.7rem; letter-spacing: 0.03em; white-space: nowrap; }
+  /* A la barra ja no hi caben logo + CTA + idioma + botó de menú: el
+     CTA principal no s'amaga mai, així que la tria d'idioma se'n va a
+     dins del calaix, que en aquesta amplada ÉS el menú de dalt. */
+  .te-js .tria-idioma { display: none; }
+  .te-js .tria-idioma-plana { display: block; }
+  .nav > .envolt { gap: var(--s-2); }
   .truca-flotant { right: var(--s-2); bottom: var(--s-2); padding: 0.8rem 1.1rem; }
+
+  /* Al visor, les fletxes laterals es mengen l'amplada de la
+     fotografia. Aquí baixen totes tres a peu de pantalla, on el polze
+     hi arriba, i la fotografia recupera l'ample sencer. */
+  .visor-cos { padding: 3.5rem var(--s-2) 6.5rem; }
+  .visor-boto { width: 3.4rem; height: 3.4rem; }
+  .visor-anterior,
+  .visor-seguent { top: auto; bottom: var(--s-2); transform: none; }
+  .visor-anterior { left: var(--s-2); }
+  .visor-seguent { right: var(--s-2); }
+  .visor-compte { bottom: 1.55rem; }
 }
 
 /* ═══ MOVIMENT REDUÏT ═══════════════════════════════════════════ */

@@ -7,6 +7,19 @@
 <meta name="description" content="Quatre salons per a celebracions a l'Ametlla del Vallès: comunions, bateigs, aniversaris de noces i dinars d'empresa. Del reservat de 20 places al Saló Nou de 200. Demaneu pressupost.">
 <link rel="canonical" href="https://lamasiarestaurant.com/celebracions.html">
 
+<!-- ── IDIOMES ────────────────────────────────────────────────────
+     La pàgina està escrita en català i és el català el que indexa
+     Google. El castellà i l'anglès els posa js/i18n.js sobre la
+     mateixa pàgina; ?lang=es i ?lang=en existeixen perquè un enllaç
+     es pugui passar a algú ja en el seu idioma.
+     Aquest script va al <head> i no al final: ha d'arribar abans que
+     es pinti res, o el desplegable d'idioma parpellejaria. -->
+<link rel="alternate" hreflang="ca" href="https://lamasiarestaurant.com/celebracions.html">
+<link rel="alternate" hreflang="es" href="https://lamasiarestaurant.com/celebracions.html?lang=es">
+<link rel="alternate" hreflang="en" href="https://lamasiarestaurant.com/celebracions.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://lamasiarestaurant.com/celebracions.html">
+<script src="js/i18n.js"></script>
+
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ca_ES">
 <meta property="og:site_name" content="Restaurant La Masia">
@@ -72,6 +85,7 @@
     <nav aria-label="Navegació principal">
       <ul class="nav-enllacos">
         <li><a href="index.html">Inici</a></li>
+        <li><a href="la-casa.html">La casa</a></li>
         <li><a href="carta.html">La carta</a></li>
         <li><a href="celebracions.html" aria-current="page">Celebracions</a></li>
         <li><a href="contacte.html">Contacte</a></li>
@@ -84,6 +98,28 @@
     </a>
     <a class="boto boto-principal" href="#pressupost">Demanar pressupost</a>
 
+
+    <!-- Desplegable d'idioma. NOMÉS existeix si el JS ha arrencat: el
+         CSS el manté amagat fins que js/i18n.js posa `te-js` al
+         <html>. Sense JS la web és en català i no hi ha res a triar,
+         i un control que no fa res val menys que cap control. -->
+    <div class="tria-idioma" data-idioma-tria>
+      <button class="tria-idioma-boto" type="button" data-idioma-boto
+              aria-expanded="false" aria-haspopup="true"
+              aria-label="Idioma de la pàgina">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8ZM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96ZM4.26 14a7.85 7.85 0 0 1 0-4h3.38a16.6 16.6 0 0 0-.14 2c0 .68.06 1.34.14 2Zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.08 16Zm2.95-8H5.08a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8ZM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96ZM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2Zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56ZM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38a7.85 7.85 0 0 1 0 4Z"/></svg>
+        <span data-idioma-actual data-sense-traduir>CA</span>
+        <svg class="tria-idioma-punta" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15 6 9h12z"/></svg>
+      </button>
+      <!-- Cada idioma es diu com es diu ell mateix, no traduït: qui
+           busca la seva llengua busca la paraula que coneix. -->
+      <ul class="tria-idioma-menu" data-idioma-menu data-sense-traduir hidden>
+        <li><button type="button" data-idioma-opcio="ca" lang="ca">Català</button></li>
+        <li><button type="button" data-idioma-opcio="es" lang="es">Castellano</button></li>
+        <li><button type="button" data-idioma-opcio="en" lang="en">English</button></li>
+      </ul>
+    </div>
+
     <button class="nav-boto-menu" id="boto-menu" type="button"
             aria-expanded="false" aria-controls="menu-mobil" aria-label="Obrir el menú">
       <span></span><span></span><span></span>
@@ -93,11 +129,23 @@
 
 <div class="menu-mobil" id="menu-mobil">
   <a href="index.html">Inici</a>
+  <a href="la-casa.html">La casa</a>
   <a href="carta.html">La carta</a>
   <a href="celebracions.html" aria-current="page">Celebracions</a>
   <a href="contacte.html">Contacte</a>
   <a href="tel:+34938430002">Trucar — 938 43 00 02</a>
   <a class="boto boto-principal" href="#pressupost">Demanar pressupost</a>
+
+  <!-- Al calaix del mòbil els tres idiomes van a la vista: dins d'un
+       desplegable ja obert no n'hi va un altre. -->
+  <div class="tria-idioma-plana" data-idioma-tria>
+    <span class="tria-idioma-plana-titol">Idioma</span>
+    <div class="tria-idioma-plana-opcions" data-sense-traduir>
+      <button type="button" data-idioma-opcio="ca" lang="ca">Català</button>
+      <button type="button" data-idioma-opcio="es" lang="es">Castellano</button>
+      <button type="button" data-idioma-opcio="en" lang="en">English</button>
+    </div>
+  </div>
 </div>
 
 <main id="contingut">
@@ -170,6 +218,17 @@
                 <label>
                   <input type="radio" name="tipus" value="Àpat familiar">
                   <span>Àpat familiar</span>
+                </label>
+                <!-- «Altres» hi ha de ser: el desplegable del formulari de
+                     sota ja el tenia i aquesta fila no, i per tant hi havia
+                     celebracions —un comiat de solter, un sopar d'entitat,
+                     un bateig civil— que aquí no es podien dir. Qui no s'hi
+                     troba, marxa. El cercador de sales el tracta com el que
+                     és: una celebració sense nom encara, i per això
+                     js/espais.js no li afegeix cap «per a …» al resultat. -->
+                <label>
+                  <input type="radio" name="tipus" value="Altres">
+                  <span>Altres</span>
                 </label>
               </div>
             </fieldset>
@@ -393,6 +452,24 @@
           <strong>Aniversaris de noces</strong>
           <span>Els 25 i els 50 anys de casats, que a la casa es fan des de fa dècades.</span>
         </div>
+        <!-- ⚠️ PENDENT-CLIENT — EL MENÚ D'EMPRESA
+             Una comunió i un dinar de feina no es venen igual: l'empresa
+             sol demanar factura, preu tancat per cap, torn curt i sovint
+             un menú diferent del de les celebracions familiars.
+
+             NO SABEM si La Masia en té un de propi, i per tant aquí NO
+             s'hi diu. La frase de sota és la que ja hi havia i no promet
+             res que no s'hagi comprovat.
+
+             La pregunta és a REUNIO-CLIENT.md («Menú d'empresa»). Segons
+             què responguin:
+               · Si en tenen un de diferent → aquest bloc es converteix en
+                 secció pròpia, amb el que inclou i com es factura, i
+                 l'opció «Dinar d'empresa» del formulari desplega els camps
+                 que calguin (raó social, NIF, nombre de torns).
+               · Si és el mateix menú que la resta → es deixa com és i
+                 s'hi afegeix una línia dient-ho, que també és informació.
+        ══════════════════════════════════════════════════════════════ -->
         <div class="valor">
           <strong>Empresa</strong>
           <span>Dinars de feina i sopars de Nadal, al reservat o a la sala sencera.</span>
@@ -440,7 +517,7 @@
           <li><a href="carta.html">La carta</a></li>
           <li><a href="celebracions.html">Celebracions</a></li>
           <li><a href="contacte.html">Contacte i reserves</a></li>
-          <li><a href="index.html#qui-som">Qui som</a></li>
+          <li><a href="la-casa.html">La casa</a></li>
         </ul>
       </div>
       <div>
@@ -456,7 +533,7 @@
         <ul>
           <li><a href="https://www.instagram.com/lamasialametlla/" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.facebook.com/lamasiadelametlla" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://maps.google.com/maps?q=Restaurant+La+Masia+L%27Ametlla+del+Vall%C3%A8s" target="_blank" rel="noopener">Google Maps</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s" target="_blank" rel="noopener">Google Maps</a></li>
         </ul>
       </div>
     </div>
@@ -476,6 +553,7 @@
   Trucar
 </a>
 
+<script src="js/traduccions.js"></script>
 <script src="js/main.js"></script>
 <script src="js/espais.js"></script>
 </body>

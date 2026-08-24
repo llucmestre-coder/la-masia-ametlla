@@ -41,6 +41,15 @@
   var TELEFON = '938 43 00 02';
   var FULL_CALCUL = '';   // ← URL del CSV publicat, si s'activa la font B
 
+  function T(text, valors) {
+    if (window.I18N) return window.I18N.t(text, valors);
+    return valors
+      ? text.replace(/\{(\w+)\}/g, function (tot, nom) {
+          return valors[nom] != null ? valors[nom] : tot;
+        })
+      : text;
+  }
+
   /* ── Fonts de dades ─────────────────────────────────────────── */
 
   function fontFitxer() {
@@ -95,11 +104,6 @@
 
   /* ── Utilitats ──────────────────────────────────────────────── */
 
-  var DIES = ['diumenge', 'dilluns', 'dimarts', 'dimecres', 'dijous',
-              'divendres', 'dissabte'];
-  var MESOS = ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol',
-               'agost', 'setembre', 'octubre', 'novembre', 'desembre'];
-
   function avuiISO() {
     var d = new Date();
     return d.getFullYear() + '-' +
@@ -107,13 +111,17 @@
            String(d.getDate()).padStart(2, '0');
   }
 
+  /* La data en lletres la diu el navegador, que sap fer-ho en els tres
+     idiomes: «dijous, 7 d'agost», «jueves, 7 de agosto», «Thursday
+     7 August». Abans hi havia les llistes de dies i mesos escrites a
+     mà amb l'apostrofació catalana; amb tres idiomes això serien tres
+     llistes i tres regles, i el navegador ja les porta totes. */
   function enLletres(iso) {
     var t = iso.split('-');
     var d = new Date(Number(t[0]), Number(t[1]) - 1, Number(t[2]));
-    var mes = MESOS[d.getMonth()];
-    /* Apostrofació: d'abril, d'agost, d'octubre — no "de abril" */
-    var de = /^[aeiouàèéíòóú]/i.test(mes) ? "d'" : 'de ';
-    return DIES[d.getDay()] + ' ' + d.getDate() + ' ' + de + mes;
+    var lloc = window.I18N ? window.I18N.bcp : 'ca-ES';
+    return d.toLocaleDateString(lloc,
+      { weekday: 'long', day: 'numeric', month: 'long' });
   }
 
   function esc(s) {
@@ -134,9 +142,11 @@
   function senseMenu(missatge) {
     caixa.innerHTML =
       '<div class="menu-buit">' +
-        '<p>' + esc(missatge) + '</p>' +
-        '<p class="menu-buit-tel">Truqueu-nos al ' +
-          '<a href="tel:+34938430002">' + TELEFON + '</a> i us diem què hi ha avui.</p>' +
+        '<p>' + esc(T(missatge)) + '</p>' +
+        '<p class="menu-buit-tel">' +
+          T('Truqueu-nos al {tel} i us diem què hi ha avui.',
+            { tel: '<a href="tel:+34938430002">' + TELEFON + '</a>' }) +
+        '</p>' +
       '</div>';
   }
 
@@ -161,9 +171,9 @@
       return;
     }
 
-    var cap = esAvui
-      ? '<span class="menu-quan">Avui, ' + esc(enLletres(dia.data)) + '</span>'
-      : '<span class="menu-quan">Pròxim menú · ' + esc(enLletres(dia.data)) + '</span>';
+    var cap = '<span class="menu-quan">' +
+      esc(T(esAvui ? 'Avui, {data}' : 'Pròxim menú · {data}',
+            { data: enLletres(dia.data) })) + '</span>';
 
     var extres = '';
     if (dades.preu) extres += '<span class="menu-preu">' + esc(dades.preu) + '</span>';
@@ -182,26 +192,40 @@
     caixa.innerHTML =
       '<div class="menu-cap">' + cap + extres + '</div>' +
       '<div class="menu-plats">' +
-        grup('Primers', dia.primers) +
-        grup('Segons', dia.segons) +
-        grup('Postres', dia.postres) +
+        grup(T('Primers'), dia.primers) +
+        grup(T('Segons'), dia.segons) +
+        grup(T('Postres'), dia.postres) +
       '</div>' +
       (dades.quan ? '<p class="menu-nota">' + esc(dades.quan) + '</p>' : '');
+
+    /* Els noms dels plats NO es tradueixen: són el que ha escrit la
+       casa al menú d'avui i no ens toca reescriure'ls. El que sí que
+       canvia d'idioma és tot el que hi posem nosaltres al voltant. */
   }
 
   /* ── Engegada ───────────────────────────────────────────────── */
 
   caixa.setAttribute('aria-busy', 'true');
 
+  /* Es guarda l'última cosa pintada per poder-la tornar a pintar en un
+     altre idioma sense demanar el fitxer una segona vegada. */
+  var ultim = null;
+
+  function repinta() {
+    if (!ultim) return;
+    if (ultim.error) { senseMenu(ultim.error); } else { pinta(ultim.dades); }
+  }
+
+  document.addEventListener('idioma-canviat', repinta);
+
   FONT()
-    .then(pinta)
+    .then(function (dades) { ultim = { dades: dades }; pinta(dades); })
     .catch(function (err) {
       /* Amb file:// el fetch falla sempre: no és cap error del web */
-      if (window.location.protocol === 'file:') {
-        senseMenu('El menú del dia es carrega quan la web és en un servidor.');
-      } else {
-        senseMenu('Ara mateix no podem mostrar el menú del dia.');
-      }
+      ultim = { error: window.location.protocol === 'file:'
+        ? 'El menú del dia es carrega quan la web és en un servidor.'
+        : 'Ara mateix no podem mostrar el menú del dia.' };
+      senseMenu(ultim.error);
       if (window.console) window.console.warn('[menú diari]', err.message);
     })
     .then(function () { caixa.removeAttribute('aria-busy'); });

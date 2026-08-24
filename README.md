@@ -64,14 +64,18 @@ perquè no trigui setmanes a entrar-hi.
 
 | Fitxer | Què és |
 |---|---|
-| `index.html` | Inici: qui són des del 1957, els dos camins, prova social, on som |
-| `carta.html` | La carta sencera (7 apartats, 47 plats), menú diari i per emportar |
+| `index.html` | Inici: els dos camins, la porta cap a «La casa», prova social, on som |
+| `la-casa.html` | **Qui som**, la **galeria** i els **quatre espais** explicats un a un |
+| `carta.html` | La carta sencera (7 apartats, 47 plats), menú diari i **per emportar** |
 | `celebracions.html` | Els 4 salons, el **cercador d'espai** i el formulari de pressupost |
 | `contacte.html` | Reserves, horaris, com arribar i preguntes freqüents |
 | `avis-legal.html` · `politica-privacitat.html` · `politica-cookies.html` | Legals (`noindex`) |
 | `css/styles.css` | Tot l'estil. Els colors i les mides surten dels tokens de `:root` |
+| `js/i18n.js` | El motor de traducció. **És idèntic a totes les webs del vertical** |
+| `js/traduccions.js` | El diccionari castellà/anglès d'aquest restaurant |
 | `js/main.js` | Nav, menú mòbil, revelacions, valoració de Google, formularis |
 | `js/espais.js` | El cercador d'espai de `celebracions.html` |
+| `js/galeria.js` | La galeria de `la-casa.html` i el visor a pantalla completa |
 | `js/carta-filtres.js` | Els apartats de la carta, que filtren en comptes de baixar-hi |
 | `js/menu-diari.js` | El menú del dia de `carta.html` |
 | `js/mapa.js` | El mapa, que no es carrega fins que es prem el botó |
@@ -200,11 +204,29 @@ algunes no sabem del cert de quina sala són:
 | `photo-sala-nou.jpg` · `photo-sala-menjador.jpg` · `photo-sala-bosc.jpg` · `photo-sala-privat.jpg` | 1200×900 | **Confirmar quina sala és cadascuna.** S'han assignat pel que sembla a la foto, no perquè ho sapiguem |
 | La resta | 1000–1800 px | Els originals, si els tenen |
 
+### ⚠️ La galeria de `la-casa.html` només té sis fotografies
+
+Afegit el 24/08/2026 amb la pàgina nova. Les onze imatges que hi ha ja estaven
+gairebé totes ocupades —cadascuna fa de capçalera d'una pàgina o de retrat d'un
+saló— i **posar la mateixa foto dues vegades a la mateixa pàgina es nota**. Per
+això la galeria en té sis i no onze: les que quedaven lliures.
+
+Sis és just, i **és la petició que més canviaria aquesta web**. El que cal són
+de vuit a dotze fotografies actuals i horitzontals: sala plena un dissabte,
+terrassa a l'estiu, quatre o cinc plats, la cuina, l'equip. Està escrit amb
+detall a `REUNIO-CLIENT.md` (punt 9-ter).
+
+**Per afegir-n'hi una**: deseu-la a `assets/` com a `photo-galeria-N.jpg`
+(mínim 1200 px d'ample) i copieu una `<figure>` de la secció `#galeria` de
+`la-casa.html`, canviant-ne el `src`, l'`alt` i el `<figcaption>`. La graella
+i el visor creixen sols; no s'ha de tocar ni el CSS ni el JS. **L'`alt` i el
+peu de foto s'han d'afegir també a `js/traduccions.js`**, als dos idiomes.
+
 ### Si fan sessió de fotos
 
 Per ordre de rendiment: **façana al capvespre**, **Saló Nou muntat per a un
-banquet**, i els **tres plats** de la pàgina d'inici. Amb aquestes cinc, la web
-ja fa un salt gros.
+banquet**, els **tres plats** de la pàgina d'inici i **vuit fotos més per a la
+galeria**. Amb aquestes, la web ja fa un salt gros.
 
 Format: JPG horitzontal, mínim 1800 px d'ample (les verticals, 1100×1300).
 Sense text ni marca d'aigua a sobre.
@@ -357,6 +379,18 @@ El camp **saló** és un desplegable que depèn dels comensals:
 - [ ] ⭐ **Les 3 fotos de plats**: filet a l'estil Roca, canelons de l'àvia i
       una comanda per emportar. Són tres fotos de mòbil i omplen el bloc «Tres
       plats» de l'inici, que ara va sense imatge
+- [ ] ⭐ **De 8 a 12 fotos per a la galeria de `la-casa.html`**, que ara en té
+      sis i es nota. Vegeu «La galeria de `la-casa.html` només té sis
+      fotografies» més amunt
+- [ ] **Menú d'empresa**: preguntar-los si en tenen un de diferent del de les
+      celebracions familiars (preu tancat, factura, torn curt, sopars de
+      Nadal). El recordatori és dins de `celebracions.html`, al bloc «Com ho
+      fem», i la pregunta sencera a `REUNIO-CLIENT.md` (punt 9-bis)
+- [ ] **Comandes per emportar**: avui el canal és el telèfon i prou. La secció
+      `carta.html#per-emportar` porta escrits els tres camins possibles
+      (formulari · WhatsApp Business · comanda en línia) i què s'ha de tocar
+      per a cadascun. ⚠️ Si s'escull WhatsApp, és **el mateix número** que
+      faria servir el menú del dia: es decideix un sol cop
 - [ ] Demanar-los els originals a més resolució, sobretot el de la façana
 - [ ] Confirmar quina sala és cadascuna de les quatre fotos de salons
 - [ ] Confirmar amb la casa què vol dir l'espiga barrada de la carta
@@ -379,6 +413,8 @@ El camp **saló** és un desplegable que depèn dels comensals:
 
 ## Compatibilitat
 
-Chrome, Firefox, Safari i Edge actuals. Provat a 375, 768 i 1440 px d'amplada.
+Chrome, Firefox, Safari i Edge actuals. Comprovat a 320, 360, 390, 600, 768,
+900, 1024, 1256 i 1440 px d'amplada, **en els tres idiomes**, sense
+desbordaments ni text partit (24/08/2026).
 Respecta `prefers-reduced-motion`: amb el moviment reduït activat, no hi ha cap
 animació. Contrast AA verificat a totes les combinacions de color.

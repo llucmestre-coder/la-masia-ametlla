@@ -7,6 +7,19 @@
 <meta name="description" content="Restaurant La Masia, a l'entrada de l'Ametlla del Vallès des del 1957. Cuina catalana i de mercat, menú diari, per emportar i quatre salons per a celebracions de fins a 200 persones.">
 <link rel="canonical" href="https://lamasiarestaurant.com/">
 
+<!-- ── IDIOMES ────────────────────────────────────────────────────
+     La pàgina està escrita en català i és el català el que indexa
+     Google. El castellà i l'anglès els posa js/i18n.js sobre la
+     mateixa pàgina; ?lang=es i ?lang=en existeixen perquè un enllaç
+     es pugui passar a algú ja en el seu idioma.
+     Aquest script va al <head> i no al final: ha d'arribar abans que
+     es pinti res, o el desplegable d'idioma parpellejaria. -->
+<link rel="alternate" hreflang="ca" href="https://lamasiarestaurant.com/">
+<link rel="alternate" hreflang="es" href="https://lamasiarestaurant.com/?lang=es">
+<link rel="alternate" hreflang="en" href="https://lamasiarestaurant.com/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://lamasiarestaurant.com/">
+<script src="js/i18n.js"></script>
+
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ca_ES">
 <meta property="og:site_name" content="Restaurant La Masia">
@@ -54,7 +67,7 @@
   "currenciesAccepted": "EUR",
   "image": "https://lamasiarestaurant.com/assets/photo-hero.jpg",
   "logo": "https://lamasiarestaurant.com/assets/logo-la-masia.png",
-  "hasMap": "https://maps.google.com/maps?q=Carrer+de+la+Torregassa+77+08480+L%27Ametlla+del+Vall%C3%A8s",
+  "hasMap": "https://www.google.com/maps/search/?api=1&amp;query=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Carrer de la Torregassa, 77",
@@ -104,6 +117,7 @@
     <nav aria-label="Navegació principal">
       <ul class="nav-enllacos">
         <li><a href="index.html" aria-current="page">Inici</a></li>
+        <li><a href="la-casa.html">La casa</a></li>
         <li><a href="carta.html">La carta</a></li>
         <li><a href="celebracions.html">Celebracions</a></li>
         <li><a href="contacte.html">Contacte</a></li>
@@ -116,6 +130,28 @@
     </a>
     <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
 
+
+    <!-- Desplegable d'idioma. NOMÉS existeix si el JS ha arrencat: el
+         CSS el manté amagat fins que js/i18n.js posa `te-js` al
+         <html>. Sense JS la web és en català i no hi ha res a triar,
+         i un control que no fa res val menys que cap control. -->
+    <div class="tria-idioma" data-idioma-tria>
+      <button class="tria-idioma-boto" type="button" data-idioma-boto
+              aria-expanded="false" aria-haspopup="true"
+              aria-label="Idioma de la pàgina">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8ZM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96ZM4.26 14a7.85 7.85 0 0 1 0-4h3.38a16.6 16.6 0 0 0-.14 2c0 .68.06 1.34.14 2Zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.08 16Zm2.95-8H5.08a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8ZM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96ZM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2Zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56ZM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38a7.85 7.85 0 0 1 0 4Z"/></svg>
+        <span data-idioma-actual data-sense-traduir>CA</span>
+        <svg class="tria-idioma-punta" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15 6 9h12z"/></svg>
+      </button>
+      <!-- Cada idioma es diu com es diu ell mateix, no traduït: qui
+           busca la seva llengua busca la paraula que coneix. -->
+      <ul class="tria-idioma-menu" data-idioma-menu data-sense-traduir hidden>
+        <li><button type="button" data-idioma-opcio="ca" lang="ca">Català</button></li>
+        <li><button type="button" data-idioma-opcio="es" lang="es">Castellano</button></li>
+        <li><button type="button" data-idioma-opcio="en" lang="en">English</button></li>
+      </ul>
+    </div>
+
     <button class="nav-boto-menu" id="boto-menu" type="button"
             aria-expanded="false" aria-controls="menu-mobil" aria-label="Obrir el menú">
       <span></span><span></span><span></span>
@@ -125,11 +161,23 @@
 
 <div class="menu-mobil" id="menu-mobil">
   <a href="index.html" aria-current="page">Inici</a>
+  <a href="la-casa.html">La casa</a>
   <a href="carta.html">La carta</a>
   <a href="celebracions.html">Celebracions</a>
   <a href="contacte.html">Contacte</a>
   <a href="tel:+34938430002">Trucar — 938 43 00 02</a>
   <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
+
+  <!-- Al calaix del mòbil els tres idiomes van a la vista: dins d'un
+       desplegable ja obert no n'hi va un altre. -->
+  <div class="tria-idioma-plana" data-idioma-tria>
+    <span class="tria-idioma-plana-titol">Idioma</span>
+    <div class="tria-idioma-plana-opcions" data-sense-traduir>
+      <button type="button" data-idioma-opcio="ca" lang="ca">Català</button>
+      <button type="button" data-idioma-opcio="es" lang="es">Castellano</button>
+      <button type="button" data-idioma-opcio="en" lang="en">English</button>
+    </div>
+  </div>
 </div>
 
 <main id="contingut">
@@ -178,8 +226,8 @@
         <span class="fet-xifra">1957</span>
       </li>
       <li>
-        <span class="fet-etiqueta"><span data-valoracio="total">1.931</span> ressenyes a Google</span>
-        <span class="fet-xifra"><span data-valoracio="nota">4,4</span> ★</span>
+        <span class="fet-etiqueta"><span data-valoracio="total" data-valoracio-cru="1931">1.931</span> ressenyes a Google</span>
+        <span class="fet-xifra"><span data-valoracio="nota" data-valoracio-cru="4.4">4,4</span> ★</span>
       </li>
       <li>
         <span class="fet-etiqueta">Fins a 200 comensals</span>
@@ -233,47 +281,36 @@
     </div>
   </section>
 
-  <!-- ══ DES DEL 1957 ═══════════════════════════════════════════ -->
-  <section class="seccio seccio-gris" id="qui-som">
+  <!-- ══ LA PORTA CAP A «LA CASA» ═══════════════════════════════
+       Aquí hi havia el «Qui som» sencer: tres paràgrafs, dues fitxes
+       de valors i una fotografia en vertical. És bon text, però en una
+       portada que ja porta el hero, la banda de xifres, els dos camins,
+       tres plats, les ressenyes i el bloc d'on som, era el que la feia
+       llarga sense fer-la més útil. Qui obre la portada d'un restaurant
+       hi ve a mirar-se els plats o a trucar, no a llegir-ne la història.
+
+       El text s'ha mogut sencer a la-casa.html#qui-som, on hi ha lloc
+       per explicar-ho més llarg, i aquí hi queda la porta d'entrada:
+       una fotografia gran que hi porta. Tota la banda és UN sol enllaç
+       —la foto inclosa—, que és com s'espera que funcioni.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio seccio-gris">
     <div class="envolt">
-      <div class="historia">
-        <div class="historia-foto apareix">
-          <!-- FOTO DEL RESTAURANT (del seu web actual). -->
-          <img src="assets/photo-casa.jpg" width="1100" height="1300"
-               alt="El menjador de La Masia" loading="lazy" decoding="async">
-        </div>
-
-        <div class="historia-cos apareix">
-          <span class="sobretitol">Qui som</span>
-          <h2 class="titol-seccio">Seixanta-nou anys a la mateixa casa</h2>
-          <hr class="regle">
-          <p>
-            La Masia és a l'entrada de l'Ametlla del Vallès, al carrer de la Torregassa.
-            Va obrir el 1957 i des d'aleshores fa el mateix: cuina catalana i de mercat,
-            feta cada dia.
-          </p>
-          <p>
-            A la carta hi ha els plats que la casa no ha canviat mai —els canelons de
-            l'àvia, el filet de vedella a l'estil Roca— i els que van i venen amb la
-            temporada: els calçots, els rossinyols, les trompetes de la mort.
-          </p>
-          <p>
-            I al costat del menjador, quatre salons on el poble ha celebrat comunions,
-            bateigs i aniversaris de noces durant generacions.
-          </p>
-
-          <div class="valors">
-            <div class="valor">
-              <strong>Cuina de mercat</strong>
-              <span>Gamba de Palamós, cloïsses de Carril, botifarra de La Garriga.</span>
-            </div>
-            <div class="valor">
-              <strong>Quatre salons</strong>
-              <span>Del reservat de 20 places al Saló Nou de 200.</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <a class="porta apareix" href="la-casa.html">
+        <!-- FOTO DEL RESTAURANT (del seu web actual): el menjador de les
+             finestres d'arc. -->
+        <img src="assets/photo-casa.jpg" width="1100" height="1300"
+             alt="" loading="lazy" decoding="async">
+        <span class="porta-text">
+          <span class="sobretitol">La casa</span>
+          <span class="porta-titol">Seixanta-nou anys a la mateixa casa</span>
+          <span class="porta-frase">
+            Qui som, la galeria de fotografies i els quatre espais de La Masia,
+            del reservat de 20 places al Saló Nou de 200.
+          </span>
+          <span class="enllac-fletxa">Entrar a la casa →</span>
+        </span>
+      </a>
     </div>
   </section>
 
@@ -339,11 +376,11 @@
       </div>
 
       <div class="nota-google apareix">
-        <span class="nota-xifra" data-valoracio="nota">4,4</span>
+        <span class="nota-xifra" data-valoracio="nota" data-valoracio-cru="4.4">4,4</span>
         <div>
           <div class="nota-estrelles" aria-hidden="true">★★★★★</div>
           <p class="nota-detall">
-            Mitjana de <strong data-valoracio="total">1.931</strong> ressenyes a Google.
+            Mitjana de <strong data-valoracio="total" data-valoracio-cru="1931">1.931</strong> ressenyes a Google.
             <!-- "més valorat" es llegia com "el que té més bona nota", i això
                  NO és cert: el 4,4 no és la nota més alta del poble (Iris café
                  en té 4,9 i Can Arias 4,5). El que sí que és cert, comprovat a
@@ -354,7 +391,7 @@
           </p>
         </div>
         <span><a class="enllac-fletxa"
-           href="https://maps.google.com/maps?q=Restaurant+La+Masia+L%27Ametlla+del+Vall%C3%A8s"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s"
            target="_blank" rel="noopener">Veure-les a Google →</a></span>
       </div>
 
@@ -372,35 +409,42 @@
         <figure class="ressenya apareix">
           <div class="ressenya-estrelles" aria-hidden="true">★★★★★</div>
           <p class="nomes-lectors">Valoració: 5 sobre 5</p>
-          <blockquote>
+          <blockquote data-idioma-original="ca">
             «Restaurant emblemàtic, de tota la vida. Sempre és un plaer anar-hi
             i degustar els seus plats, en especial el filet a l'estil Roca i els
             seus calamars a l'andalusa (els millors que he provat). El servei
             també és fantàstic.»
           </blockquote>
           <cite>Marina Girbau · Google</cite>
+          <!-- Una ressenya és una citació i no s'hi toca. En castellà i
+               en anglès el que es veu ÉS una traducció, i ho ha de dir:
+               aquesta línia només surt en aquells dos idiomes, i just al
+               costat hi ha l'enllaç per llegir-les a Google tal com són. -->
+          <p class="cita-traduida" data-nomes-idioma="es en">Traducció de la ressenya original en català</p>
         </figure>
 
         <figure class="ressenya apareix">
           <div class="ressenya-estrelles" aria-hidden="true">★★★★★</div>
           <p class="nomes-lectors">Valoració: 5 sobre 5</p>
-          <blockquote>
+          <blockquote data-idioma-original="ca">
             «Un clàssic a L'Ametlla del Vallès. Restaurant ubicat en un lloc
             excel·lent amb aparcament propi. El menjador ampli i agradable, tot
             molt net i endreçat.»
           </blockquote>
           <cite>P. Pc · Google</cite>
+          <p class="cita-traduida" data-nomes-idioma="es en">Traducció de la ressenya original en català</p>
         </figure>
 
         <figure class="ressenya apareix">
           <div class="ressenya-estrelles" aria-hidden="true">★★★★☆</div>
           <p class="nomes-lectors">Valoració: 4 sobre 5</p>
-          <blockquote>
+          <blockquote data-idioma-original="ca">
             «Un restaurant de tota la vida. Manté la esencia. Cambrers
             professionals i menjar ben elaborat. Menú en dies laborables.
             Aparcament per cotxes al mateix restaurant.»
           </blockquote>
           <cite>David Hernandez · Google</cite>
+          <p class="cita-traduida" data-nomes-idioma="es en">Traducció de la ressenya original en català</p>
         </figure>
       </div>
     </div>
@@ -447,9 +491,14 @@
             <li><span class="dia">Diumenge</span><span class="hora">9:00 – 18:00</span></li>
           </ul>
 
+          <!-- «Com arribar» portava a contacte.html, on n'hi havia un altre
+               d'idèntic que només baixava fins al mapa: dos botons amb el
+               mateix nom i un viatge per res. Ara diu el que fa. -->
           <p class="grup-botons">
             <a class="boto boto-principal" href="tel:+34938430002">Trucar per reservar</a>
-            <a class="boto boto-contorn" href="contacte.html">Com arribar</a>
+            <a class="boto boto-contorn"
+               href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s"
+               target="_blank" rel="noopener">Obrir a Google Maps</a>
           </p>
         </div>
 
@@ -459,7 +508,7 @@
              té cap avís de galetes. Fins que el visitant no prem, aquí no
              hi ha cap petició a Google. -->
         <div class="mapa mapa-tancat apareix"
-             data-mapa="https://maps.google.com/maps?q=Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s&amp;output=embed"
+             data-mapa="https://maps.google.com/maps?q=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s&amp;output=embed"
              data-mapa-titol="Mapa: Restaurant La Masia, carrer de la Torregassa 77, L'Ametlla del Vallès">
           <!-- FOTO DEL RESTAURANT (del seu web actual): l'entrada. -->
           <img src="assets/photo-contacte-hero.jpg" alt="" width="1200" height="420"
@@ -498,7 +547,7 @@
           <li><a href="carta.html">La carta</a></li>
           <li><a href="celebracions.html">Celebracions</a></li>
           <li><a href="contacte.html">Contacte i reserves</a></li>
-          <li><a href="index.html#qui-som">Qui som</a></li>
+          <li><a href="la-casa.html">La casa</a></li>
         </ul>
       </div>
 
@@ -516,7 +565,7 @@
         <ul>
           <li><a href="https://www.instagram.com/lamasialametlla/" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.facebook.com/lamasiadelametlla" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://maps.google.com/maps?q=Restaurant+La+Masia+L%27Ametlla+del+Vall%C3%A8s" target="_blank" rel="noopener">Google Maps</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s" target="_blank" rel="noopener">Google Maps</a></li>
         </ul>
       </div>
     </div>
@@ -539,6 +588,7 @@
   Reservar
 </a>
 
+<script src="js/traduccions.js"></script>
 <script src="js/main.js"></script>
 <script src="js/mapa.js"></script>
 </body>

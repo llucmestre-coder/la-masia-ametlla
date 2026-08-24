@@ -7,6 +7,19 @@
 <meta name="description" content="La carta del Restaurant La Masia: entrants freds i calents, arrossos i pastes, plats de temporada, vegetarians, peixos i carns. Menú diari i menjar per emportar cada dia.">
 <link rel="canonical" href="https://lamasiarestaurant.com/carta.html">
 
+<!-- ── IDIOMES ────────────────────────────────────────────────────
+     La pàgina està escrita en català i és el català el que indexa
+     Google. El castellà i l'anglès els posa js/i18n.js sobre la
+     mateixa pàgina; ?lang=es i ?lang=en existeixen perquè un enllaç
+     es pugui passar a algú ja en el seu idioma.
+     Aquest script va al <head> i no al final: ha d'arribar abans que
+     es pinti res, o el desplegable d'idioma parpellejaria. -->
+<link rel="alternate" hreflang="ca" href="https://lamasiarestaurant.com/carta.html">
+<link rel="alternate" hreflang="es" href="https://lamasiarestaurant.com/carta.html?lang=es">
+<link rel="alternate" hreflang="en" href="https://lamasiarestaurant.com/carta.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://lamasiarestaurant.com/carta.html">
+<script src="js/i18n.js"></script>
+
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ca_ES">
 <meta property="og:site_name" content="Restaurant La Masia">
@@ -70,6 +83,7 @@
     <nav aria-label="Navegació principal">
       <ul class="nav-enllacos">
         <li><a href="index.html">Inici</a></li>
+        <li><a href="la-casa.html">La casa</a></li>
         <li><a href="carta.html" aria-current="page">La carta</a></li>
         <li><a href="celebracions.html">Celebracions</a></li>
         <li><a href="contacte.html">Contacte</a></li>
@@ -82,6 +96,28 @@
     </a>
     <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
 
+
+    <!-- Desplegable d'idioma. NOMÉS existeix si el JS ha arrencat: el
+         CSS el manté amagat fins que js/i18n.js posa `te-js` al
+         <html>. Sense JS la web és en català i no hi ha res a triar,
+         i un control que no fa res val menys que cap control. -->
+    <div class="tria-idioma" data-idioma-tria>
+      <button class="tria-idioma-boto" type="button" data-idioma-boto
+              aria-expanded="false" aria-haspopup="true"
+              aria-label="Idioma de la pàgina">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8ZM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96ZM4.26 14a7.85 7.85 0 0 1 0-4h3.38a16.6 16.6 0 0 0-.14 2c0 .68.06 1.34.14 2Zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.08 16Zm2.95-8H5.08a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8ZM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96ZM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2Zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56ZM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38a7.85 7.85 0 0 1 0 4Z"/></svg>
+        <span data-idioma-actual data-sense-traduir>CA</span>
+        <svg class="tria-idioma-punta" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15 6 9h12z"/></svg>
+      </button>
+      <!-- Cada idioma es diu com es diu ell mateix, no traduït: qui
+           busca la seva llengua busca la paraula que coneix. -->
+      <ul class="tria-idioma-menu" data-idioma-menu data-sense-traduir hidden>
+        <li><button type="button" data-idioma-opcio="ca" lang="ca">Català</button></li>
+        <li><button type="button" data-idioma-opcio="es" lang="es">Castellano</button></li>
+        <li><button type="button" data-idioma-opcio="en" lang="en">English</button></li>
+      </ul>
+    </div>
+
     <button class="nav-boto-menu" id="boto-menu" type="button"
             aria-expanded="false" aria-controls="menu-mobil" aria-label="Obrir el menú">
       <span></span><span></span><span></span>
@@ -91,11 +127,23 @@
 
 <div class="menu-mobil" id="menu-mobil">
   <a href="index.html">Inici</a>
+  <a href="la-casa.html">La casa</a>
   <a href="carta.html" aria-current="page">La carta</a>
   <a href="celebracions.html">Celebracions</a>
   <a href="contacte.html">Contacte</a>
   <a href="tel:+34938430002">Trucar — 938 43 00 02</a>
   <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
+
+  <!-- Al calaix del mòbil els tres idiomes van a la vista: dins d'un
+       desplegable ja obert no n'hi va un altre. -->
+  <div class="tria-idioma-plana" data-idioma-tria>
+    <span class="tria-idioma-plana-titol">Idioma</span>
+    <div class="tria-idioma-plana-opcions" data-sense-traduir>
+      <button type="button" data-idioma-opcio="ca" lang="ca">Català</button>
+      <button type="button" data-idioma-opcio="es" lang="es">Castellano</button>
+      <button type="button" data-idioma-opcio="en" lang="en">English</button>
+    </div>
+  </div>
 </div>
 
 <main id="contingut">
@@ -347,7 +395,7 @@
             Podeu endur-vos qualsevol plat de la carta i del menú diari.
             Truqueu-nos amb una mica d'antelació i us ho tenim a punt.
           </p>
-          <span><a class="enllac-fletxa" href="tel:+34938430002">Encarregar per telèfon →</a></span>
+          <span><a class="enllac-fletxa" href="#per-emportar">Com funciona →</a></span>
         </article>
       </div>
     </div>
@@ -392,6 +440,106 @@
     </div>
   </section>
 
+  <!-- ══ MENJAR PER EMPORTAR ════════════════════════════════════
+       Al seu web actual «Comida para llevar» és una de les quatre
+       entrades del menú principal, i aquí només n'hi havia una
+       targeta compartint fila amb el menú diari. Un servei que ells
+       anuncien com a propi es mereix apartat propi i una adreça a la
+       qual enllaçar (carta.html#per-emportar, que ja surt al peu de
+       totes les pàgines).
+
+       ⚠️ AVUI EL CANAL ÉS EL TELÈFON, I NOMÉS EL TELÈFON.
+       No hi ha carret, ni formulari, ni WhatsApp: no en tenen. Un botó
+       de «Fer la comanda» que en realitat obre el marcador seria
+       enganyar, i un que no fes res seria pitjor.
+
+       ── PREPARAT PER A DEMÀ ──────────────────────────────────────
+       Quan vulguin muntar comandes de debò, tot el que s'ha de tocar
+       és aquesta secció; la resta de la web no se n'assabenta. Els
+       tres camins possibles, de menys a més feina:
+
+       1. FORMULARI (el més ràpid). Es copia el formulari de
+          contacte.html, se li canvien els camps per «què voleu» i
+          «a quina hora ho passeu a buscar», i s'apunta a un segon
+          identificador de Formspree —un de propi, no el de les
+          reserves, o les comandes es barregen amb les consultes.
+          Segueix sense ser temps real: algú ho ha de llegir.
+
+       2. WHATSAPP BUSINESS. Un enllaç wa.me amb el text ja escrit.
+          És el que la gent d'aquí ja fa servir i no demana aprendre
+          res de nou. Cal que donin d'alta un número de negoci: el
+          908... personal de ningú no pot sortir a la web.
+          ⚠️ Lligat amb menu-extractor/: si el menú del dia acaba
+          entrant per WhatsApp, aquest és el mateix número i s'ha de
+          decidir un sol cop. Vegeu ../CLAUDE.md, «Procés 3».
+
+       3. COMANDA EN LÍNIA de veritat (carret, franges horàries,
+          pagament). És una plataforma de tercers i té comissió per
+          comanda; abans de proposar-ho cal saber quantes en fan a la
+          setmana, o els sortirà més car que el telèfon.
+
+       Sigui quin sigui, el bloc va DINS de `.per-emportar-accio`,
+       substituint el que hi ha, i s'hi afegeixen les frases noves a
+       js/traduccions.js. La FAQ de contacte.html («Feu menjar per
+       emportar?») també ho ha de dir.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="seccio" id="per-emportar">
+    <div class="envolt">
+      <div class="apareix">
+        <span class="sobretitol">Per emportar</span>
+        <h2 class="titol-seccio">La casa, a casa vostra</h2>
+        <p class="entradeta">
+          De dilluns a diumenge. Qualsevol plat de la carta i del menú diari
+          se'l poden endur, amb els mateixos preus que a taula.
+        </p>
+      </div>
+
+      <div class="emportar apareix">
+        <div class="emportar-passos">
+          <ol>
+            <!-- Els enllaços a la carta i al menú del dia van al final del
+                 bloc i no aquí dins, a posta: dins d'aquesta frase partirien
+                 el text en cinc trossos («De», «la carta sencera», «o del»…)
+                 i cada tros aniria a parar sol al diccionari. Traduir
+                 mitges frases és com surten les frases que no lliguen. -->
+            <li>
+              <strong>Trieu els plats</strong>
+              <span>Qualsevol plat de la carta o del menú del dia.</span>
+            </li>
+            <li>
+              <strong>Truqueu-nos</strong>
+              <span>Al 938 43 00 02. Digueu-nos a quina hora ho passareu a buscar.</span>
+            </li>
+            <li>
+              <strong>Veniu a buscar-ho</strong>
+              <span>Al carrer de la Torregassa, 77. Ho tindrem a punt a l'hora que ens digueu.</span>
+            </li>
+          </ol>
+
+          <p class="emportar-enllacos">
+            <a class="enllac-fletxa" href="#carta">Veure la carta →</a>
+            <a class="enllac-fletxa" href="#menu-del-dia">Veure el menú del dia →</a>
+          </p>
+        </div>
+
+        <!-- El bloc que canviarà el dia que hi hagi comandes en línia.
+             Vegeu el comentari llarg de sobre. -->
+        <div class="emportar-accio per-emportar-accio">
+          <p class="emportar-nota">
+            Les comandes es fan per telèfon. Truqueu-nos amb una mica d'antelació
+            —mitja hora per a un plat, més si sou colla— i us ho preparem.
+          </p>
+          <p class="grup-botons">
+            <a class="boto boto-principal" href="tel:+34938430002">Trucar — 938 43 00 02</a>
+          </p>
+          <p class="form-nota">
+            De dilluns a dissabte de 9:00 a 00:00 i diumenge de 9:00 a 18:00.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══ CAP A CELEBRACIONS ═════════════════════════════════════ -->
   <section class="seccio seccio-gris">
     <div class="envolt">
@@ -426,7 +574,7 @@
           <li><a href="carta.html">La carta</a></li>
           <li><a href="celebracions.html">Celebracions</a></li>
           <li><a href="contacte.html">Contacte i reserves</a></li>
-          <li><a href="index.html#qui-som">Qui som</a></li>
+          <li><a href="la-casa.html">La casa</a></li>
         </ul>
       </div>
       <div>
@@ -442,7 +590,7 @@
         <ul>
           <li><a href="https://www.instagram.com/lamasialametlla/" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.facebook.com/lamasiadelametlla" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://maps.google.com/maps?q=Restaurant+La+Masia+L%27Ametlla+del+Vall%C3%A8s" target="_blank" rel="noopener">Google Maps</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant%20La%20Masia%2C%20Carrer%20de%20la%20Torregassa%2C%2077%2C%2008480%20L%27Ametlla%20del%20Vall%C3%A8s" target="_blank" rel="noopener">Google Maps</a></li>
         </ul>
       </div>
     </div>
@@ -462,6 +610,7 @@
   Reservar
 </a>
 
+<script src="js/traduccions.js"></script>
 <script src="js/main.js"></script>
 <script src="js/menu-diari.js"></script>
 <script src="js/carta-filtres.js"></script>

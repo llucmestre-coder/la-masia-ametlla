@@ -8,6 +8,22 @@
 
   var reduccioMoviment = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── Drecera cap al traductor ─────────────────────────────────
+     Tot el text que aquest fitxer escriu a la pàgina hi passa. Si
+     js/i18n.js no s'hagués carregat, torna el català, que és el que
+     hi ha escrit aquí: res no depèn que la traducció existeixi.   */
+
+  function T(text, valors) {
+    if (window.I18N) return window.I18N.t(text, valors);
+    return valors
+      ? text.replace(/\{(\w+)\}/g, function (tot, nom) {
+          return valors[nom] != null ? valors[nom] : tot;
+        })
+      : text;
+  }
+
+  var TEL_ENLLAC = '<a href="tel:+34938430002">938 43 00 02</a>';
+
   /* ── 1. Nav: transparent només mentre siguem damunt del hero ──
      El CSS la deixa opaca per defecte. Aquí la fem transparent i deixem
      que l'observador la torni a omplir en sortir del hero. Si res d'això
@@ -147,21 +163,44 @@
   /* ── 4. Valoració de Google des de data/reviews.json ─────────
      El workflow de GitHub Actions actualitza el fitxer 2 cops al dia.
      Si el fetch falla — o s'obre en local amb file:// — queden els
-     valors escrits a l'HTML, que són els de la prospecció.         */
+     valors de `data-valoracio-cru`, que són els de la prospecció.
+
+     ⚠️ ELS SEPARADORS CANVIEN AMB L'IDIOMA. «1.931» en anglès no vol
+     dir mil nou-cents trenta-un: vol dir 1,931. I «4,4» s'hi escriu
+     «4.4». Per això a l'HTML hi ha el número cru a més del que es
+     veu, i aquí es formata sempre segons l'idioma que toqui.      */
 
   (function carregaValoracio() {
     var objectius = document.querySelectorAll('[data-valoracio]');
-    if (!objectius.length || window.location.protocol === 'file:') return;
+    if (!objectius.length) return;
+
+    var lloc = function () { return window.I18N ? window.I18N.bcp : 'ca-ES'; };
+
+    function pinta() {
+      objectius.forEach(function (el) {
+        var cru = parseFloat(el.getAttribute('data-valoracio-cru'));
+        if (isNaN(cru)) return;
+
+        el.textContent = el.dataset.valoracio === 'nota'
+          ? cru.toLocaleString(lloc(), { minimumFractionDigits: cru % 1 ? 1 : 0 })
+          : cru.toLocaleString(lloc());
+      });
+    }
+
+    document.addEventListener('idioma-canviat', pinta);
+    pinta();
+
+    if (window.location.protocol === 'file:') return;
 
     fetch('data/reviews.json', { cache: 'no-cache' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d || typeof d.rating !== 'number' || typeof d.count !== 'number') return;
-        var nota = Number.isInteger(d.rating) ? String(d.rating) : d.rating.toFixed(1);
         objectius.forEach(function (el) {
-          if (el.dataset.valoracio === 'nota') el.textContent = nota.replace('.', ',');
-          if (el.dataset.valoracio === 'total') el.textContent = d.count.toLocaleString('ca-ES');
+          el.setAttribute('data-valoracio-cru',
+            el.dataset.valoracio === 'nota' ? d.rating : d.count);
         });
+        pinta();
       })
       .catch(function () { /* fallback silenciós: els valors de l'HTML */ });
   })();
@@ -209,8 +248,8 @@
         var correuDolent = camp.type === 'email' && camp.value &&
                            !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(camp.value);
         if (buit || correuDolent) {
-          mostraError(camp, buit ? 'Aquest camp és obligatori'
-                                 : "Reviseu l'adreça de correu");
+          mostraError(camp, buit ? T('Aquest camp és obligatori')
+                                 : T("Reviseu l'adreça de correu"));
           if (!primerFallat) primerFallat = camp;
         }
       });
@@ -230,7 +269,7 @@
       }
 
       enviar.disabled = true;
-      enviar.textContent = 'Enviant…';
+      enviar.textContent = T('Enviant…');
 
       fetch(form.action, {
         method: 'POST',
@@ -264,8 +303,8 @@
       n.setAttribute('role', 'alert');
       form.insertBefore(n, form.querySelector('.grup-botons'));
     }
-    n.innerHTML = 'No hem pogut enviar el formulari. Torneu-ho a provar o ' +
-                  'truqueu-nos al <a href="tel:+34938430002">938 43 00 02</a>.';
+    n.innerHTML = T('No hem pogut enviar el formulari. Torneu-ho a provar o ' +
+                    'truqueu-nos al {tel}.', { tel: TEL_ENLLAC });
     if (window.console) window.console.warn('[formulari]', err && err.message);
   }
 
@@ -277,10 +316,10 @@
       n.setAttribute('role', 'alert');
       form.insertBefore(n, form.querySelector('.grup-botons'));
     }
-    n.innerHTML = '<strong>Maqueta:</strong> aquest formulari encara no està ' +
-                  "connectat i no s'enviaria enlloc. Cal posar l'identificador " +
-                  "de Formspree a l'<code>action</code>. Mentrestant, el telèfon " +
-                  'de la casa és el <a href="tel:+34938430002">938 43 00 02</a>.';
+    n.innerHTML = T('<strong>Maqueta:</strong> aquest formulari encara no està ' +
+                    "connectat i no s'enviaria enlloc. Cal posar l'identificador " +
+                    "de Formspree a l'<code>action</code>. Mentrestant, el telèfon " +
+                    'de la casa és el {tel}.', { tel: TEL_ENLLAC });
     n.scrollIntoView({ block: 'nearest' });
     if (window.console) {
       window.console.warn('[formulari] action sense configurar: ' +

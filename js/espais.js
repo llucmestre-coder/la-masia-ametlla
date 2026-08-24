@@ -8,6 +8,13 @@
 
    Les capacitats surten de /ca/els-nostres-espais de la seva web.
    No n'hi ha cap d'inventada.
+
+   IDIOMES: aquest fitxer escriu frases senceres a la pàgina, i per
+   tant les ha de saber dir en castellà i en anglès. Tot el que es
+   veu passa per T(). El que NO canvia mai és el `value` que s'envia
+   al restaurant: el formulari sempre els arriba amb «Saló Nou» i
+   «Comunió», hi hagi entrat qui hi hagi entrat i en l'idioma que
+   sigui. Qui ho llegeix a la cuina és d'aquí.
    ═══════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -15,6 +22,15 @@
 
   var cercador = document.getElementById('cercador-espais');
   if (!cercador) return;
+
+  function T(text, valors) {
+    if (window.I18N) return window.I18N.t(text, valors);
+    return valors
+      ? text.replace(/\{(\w+)\}/g, function (tot, nom) {
+          return valors[nom] != null ? valors[nom] : tot;
+        })
+      : text;
+  }
 
   var rang      = document.getElementById('comensals');
   var mostrador = document.getElementById('comensals-valor');
@@ -59,8 +75,8 @@
 
     campSala.disabled = !teNombre;
     campSala.options[0].textContent = teNombre
-      ? 'Trieu-ne un…'
-      : 'Digueu abans quants sereu';
+      ? T('Trieu-ne un…')
+      : T('Digueu abans quants sereu');
 
     Array.prototype.forEach.call(campSala.options, function (op) {
       if (!op.value) return;
@@ -69,8 +85,9 @@
 
       var hiCap = !teNombre || n <= cap;
       op.disabled = teNombre && !hiCap;
-      op.textContent = op.value + ' — fins a ' + cap + ' persones' +
-                       (op.disabled ? ' (no hi cabeu)' : '');
+      op.textContent = T(op.disabled
+        ? '{sala} — fins a {n} persones (no hi cabeu)'
+        : '{sala} — fins a {n} persones', { sala: T(op.value), n: cap });
       if (hiCap && teNombre) hiCapAlgun = true;
     });
 
@@ -83,8 +100,9 @@
     if (!teNombre) {
       ajudaSala.textContent = '';
     } else if (!hiCapAlgun) {
-      ajudaSala.textContent = 'Per a ' + n + ' persones cal que en parlem: ' +
-                              'truqueu-nos al 938 43 00 02.';
+      ajudaSala.textContent =
+        T('Per a {n} persones cal que en parlem: truqueu-nos al 938 43 00 02.',
+          { n: n });
     } else {
       ajudaSala.textContent = '';
     }
@@ -115,33 +133,50 @@
       sala.classList.toggle('no-encaixa', !hi_cap || massaGran);
 
       if (!hi_cap) {
-        estat.textContent = 'Massa petit per a ' + n + ' persones';
+        estat.textContent = T('Massa petit per a {n} persones', { n: n });
       } else if (massaGran) {
-        estat.textContent = 'Hi cabeu, però us quedarà gran';
+        estat.textContent = T('Hi cabeu, però us quedarà gran');
       } else {
-        estat.textContent = '✓ Us encaixa';
+        estat.textContent = T('✓ Us encaixa');
         encaixen.push(nom);
       }
     });
 
     var tipus = tipusTriat();
-    var perA  = tipus ? ' per a ' + tipus.toLowerCase() : '';
+
+    /* «per a comunió», «per a bateig»… són cinc frases fetes al
+       diccionari, una per tipus. No es munten ajuntant una preposició
+       amb el nom: en castellà cal l'article i té gènere («para una
+       comunión», «para un bautizo») i en anglès sempre demana «a».
+
+       «Altres» és l'excepció i no en té cap: «per a altres» no vol dir
+       res en cap dels tres idiomes. Qui el marca encara no sap com
+       se'n diu, del que vol fer, i la resposta del cercador —quina
+       sala hi cap— no depèn del nom de la festa. */
+    var perA = (tipus && tipus !== 'Altres')
+      ? ' ' + T('per a ' + tipus.toLowerCase())
+      : '';
+
+    /* Els noms de sala també es diuen en l'idioma de qui mira, encara
+       que el que s'enviï al restaurant sigui sempre el nom d'aquí. */
+    var noms = encaixen.map(function (x) { return T(x); });
     var frase;
 
-    if (!encaixen.length) {
-      frase = 'Per a <strong>' + n + ' persones</strong>' + perA +
-              ' cal que en parlem: combinem sales o busquem una data amb ' +
-              'el restaurant per a vosaltres sols. Truqueu-nos al ' +
-              '<strong>938 43 00 02</strong>.';
-    } else if (encaixen.length === 1) {
-      frase = 'Per a <strong>' + n + ' persones</strong>' + perA +
-              ' us recomanem el <strong>' + encaixen[0] + '</strong>.';
+    if (!noms.length) {
+      frase = T('Per a <strong>{n} persones</strong>{perA} cal que en parlem: ' +
+                'combinem sales o busquem una data amb el restaurant per a ' +
+                'vosaltres sols. Truqueu-nos al <strong>938 43 00 02</strong>.',
+                { n: n, perA: perA });
+    } else if (noms.length === 1) {
+      frase = T('Per a <strong>{n} persones</strong>{perA} us recomanem el ' +
+                '<strong>{sala}</strong>.',
+                { n: n, perA: perA, sala: noms[0] });
     } else {
-      var darrer = encaixen.pop();
-      frase = 'Per a <strong>' + n + ' persones</strong>' + perA +
-              ' teniu <strong>' + (encaixen.length + 1) + ' espais</strong> possibles: ' +
-              encaixen.join(', ') + ' i ' + darrer + '.';
-      encaixen.push(darrer);
+      var darrer = noms.pop();
+      frase = T('Per a <strong>{n} persones</strong>{perA} teniu ' +
+                '<strong>{k} espais</strong> possibles: {llista} i {darrer}.',
+                { n: n, perA: perA, k: noms.length + 1,
+                  llista: noms.join(', '), darrer: darrer });
     }
 
     resultat.innerHTML = frase;
@@ -177,6 +212,14 @@
   if (campComensals) {
     campComensals.addEventListener('input', actualitzaSelectSala);
   }
+
+  /* Aquestes frases les escriu el JS, i per tant el motor de traducció
+     no les pot tocar: quan algú canvia d'idioma, les hem de tornar a
+     dir nosaltres. */
+  document.addEventListener('idioma-canviat', function () {
+    actualitza();
+    actualitzaSelectSala();
+  });
 
   /* Primera passada: pinta el resultat i l'estat dels salons, deixa el
      formulari en blanc i el desplegable de saló bloquejat. */

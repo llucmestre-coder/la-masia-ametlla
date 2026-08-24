@@ -7,6 +7,19 @@
 <meta name="description" content="Política de privacitat del Restaurant La Masia, L'Ametlla del Vallès.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://lamasiarestaurant.com/politica-privacitat.html">
+
+<!-- ── IDIOMES ────────────────────────────────────────────────────
+     La pàgina està escrita en català i és el català el que indexa
+     Google. El castellà i l'anglès els posa js/i18n.js sobre la
+     mateixa pàgina; ?lang=es i ?lang=en existeixen perquè un enllaç
+     es pugui passar a algú ja en el seu idioma.
+     Aquest script va al <head> i no al final: ha d'arribar abans que
+     es pinti res, o el desplegable d'idioma parpellejaria. -->
+<link rel="alternate" hreflang="ca" href="https://lamasiarestaurant.com/politica-privacitat.html">
+<link rel="alternate" hreflang="es" href="https://lamasiarestaurant.com/politica-privacitat.html?lang=es">
+<link rel="alternate" hreflang="en" href="https://lamasiarestaurant.com/politica-privacitat.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://lamasiarestaurant.com/politica-privacitat.html">
+<script src="js/i18n.js"></script>
 <!-- La icona de la pestanya és la SEVA: vegeu el comentari a index.html. -->
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
@@ -30,6 +43,7 @@
     <nav aria-label="Navegació principal">
       <ul class="nav-enllacos">
         <li><a href="index.html">Inici</a></li>
+        <li><a href="la-casa.html">La casa</a></li>
         <li><a href="carta.html">La carta</a></li>
         <li><a href="celebracions.html">Celebracions</a></li>
         <li><a href="contacte.html">Contacte</a></li>
@@ -40,6 +54,28 @@
       <span>Informació i reserves</span>
     </a>
     <a class="boto boto-principal" href="contacte.html">Reservar taula</a>
+
+    <!-- Desplegable d'idioma. NOMÉS existeix si el JS ha arrencat: el
+         CSS el manté amagat fins que js/i18n.js posa `te-js` al
+         <html>. Sense JS la web és en català i no hi ha res a triar,
+         i un control que no fa res val menys que cap control. -->
+    <div class="tria-idioma" data-idioma-tria>
+      <button class="tria-idioma-boto" type="button" data-idioma-boto
+              aria-expanded="false" aria-haspopup="true"
+              aria-label="Idioma de la pàgina">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8ZM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96ZM4.26 14a7.85 7.85 0 0 1 0-4h3.38a16.6 16.6 0 0 0-.14 2c0 .68.06 1.34.14 2Zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.08 16Zm2.95-8H5.08a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8ZM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96ZM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2Zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56ZM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38a7.85 7.85 0 0 1 0 4Z"/></svg>
+        <span data-idioma-actual data-sense-traduir>CA</span>
+        <svg class="tria-idioma-punta" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15 6 9h12z"/></svg>
+      </button>
+      <!-- Cada idioma es diu com es diu ell mateix, no traduït: qui
+           busca la seva llengua busca la paraula que coneix. -->
+      <ul class="tria-idioma-menu" data-idioma-menu data-sense-traduir hidden>
+        <li><button type="button" data-idioma-opcio="ca" lang="ca">Català</button></li>
+        <li><button type="button" data-idioma-opcio="es" lang="es">Castellano</button></li>
+        <li><button type="button" data-idioma-opcio="en" lang="en">English</button></li>
+      </ul>
+    </div>
+
     <button class="nav-boto-menu" id="boto-menu" type="button"
             aria-expanded="false" aria-controls="menu-mobil" aria-label="Obrir el menú">
       <span></span><span></span><span></span>
@@ -49,16 +85,33 @@
 
 <div class="menu-mobil" id="menu-mobil">
   <a href="index.html">Inici</a>
+  <a href="la-casa.html">La casa</a>
   <a href="carta.html">La carta</a>
   <a href="celebracions.html">Celebracions</a>
   <a href="contacte.html">Contacte</a>
   <a href="tel:+34938430002">Trucar — 938 43 00 02</a>
+
+  <!-- Al calaix del mòbil els tres idiomes van a la vista: dins d'un
+       desplegable ja obert no n'hi va un altre. -->
+  <div class="tria-idioma-plana" data-idioma-tria>
+    <span class="tria-idioma-plana-titol">Idioma</span>
+    <div class="tria-idioma-plana-opcions" data-sense-traduir>
+      <button type="button" data-idioma-opcio="ca" lang="ca">Català</button>
+      <button type="button" data-idioma-opcio="es" lang="es">Castellano</button>
+      <button type="button" data-idioma-opcio="en" lang="en">English</button>
+    </div>
+  </div>
 </div>
 
 <main id="contingut" class="legal pagina">
   <div class="envolt">
     <h1>Política de privacitat</h1>
     <p class="actualitzat">Última actualització: [DATA DE PUBLICACIÓ]</p>
+
+    <!-- El que val és el text català: això és un document legal i una
+         traducció no el substitueix. La nota surt només quan la pàgina
+         s'està llegint en castellà o en anglès. -->
+    <p class="avis-traduccio" data-nomes-idioma="es en">Aquesta pàgina és una traducció de cortesia. La versió catalana és la que preval.</p>
 
     <!-- ESQUELET RGPD. Cal omplir els camps [ENTRE CLAUDÀTORS] i revisar-lo
          abans de publicar. -->
@@ -143,6 +196,7 @@
   </div>
 </footer>
 
+<script src="js/traduccions.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
